@@ -43,11 +43,11 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/logo-nextgen.png"
+              src="/logo-horizontal.png"
               alt="NextGen Media"
-              width={120}
-              height={80}
-              className="h-16 w-auto object-contain"
+              width={180}
+              height={50}
+              className="h-12 w-auto object-contain"
               priority
             />
           </Link>
