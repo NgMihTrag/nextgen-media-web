@@ -69,7 +69,7 @@ export function Header() {
               <div className="w-8 h-8 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center">
                 <Phone className="w-4 h-4 text-white" />
               </div>
-              <span className="text-sm font-medium">0931 123 456</span>
+              <span className="text-sm font-medium">0838 110 501</span>
             </div>
             <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-5 h-10 text-sm font-semibold group">
               TƯ VẤN NGAY
@@ -112,7 +112,7 @@ export function Header() {
               <div className="px-4 py-4 border-t border-slate-800 mt-2">
                 <div className="flex items-center gap-2 mb-4 text-white">
                   <Phone className="w-4 h-4" />
-                  <span className="text-sm font-medium">0931 123 456</span>
+                  <span className="text-sm font-medium">0838 110 501</span>
                 </div>
                 <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-full">
                   TƯ VẤN NGAY
