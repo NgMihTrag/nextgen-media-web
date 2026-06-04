@@ -1,10 +1,16 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
 
+const inter = Inter({ 
+  subsets: ['latin', 'vietnamese'],
+  variable: '--font-inter'
+})
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'NextGen Media - Giải Pháp Livestream Chuyên Nghiệp',
+  description: 'Chúng tôi cung cấp giải pháp livestream trọn gói từ A-Z, setup studio chuyên nghiệp, vận hành livestream, quản lý tài khoản TikTok Shop và phát triển thương hiệu online.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -31,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
+    <html lang="vi" className="bg-background">
+      <body className={`${inter.className} antialiased`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

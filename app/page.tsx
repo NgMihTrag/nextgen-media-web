@@ -1,16 +1,31 @@
+import { Header } from "@/components/header"
+import { HeroSection } from "@/components/hero-section"
+import { ClientLogos } from "@/components/client-logos"
+import { ServicesSection } from "@/components/services-section"
+import { WhyChooseUs } from "@/components/why-choose-us"
+import { PortfolioSection } from "@/components/portfolio-section"
+import { ProcessSection } from "@/components/process-section"
+import { PricingSection } from "@/components/pricing-section"
+import { TestimonialSection } from "@/components/testimonial-section"
+import { FAQSection } from "@/components/faq-section"
+import { CTASection } from "@/components/cta-section"
+import { Footer } from "@/components/footer"
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
-      <main className="flex w-full max-w-3xl flex-col items-center gap-8 px-6 py-16 text-center sm:items-start sm:text-left">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">
-            NextGenMedia
-          </h1>
-          <p className="max-w-md text-lg text-muted-foreground">
-            To get started, send a prompt or modify this page directly.
-          </p>
-        </div>
-      </main>
-    </div>
-  );
+    <main>
+      <Header />
+      <HeroSection />
+      <ClientLogos />
+      <ServicesSection />
+      <WhyChooseUs />
+      <PortfolioSection />
+      <ProcessSection />
+      <PricingSection />
+      <TestimonialSection />
+      <FAQSection />
+      <CTASection />
+      <Footer />
+    </main>
+  )
 }
