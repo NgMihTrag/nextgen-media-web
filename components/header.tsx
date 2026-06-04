@@ -43,7 +43,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center m-1.25">
             <Image
-              src="/logo-horizontal.png"
+              src="/logo-nextgen-horizontal.png"
               alt="NextGen Media"
               width={360}
               height={100}
