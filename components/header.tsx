@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Phone, Menu, X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -40,14 +41,15 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">N</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-lg text-white leading-tight tracking-tight">NEXTGEN</span>
-              <span className="text-[10px] text-slate-400 tracking-[0.2em] -mt-0.5">MEDIA</span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo-nextgen.png"
+              alt="NextGen Media"
+              width={120}
+              height={80}
+              className="h-16 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
