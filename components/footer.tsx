@@ -40,9 +40,9 @@ const footerLinks = {
     { label: "FAQ", href: "#faq" },
   ],
   contact: [
-    { label: "0909 123 456", href: "tel:0909123456" },
-    { label: "contact@nextgenmedia.vn", href: "mailto:contact@nextgenmedia.vn" },
-    { label: "123 Nguyễn Văn Linh, Q.7, TP.HCM", href: "#" },
+    { label: "0838 11 05 01", href: "tel:0838110501" },
+    { label: "trang.2663@gmail.com", href: "mailto:trang.2663@gmail.com" },
+    { label: "54 Lê Lai, Hà Đông, Hà Nội", href: "#" },
   ],
 }
 

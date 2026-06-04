@@ -107,7 +107,7 @@ export function Header() {
               <div className="px-4 py-4 border-t border-border mt-2">
                 <div className="flex items-center gap-2 mb-4 text-foreground">
                   <Phone className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">0909 123 456</span>
+                  <span className="text-sm font-medium">0838 11 05 01</span>
                 </div>
                 <Button className="w-full bg-primary hover:bg-[#1d4ed8] text-primary-foreground">
                   Tư Vấn Miễn Phí
