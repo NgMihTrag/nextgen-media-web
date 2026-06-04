@@ -45,9 +45,9 @@ export function Header() {
             <Image
               src="/logo-horizontal.png"
               alt="NextGen Media"
-              width={180}
-              height={50}
-              className="h-12 w-auto object-contain"
+              width={240}
+              height={70}
+              className="h-16 w-auto object-contain"
               priority
             />
           </Link>
