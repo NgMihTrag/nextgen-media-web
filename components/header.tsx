@@ -3,17 +3,16 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Phone, Menu, X } from "lucide-react"
+import { Phone, Menu, X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { label: "Trang Chủ", href: "#" },
-  { label: "Dịch Vụ", href: "#services" },
-  { label: "Thuê Studio", href: "#pricing" },
-  { label: "Bảng Giá", href: "#pricing" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Liên Hệ", href: "#contact" },
+  { label: "Trang chủ", href: "#" },
+  { label: "Dịch vụ", href: "#services" },
+  { label: "Thuê Livestream", href: "#pricing" },
+  { label: "Bảng giá", href: "#pricing" },
+  { label: "Hỗ trợ", href: "#faq" },
+  { label: "Liên hệ", href: "#contact" },
 ]
 
 export function Header() {
@@ -32,19 +31,23 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#0a0f1e]/95 backdrop-blur-md shadow-lg border-b border-slate-800"
           : "bg-transparent"
-        }`}
+      }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">N</span>
+            <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">N</span>
             </div>
-            <span className="font-bold text-xl text-foreground">NextGen Media</span>
+            <div className="flex flex-col">
+              <span className="font-bold text-lg text-white leading-tight tracking-tight">NEXTGEN</span>
+              <span className="text-[10px] text-slate-400 tracking-[0.2em] -mt-0.5">MEDIA</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -53,7 +56,7 @@ export function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                className="text-sm font-medium text-slate-300 hover:text-white transition-colors"
               >
                 {item.label}
               </Link>
@@ -61,13 +64,16 @@ export function Header() {
           </nav>
 
           {/* Right Side */}
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="flex items-center gap-2 text-foreground">
-              <Phone className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium">0838 11 05 01</span>
+          <div className="hidden lg:flex items-center gap-6">
+            <div className="flex items-center gap-2 text-white">
+              <div className="w-8 h-8 bg-slate-800 border border-slate-700 rounded-full flex items-center justify-center">
+                <Phone className="w-4 h-4 text-white" />
+              </div>
+              <span className="text-sm font-medium">0931 123 456</span>
             </div>
-            <Button className="bg-primary hover:bg-[#1d4ed8] text-primary-foreground">
-              Tư Vấn Miễn Phí
+            <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-5 h-10 text-sm font-semibold group">
+              TƯ VẤN NGAY
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
           </div>
 
@@ -77,9 +83,9 @@ export function Header() {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-foreground" />
+              <X className="w-6 h-6 text-white" />
             ) : (
-              <Menu className="w-6 h-6 text-foreground" />
+              <Menu className="w-6 h-6 text-white" />
             )}
           </button>
         </div>
@@ -90,26 +96,27 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-t border-border"
+            className="lg:hidden bg-[#0a0f1e] border-t border-slate-800"
           >
             <nav className="flex flex-col py-4">
               {navItems.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="px-4 py-3 text-foreground/80 hover:text-primary hover:bg-muted transition-colors"
+                  className="px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-800/50 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div className="px-4 py-4 border-t border-border mt-2">
-                <div className="flex items-center gap-2 mb-4 text-foreground">
-                  <Phone className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium">0838 11 05 01</span>
+              <div className="px-4 py-4 border-t border-slate-800 mt-2">
+                <div className="flex items-center gap-2 mb-4 text-white">
+                  <Phone className="w-4 h-4" />
+                  <span className="text-sm font-medium">0931 123 456</span>
                 </div>
-                <Button className="w-full bg-primary hover:bg-[#1d4ed8] text-primary-foreground">
-                  Tư Vấn Miễn Phí
+                <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-full">
+                  TƯ VẤN NGAY
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </nav>

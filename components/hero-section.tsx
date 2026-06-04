@@ -2,56 +2,55 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Check, Play } from "lucide-react"
+import { ArrowRight, Zap, Monitor, Headphones } from "lucide-react"
 import Image from "next/image"
 
-const trustFeatures = [
-  "Setup nhanh chóng",
-  "Hỗ trợ 24/7",
-  "Thiết bị hiện đại",
+const features = [
+  {
+    icon: Zap,
+    title: "Setup nhanh chóng",
+    subtitle: "24h triển khai",
+  },
+  {
+    icon: Monitor,
+    title: "Thiết bị hiện đại",
+    subtitle: "Chất lượng cao",
+  },
+  {
+    icon: Headphones,
+    title: "Hỗ trợ 24/7",
+    subtitle: "Đồng hành cùng bạn",
+  },
 ]
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a0e1a]">
-      {/* Background Image with Overlay */}
+    <section className="relative min-h-screen bg-[#0a0f1e] overflow-hidden">
+      {/* Background gradient effects */}
       <div className="absolute inset-0">
-        <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aSUCnf5CYUevsn92WoBl4HvOR45W1j.png"
-          alt="Professional TikTok livestream studio"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        {/* Dark overlay gradient for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0e1a]/95 via-[#0a0e1a]/80 to-[#0a0e1a]/40" />
-        {/* Additional blue tint overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/50 via-transparent to-purple-950/30" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px]" />
       </div>
 
-      {/* Ambient glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-500/10 rounded-full blur-[80px]" />
-
-      <div className="container mx-auto px-4 lg:px-8 py-20 lg:py-0 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center min-h-[calc(100vh-80px)]">
+      <div className="container mx-auto px-4 lg:px-8 pt-28 lg:pt-32 pb-16 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-2xl"
+            transition={{ duration: 0.6 }}
+            className="max-w-xl"
           >
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-full mb-8 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 mb-6"
             >
-              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-blue-300 tracking-wide">
-                GIẢI PHÁP LIVESTREAM CHUYÊN NGHIỆP
+              <div className="w-2 h-2 bg-amber-400 rounded-full" />
+              <span className="text-sm font-semibold text-amber-400 tracking-wide uppercase">
+                Giải pháp livestream chuyên nghiệp
               </span>
             </motion.div>
 
@@ -60,15 +59,13 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] mb-6"
+              className="text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold leading-[1.1] mb-6 tracking-tight"
             >
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400">
-                NEXTGEN MEDIA
+              <span className="text-white block">NEXTGEN MEDIA</span>
+              <span className="text-white block">NÂNG TẦM THƯƠNG HIỆU</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 block">
+                BỨT PHÁ DOANH SỐ
               </span>
-              <br />
-              <span className="text-white text-balance">NÂNG TẦM THƯƠNG HIỆU</span>
-              <br />
-              <span className="text-white text-balance">BỨT PHÁ DOANH SỐ</span>
             </motion.h1>
 
             {/* Description */}
@@ -76,10 +73,10 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-lg md:text-xl text-slate-300 mb-10 max-w-xl leading-relaxed"
+              className="text-base md:text-lg text-slate-400 mb-8 max-w-md leading-relaxed"
             >
-              Chúng tôi cung cấp giải pháp livestream trọn gói từ A-Z, setup studio chuyên nghiệp, 
-              vận hành livestream, quản lý tài khoản TikTok Shop và phát triển thương hiệu online.
+              Cung cấp giải pháp livestream trọn gói từ A-Z: Setup phòng live, cung cấp 
+              thiết bị, vận hành kênh Tiktok Shop chuyên nghiệp.
             </motion.p>
 
             {/* Buttons */}
@@ -91,72 +88,72 @@ export function HeroSection() {
             >
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 h-14 text-base font-semibold shadow-lg shadow-blue-500/25 transition-all duration-300 hover:shadow-blue-500/40 hover:scale-[1.02]"
+                className="bg-blue-600 hover:bg-blue-500 text-white px-6 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
               >
-                Tư Vấn Miễn Phí
+                TƯ VẤN MIỄN PHÍ
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-slate-500/50 bg-white/5 backdrop-blur-sm text-white hover:bg-white/10 hover:border-slate-400/50 px-8 h-14 text-base font-semibold transition-all duration-300"
+                className="border-slate-600 bg-transparent text-white hover:bg-white/5 hover:border-slate-500 px-6 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
               >
-                <Play className="w-4 h-4 mr-2 fill-current" />
-                Xem Video Giới Thiệu
+                XEM BẢNG GIÁ
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
 
-            {/* Trust Features */}
+            {/* Features */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
-              className="flex flex-wrap gap-6"
+              className="flex flex-wrap gap-6 lg:gap-8"
             >
-              {trustFeatures.map((feature, index) => (
+              {features.map((feature, index) => (
                 <motion.div 
-                  key={feature} 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  key={feature.title} 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 + index * 0.1 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="w-6 h-6 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 border border-blue-400/30 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <Check className="w-3.5 h-3.5 text-blue-300" />
+                  <div className="w-10 h-10 bg-slate-800/80 border border-slate-700 rounded-full flex items-center justify-center">
+                    <feature.icon className="w-5 h-5 text-blue-400" />
                   </div>
-                  <span className="text-sm md:text-base font-medium text-slate-200">{feature}</span>
+                  <div>
+                    <div className="text-sm font-semibold text-white">{feature.title}</div>
+                    <div className="text-xs text-slate-500">{feature.subtitle}</div>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
-
-            {/* Stats Row */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-slate-700/50"
-            >
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">500+</div>
-                <div className="text-sm text-slate-400 mt-1">Khách hàng</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">10K+</div>
-                <div className="text-sm text-slate-400 mt-1">Giờ livestream</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white">50B+</div>
-                <div className="text-sm text-slate-400 mt-1">Doanh thu tạo ra</div>
-              </div>
-            </motion.div>
           </motion.div>
 
-          {/* Right side - Empty space for background image to show through */}
-          <div className="hidden lg:block" />
+          {/* Right Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="relative"
+          >
+            <div className="relative aspect-[4/3] lg:aspect-[16/12] rounded-2xl overflow-hidden">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aSUCnf5CYUevsn92WoBl4HvOR45W1j.png"
+                alt="Professional TikTok livestream studio with neon lighting"
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Subtle overlay for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1e]/40 via-transparent to-transparent" />
+            </div>
+            
+            {/* Decorative glow behind image */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl -z-10" />
+          </motion.div>
         </div>
       </div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0e1a] to-transparent" />
     </section>
   )
 }
