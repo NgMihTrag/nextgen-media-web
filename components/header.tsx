@@ -39,15 +39,15 @@ export function Header() {
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
               src="/logo-horizontal.png"
               alt="NextGen Media"
-              width={240}
-              height={70}
-              className="h-16 w-auto object-contain"
+              width={320}
+              height={90}
+              className="h-20 w-auto object-contain"
               priority
             />
           </Link>
