@@ -39,9 +39,9 @@ export function Header() {
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-24 lg:h-28">
+        <div className="flex items-center justify-between py-2">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center m-1.25">
             <Image
               src="/logo-horizontal.png"
               alt="NextGen Media"
