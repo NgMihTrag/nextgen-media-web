@@ -32,11 +32,10 @@ export function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
@@ -65,7 +64,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-4">
             <div className="flex items-center gap-2 text-foreground">
               <Phone className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium">0909 123 456</span>
+              <span className="text-sm font-medium">0838 11 05 01</span>
             </div>
             <Button className="bg-primary hover:bg-[#1d4ed8] text-primary-foreground">
               Tư Vấn Miễn Phí
