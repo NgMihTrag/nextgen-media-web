@@ -14,19 +14,19 @@ export function ContactContent() {
             {
               icon: Phone,
               title: "Hotline",
-              content: "0931 123 456",
+              content: "0838 110 501",
               description: "Gọi chúng tôi để tư vấn trực tiếp"
             },
             {
               icon: Mail,
               title: "Email",
-              content: "info@nextgenmedia.vn",
+              content: "trang.2663@gmail.com",
               description: "Gửi email với bất kỳ câu hỏi"
             },
             {
               icon: MapPin,
               title: "Địa Chỉ",
-              content: "TP. Hồ Chí Minh",
+              content: "54 Lê Lai, Hà Đông, Hà Nội",
               description: "Ghé thăm studio của chúng tôi"
             }
           ].map((contact, idx) => (
