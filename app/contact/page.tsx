@@ -1,3 +1,5 @@
+"use client"
+
 import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
