@@ -95,10 +95,9 @@ export function HeroSection() {
               </Button>
               <Button 
                 size="lg" 
-                variant="outline" 
-                className="border-slate-600 bg-transparent text-white hover:bg-white/5 hover:border-slate-500 px-6 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
+                className="bg-slate-700 hover:bg-slate-600 text-white px-6 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
               >
-                XEM BẢNG GIÁ
+                KHÁM PHÁ DỊCH VỤ
                 <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>

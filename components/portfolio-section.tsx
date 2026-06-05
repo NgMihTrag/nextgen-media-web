@@ -38,6 +38,22 @@ const creators = [
     avatar: "HL",
     color: "#f97316",
   },
+  {
+    name: "Food Delivery Pro",
+    industry: "Thực phẩm",
+    followers: "98K",
+    description: "Lợi nhuận tăng 250% qua livestream bán hàng",
+    avatar: "FD",
+    color: "#ef4444",
+  },
+  {
+    name: "Wellness Shop",
+    industry: "Sức khỏe",
+    followers: "143K",
+    description: "Xây dựng cộng đồng khách hàng trung thành",
+    avatar: "WS",
+    color: "#10b981",
+  },
 ]
 
 export function PortfolioSection() {
@@ -60,7 +76,7 @@ export function PortfolioSection() {
         </motion.div>
 
         {/* Portfolio Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {creators.map((creator, index) => (
             <motion.div
               key={creator.name}
@@ -121,6 +137,22 @@ export function PortfolioSection() {
             </motion.div>
           ))}
         </div>
+
+        {/* View All Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center"
+        >
+          <Button 
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+          >
+            Xem Tất Cả Dự Án
+            <ExternalLink className="w-4 h-4 ml-2" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   )
