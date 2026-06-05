@@ -9,32 +9,22 @@ const projects = [
   {
     name: "Stream Thời Trang - LEVENTS",
     category: "Livestream Thời Trang",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=720&fit=crop",
   },
   {
     name: "Shopee Live - Cocolux",
     category: "TikTok Shop",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=500&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=720&fit=crop",
   },
   {
     name: "Lazada 11.11 Super Show",
     category: "Livestream Sự Kiện",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=720&fit=crop",
   },
   {
     name: "LockLock Vietnam",
     category: "Livestream Bán Hàng",
-    image: "https://images.unsplash.com/photo-1441986300352-7e3dee05ae6e?w=500&h=400&fit=crop",
-  },
-  {
-    name: "PNJ Jewelry",
-    category: "Livestream Cao Cấp",
-    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&h=400&fit=crop",
-  },
-  {
-    name: "TikTok 9.9 Super Brand Day",
-    category: "Livestream Sự Kiện",
-    image: "https://images.unsplash.com/photo-1489599849228-8d604c3ee4a1?w=500&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1441986300352-7e3dee05ae6e?w=400&h=720&fit=crop",
   },
 ]
 
@@ -58,8 +48,8 @@ export function PortfolioSection() {
           <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto" />
         </motion.div>
 
-        {/* Portfolio Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Featured Projects Carousel */}
+        <div className="flex gap-6 overflow-x-auto pb-4 -mx-4 px-4 lg:overflow-visible lg:mx-0 lg:px-0 lg:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.name}
@@ -67,21 +57,31 @@ export function PortfolioSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group cursor-pointer"
+              className="flex-shrink-0 w-80 lg:w-96"
             >
-              <div className="relative h-64 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 group-hover:border-blue-500/50 transition-all duration-300">
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-                
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5">
-                  <h3 className="text-lg font-semibold text-white mb-1">{project.name}</h3>
-                  <p className="text-sm text-slate-300">{project.category}</p>
+              {/* Vertical Project Card - 9:16 Aspect Ratio */}
+              <div className="group cursor-pointer h-full">
+                <div className="relative rounded-2xl overflow-hidden bg-slate-900 border-2 border-slate-800 group-hover:border-blue-500/80 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-blue-500/20">
+                  {/* Image Container - 9:16 Ratio */}
+                  <div className="relative w-full aspect-[9/16] overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  </div>
+                  
+                  {/* Content Below Image */}
+                  <div className="p-5 bg-gradient-to-t from-slate-950 to-slate-900/50">
+                    <h3 className="text-base font-semibold text-white mb-1 line-clamp-2">
+                      {project.name}
+                    </h3>
+                    <p className="text-sm text-blue-400 font-medium">
+                      {project.category}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -93,15 +93,17 @@ export function PortfolioSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center"
+          className="flex justify-center mt-12"
         >
-          <Button 
-            size="lg"
-            className="border border-blue-500 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 px-8 rounded-lg transition-all duration-300"
-          >
-            Xem tất cả dự án
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          <a href="/portfolio">
+            <Button 
+              size="lg"
+              className="border border-blue-500 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 px-8 rounded-lg transition-all duration-300"
+            >
+              Xem tất cả dự án
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
         </motion.div>
       </div>
     </section>
