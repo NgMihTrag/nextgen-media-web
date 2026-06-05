@@ -49,7 +49,7 @@ export function PortfolioSection() {
         </motion.div>
 
         {/* Featured Projects Carousel */}
-        <div className="flex gap-6 overflow-x-auto pb-4 -mx-4 px-4 lg:overflow-visible lg:mx-0 lg:px-0 lg:gap-8">
+        <div className="flex gap-6 overflow-x-auto pb-4 lg:overflow-visible lg:justify-center">
           {projects.map((project, index) => (
             <motion.div
               key={project.name}
