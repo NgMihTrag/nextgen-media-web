@@ -13,7 +13,7 @@ const navItems = [
   { label: "Thuê Studio", href: "/studio-rental" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Bảng giá", href: "/pricing" },
-  { label: "Câu hỏi", href: "/faq" },
+  { label: "Về chúng tôi", href: "/about" },
   { label: "Liên hệ", href: "/contact" },
 ]
 
@@ -74,7 +74,7 @@ export function Header() {
               </div>
               <span className="text-sm font-medium">0838 110 501</span>
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-5 h-10 text-sm font-semibold group">
+            <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 h-10 text-sm font-semibold group">
               TƯ VẤN NGAY
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>

@@ -1,64 +1,46 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Users, ExternalLink } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
-const creators = [
+const projects = [
   {
-    name: "Beauty Store VN",
-    industry: "Mỹ phẩm",
-    followers: "125K",
-    description: "Tăng 300% doanh số sau 3 tháng hợp tác",
-    avatar: "BS",
-    color: "#ec4899",
+    name: "Stream Thời Trang - LEVENTS",
+    category: "Livestream Thời Trang",
+    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=400&fit=crop",
   },
   {
-    name: "Fashion Hub",
-    industry: "Thời trang",
-    followers: "89K",
-    description: "Từ 0 đến 100K followers trong 6 tháng",
-    avatar: "FH",
-    color: "#8b5cf6",
+    name: "Shopee Live - Cocolux",
+    category: "TikTok Shop",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=500&h=400&fit=crop",
   },
   {
-    name: "Tech Gadget Pro",
-    industry: "Công nghệ",
-    followers: "256K",
-    description: "Top 1 bán hàng công nghệ trên TikTok Shop",
-    avatar: "TG",
-    color: "#06b6d4",
+    name: "Lazada 11.11 Super Show",
+    category: "Livestream Sự Kiện",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=400&fit=crop",
   },
   {
-    name: "Home Living",
-    industry: "Nội thất",
-    followers: "67K",
-    description: "Mở rộng thị trường online thành công",
-    avatar: "HL",
-    color: "#f97316",
+    name: "LockLock Vietnam",
+    category: "Livestream Bán Hàng",
+    image: "https://images.unsplash.com/photo-1441986300352-7e3dee05ae6e?w=500&h=400&fit=crop",
   },
   {
-    name: "Food Delivery Pro",
-    industry: "Thực phẩm",
-    followers: "98K",
-    description: "Lợi nhuận tăng 250% qua livestream bán hàng",
-    avatar: "FD",
-    color: "#ef4444",
+    name: "PNJ Jewelry",
+    category: "Livestream Cao Cấp",
+    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&h=400&fit=crop",
   },
   {
-    name: "Wellness Shop",
-    industry: "Sức khỏe",
-    followers: "143K",
-    description: "Xây dựng cộng đồng khách hàng trung thành",
-    avatar: "WS",
-    color: "#10b981",
+    name: "TikTok 9.9 Super Brand Day",
+    category: "Livestream Sự Kiện",
+    image: "https://images.unsplash.com/photo-1489599849228-8d604c3ee4a1?w=500&h=400&fit=crop",
   },
 ]
 
 export function PortfolioSection() {
   return (
-    <section id="portfolio" className="py-24 bg-muted/30">
+    <section id="portfolio" className="py-20 bg-[#0a0f1e]">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -67,73 +49,41 @@ export function PortfolioSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Khách hàng đã triển khai cùng chúng tôi
+          <div className="text-xs font-semibold text-blue-400 tracking-widest uppercase mb-3">
+            Portfolio
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Dự án tiêu biểu
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Những dự án tiêu biểu đã được NextGen Media đồng hành.
-          </p>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto" />
         </motion.div>
 
         {/* Portfolio Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {creators.map((creator, index) => (
+          {projects.map((project, index) => (
             <motion.div
-              key={creator.name}
+              key={project.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              className="group cursor-pointer"
             >
-              <Card className="group h-full bg-card hover:border-primary/50 transition-all duration-300 hover:shadow-lg overflow-hidden">
-                {/* Cover Image */}
-                <div 
-                  className="h-32 relative"
-                  style={{ backgroundColor: `${creator.color}20` }}
-                >
-                  <div 
-                    className="absolute inset-0 opacity-50"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${creator.color}40 0%, transparent 100%)` 
-                    }}
-                  />
-                </div>
+              <div className="relative h-64 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 group-hover:border-blue-500/50 transition-all duration-300">
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                 
-                <CardContent className="p-6 pt-0 relative">
-                  {/* Avatar */}
-                  <div 
-                    className="w-16 h-16 rounded-full flex items-center justify-center text-primary-foreground font-bold text-xl -mt-8 relative z-10 border-4 border-card"
-                    style={{ backgroundColor: creator.color }}
-                  >
-                    {creator.avatar}
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold text-card-foreground mt-4 mb-1">
-                    {creator.name}
-                  </h3>
-                  
-                  <p className="text-sm text-muted-foreground mb-3">{creator.industry}</p>
-                  
-                  <div className="flex items-center gap-1 text-sm text-foreground mb-3">
-                    <Users className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{creator.followers}</span>
-                    <span className="text-muted-foreground">followers</span>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    {creator.description}
-                  </p>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="w-full group/btn border-border text-foreground hover:border-primary hover:text-primary"
-                  >
-                    Xem Case Study
-                    <ExternalLink className="w-3 h-3 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                  </Button>
-                </CardContent>
-              </Card>
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-5">
+                  <h3 className="text-lg font-semibold text-white mb-1">{project.name}</h3>
+                  <p className="text-sm text-slate-300">{project.category}</p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -147,10 +97,10 @@ export function PortfolioSection() {
         >
           <Button 
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+            className="border border-blue-500 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 px-8 rounded-lg transition-all duration-300"
           >
-            Xem Tất Cả Dự Án
-            <ExternalLink className="w-4 h-4 ml-2" />
+            Xem tất cả dự án
+            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </motion.div>
       </div>
