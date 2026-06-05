@@ -1,7 +1,8 @@
 import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
-import { ContactContent } from "@/components/contact-content"
+import { ContactForm } from "@/components/contact-form"
+import { Toaster } from "sonner"
 
 export const metadata = {
   title: "Liên Hệ | NextGen Media",
@@ -11,6 +12,7 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <main>
+      <Toaster position="top-center" />
       <div className="container mx-auto px-4 lg:px-8">
         <Breadcrumb items={[
           { label: "Trang chủ", href: "/" },
@@ -20,9 +22,9 @@ export default function ContactPage() {
       <PageHeroBanner 
         subtitle="Liên Hệ"
         title="Liên Hệ Với Chúng Tôi"
-        description="Chúng tôi sẵn sàng tư vấn và hỗ trợ bạn 24/7"
+        description="Chúng tôi sẵn sàng đồng hành cùng doanh nghiệp trong các dự án livestream, truyền thông và phát triển thương hiệu."
       />
-      <ContactContent />
+      <ContactForm />
       <Footer />
     </main>
   )
