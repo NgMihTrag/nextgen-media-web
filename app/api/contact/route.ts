@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     try {
       result = await resend.emails.send({
         from: "NextGen Media <onboarding@resend.dev>",
-        to: "trang.2663@gmail.com",
+        to: "trang2663@gmail.com",
         subject: "[NextGen Media] Khách hàng mới từ website",
         html: `
           <h2>Khách hàng mới liên hệ</h2>
