@@ -1,4 +1,3 @@
-import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
@@ -12,7 +11,6 @@ export const metadata = {
 export default function PortfolioPage() {
   return (
     <main>
-      <Header />
       <div className="container mx-auto px-4 lg:px-8">
         <Breadcrumb items={[
           { label: "Trang chủ", href: "/" },

@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Header } from '@/components/header'
 
 const inter = Inter({ 
   subsets: ['latin', 'vietnamese'],
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className="bg-background">
       <body className={`${inter.className} antialiased`}>
+        <Header />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
