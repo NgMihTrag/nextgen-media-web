@@ -8,12 +8,13 @@ import { Phone, Menu, X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { label: "Trang chủ", href: "#" },
-  { label: "Dịch vụ", href: "#services" },
-  { label: "Thuê Livestream", href: "#pricing" },
-  { label: "Bảng giá", href: "#pricing" },
-  { label: "Hỗ trợ", href: "#faq" },
-  { label: "Liên hệ", href: "#contact" },
+  { label: "Trang chủ", href: "/" },
+  { label: "Dịch vụ", href: "/services" },
+  { label: "Thuê Studio", href: "/studio-rental" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Bảng giá", href: "/pricing" },
+  { label: "Câu hỏi", href: "/faq" },
+  { label: "Liên hệ", href: "/contact" },
 ]
 
 export function Header() {
