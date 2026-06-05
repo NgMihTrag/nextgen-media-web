@@ -2,13 +2,11 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
-import { PortfolioSection } from "@/components/portfolio-section"
-import { TestimonialSection } from "@/components/testimonial-section"
-import { CTASection } from "@/components/cta-section"
+import { PortfolioGallery } from "@/components/portfolio-gallery"
 
 export const metadata = {
   title: "Portfolio | NextGen Media",
-  description: "Xem các dự án và case studies thành công của chúng tôi",
+  description: "Xem toàn bộ dự án livestream và truyền thông đã được NextGen Media triển khai",
 }
 
 export default function PortfolioPage() {
@@ -23,12 +21,10 @@ export default function PortfolioPage() {
       </div>
       <PageHeroBanner 
         subtitle="Portfolio"
-        title="Các Dự Án Thành Công"
-        description="Xem các case studies và kết quả thực tế từ các chiến dịch livestream của chúng tôi"
+        title="Tất Cả Dự Án"
+        description="Những dự án livestream và truyền thông đã được NextGen Media triển khai."
       />
-      <PortfolioSection />
-      <TestimonialSection />
-      <CTASection />
+      <PortfolioGallery />
       <Footer />
     </main>
   )
