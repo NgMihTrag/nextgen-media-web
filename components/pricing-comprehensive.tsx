@@ -11,10 +11,11 @@ export function PricingHero() {
   const { openModal } = useContactModal()
 
   return (
-    <section className="relative py-32 bg-gradient-to-b from-slate-900 via-slate-900 to-background overflow-hidden">
-      <div className="absolute inset-0 opacity-20">
+    <section className="relative py-32 bg-gradient-to-b from-[#030712] via-[#071224] to-[#0B1730] overflow-hidden">
+      <div className="absolute inset-0 opacity-30">
         <div className="absolute top-20 right-10 w-72 h-72 bg-blue-500 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-600 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-20"></div>
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -23,22 +24,27 @@ export function PricingHero() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance tracking-tight">
             BẢNG GIÁ DỊCH VỤ
           </h1>
-          <p className="text-xl text-slate-300 mb-4">
+          <p className="text-xl text-white/75 mb-4">
             Lựa chọn gói livestream phù hợp với nhu cầu của bạn
           </p>
-          <p className="text-base text-slate-400 mb-8">
+          <p className="text-base text-white/60 mb-8 max-w-2xl mx-auto">
             Từ livestream cơ bản đến hệ thống livestream chuyên nghiệp cho doanh nghiệp và nhà bán hàng.
           </p>
-          <Button
-            onClick={openModal}
-            className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-12 font-semibold rounded-lg cursor-pointer group"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Tư Vấn Miễn Phí
-            <Phone className="w-4 h-4 ml-2" />
-          </Button>
+            <Button
+              onClick={openModal}
+              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 h-12 font-semibold rounded-lg cursor-pointer group shadow-lg shadow-blue-500/30 transition-all duration-300"
+            >
+              Tư Vấn Miễn Phí
+              <Phone className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -132,9 +138,9 @@ export function PricingCards() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712]">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
           {packages.map((pkg, idx) => (
             <motion.div
               key={pkg.id}
@@ -142,80 +148,111 @@ export function PricingCards() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
+              className={pkg.id === 3 ? "lg:scale-105" : ""}
             >
-              <Card className={`relative bg-slate-900/50 border ${pkg.id === 3 ? 'border-blue-500 shadow-lg shadow-blue-500/20' : 'border-slate-800'} h-full flex flex-col`}>
-                {pkg.id === 3 && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                    <div className="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded">
-                      {pkg.badge}
-                    </div>
-                  </div>
-                )}
-                
-                <CardContent className="p-6 flex flex-col h-full">
-                  <div className="mb-6">
-                    <div className={`text-sm font-bold mb-4 ${pkg.id === 3 ? 'text-blue-400' : 'text-blue-500'}`}>
-                      {pkg.label}
-                    </div>
-                    
-                    {pkg.tag && (
-                      <div className={`text-xs font-semibold px-3 py-1 rounded border mb-4 ${pkg.tagBg}`}>
-                        {pkg.tag}
+              <motion.div
+                whileHover={pkg.id === 3 ? { y: -8, boxShadow: "0 30px 80px rgba(37,99,235,0.4)" } : { y: -4, boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
+                transition={{ duration: 0.3 }}
+                className="h-full"
+              >
+                <Card className={`relative bg-gradient-to-br from-[rgba(10,18,35,0.85)] to-[rgba(7,18,36,0.85)] backdrop-blur-xl border transition-all duration-300 ${
+                  pkg.id === 3 
+                    ? 'border-blue-500 shadow-2xl shadow-blue-500/30' 
+                    : 'border-blue-500/15 hover:border-blue-500/30 shadow-xl shadow-black/30'
+                } h-full flex flex-col rounded-2xl overflow-hidden`}>
+                  {pkg.id === 3 && (
+                    <motion.div 
+                      animate={{ y: [0, -4, 0] }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute -top-4 left-1/2 -translate-x-1/2 z-10"
+                    >
+                      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-500/50">
+                        {pkg.badge}
                       </div>
+                    </motion.div>
+                  )}
+                  
+                  <CardContent className="p-6 flex flex-col h-full">
+                    <div className="mb-6">
+                      <div className={`text-sm font-bold mb-4 tracking-wide ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
+                        {pkg.label}
+                      </div>
+                      
+                      {pkg.tag && (
+                        <div className={`text-xs font-semibold px-3 py-1.5 rounded-full border mb-4 ${pkg.tagBg} inline-block`}>
+                          {pkg.tag}
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-center h-16 mb-4">
+                        {pkg.id === 1 && <Smartphone className="w-10 h-10 text-slate-400" />}
+                        {pkg.id === 2 && <Camera className="w-10 h-10 text-slate-400" />}
+                        {pkg.id === 3 && <Camera className="w-10 h-10 text-blue-400" />}
+                        {pkg.id === 4 && <Monitor className="w-10 h-10 text-slate-400" />}
+                      </div>
+
+                      <h3 className="text-lg font-bold text-white text-center mb-3">
+                        {pkg.title}
+                      </h3>
+
+                      <div className="text-center mb-6">
+                        {pkg.price === "Liên Hệ Báo Giá" ? (
+                          <div className={`${pkg.ctaStyle === 'orange' ? 'text-orange-400' : 'text-blue-300'} font-bold text-lg`}>
+                            {pkg.price}
+                          </div>
+                        ) : (
+                          <>
+                            <div className={`text-3xl font-bold ${pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' : 'text-blue-400'}`}>
+                              {pkg.price}
+                              <span className="text-lg">{pkg.currency}</span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 mb-6 flex-grow">
+                      {pkg.features.map((feature, i) => (
+                        <motion.div 
+                          key={i} 
+                          className="flex items-start gap-3 group hover:pl-2 transition-all duration-200"
+                          whileHover={{ x: 4 }}
+                        >
+                          <Check className="w-4 h-4 text-blue-400 flex-shrink-0 mt-1 group-hover:text-blue-300 transition-colors" />
+                          <span className="text-sm text-white/75 group-hover:text-white/90 transition-colors leading-relaxed">{feature}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {pkg.warning && (
+                      <motion.div 
+                        whileHover={{ backgroundColor: "rgba(251,146,60,0.15)" }}
+                        className="flex items-start gap-3 mb-6 p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg transition-colors duration-200"
+                      >
+                        <AlertCircle className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-xs text-orange-400/90">{pkg.warning}</span>
+                      </motion.div>
                     )}
 
-                    <div className="flex items-center justify-center h-16 mb-4">
-                      {pkg.id === 1 && <Smartphone className="w-10 h-10 text-slate-400" />}
-                      {pkg.id === 2 && <Camera className="w-10 h-10 text-slate-400" />}
-                      {pkg.id === 3 && <Camera className="w-10 h-10 text-blue-400" />}
-                      {pkg.id === 4 && <Monitor className="w-10 h-10 text-slate-400" />}
-                    </div>
-
-                    <h3 className="text-lg font-bold text-white text-center mb-3">
-                      {pkg.title}
-                    </h3>
-
-                    <div className="text-center mb-6">
-                      {pkg.price === "Liên Hệ Báo Giá" ? (
-                        <div className={`${pkg.ctaStyle === 'orange' ? 'text-orange-400' : 'text-blue-400'} font-bold`}>
-                          {pkg.price}
-                        </div>
-                      ) : (
-                        <>
-                          <div className="text-3xl font-bold text-blue-400">
-                            {pkg.price}
-                            <span className="text-lg">{pkg.currency}</span>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 mb-6 flex-grow">
-                    {pkg.features.map((feature, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <Check className="w-4 h-4 text-blue-400 flex-shrink-0 mt-1" />
-                        <span className="text-sm text-slate-300">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {pkg.warning && (
-                    <div className="flex items-start gap-3 mb-6 p-3 bg-orange-500/10 border border-orange-500/20 rounded">
-                      <AlertCircle className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-xs text-orange-400">{pkg.warning}</span>
-                    </div>
-                  )}
-
-                  <Button
-                    onClick={openModal}
-                    className={`w-full ${pkg.ctaStyle === 'orange' ? 'bg-orange-500 hover:bg-orange-600' : 'bg-blue-600 hover:bg-blue-500'} text-white font-semibold rounded-lg cursor-pointer`}
-                  >
-                    {pkg.cta}
-                    <MessageCircle className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Button
+                        onClick={openModal}
+                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group ${
+                          pkg.ctaStyle === 'orange' 
+                            ? 'bg-orange-500 hover:bg-orange-600 shadow-orange-500/30 hover:shadow-orange-500/40' 
+                            : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40'
+                        }`}
+                      >
+                        {pkg.cta}
+                        <MessageCircle className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </motion.div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -231,7 +268,7 @@ export function ComparisonTable() {
     "Livestream đa nền tảng",
     "TikTok Studio",
     "Filter làm đẹp Douyin",
-    "Phông ảo 3D",
+    "Phông ảu 3D",
     "Khảo sát tận nơi",
     "Thiết kế hệ thống livestream",
     "Setup toàn bộ thiết bị",
@@ -248,7 +285,7 @@ export function ComparisonTable() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-slate-900/50">
+    <section className="py-24 bg-gradient-to-b from-[#030712] to-[#071224]">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -265,16 +302,20 @@ export function ComparisonTable() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="overflow-x-auto"
+          className="overflow-x-auto rounded-xl border border-blue-500/15 bg-gradient-to-br from-[rgba(10,18,35,0.5)] to-[rgba(7,18,36,0.5)] backdrop-blur-xl"
         >
           <table className="w-full min-w-max border-collapse">
             <thead>
-              <tr className="border-b border-slate-800">
-                <th className="text-left py-4 px-4 text-slate-300 font-semibold w-48">TÍNH NĂNG</th>
+              <tr className="border-b border-blue-500/20">
+                <th className="text-left py-6 px-6 text-white/75 font-semibold w-48 bg-gradient-to-r from-blue-500/5 to-transparent">TÍNH NĂNG</th>
                 {packages.map((pkg, i) => (
                   <th 
                     key={i} 
-                    className={`text-center py-4 px-4 font-semibold whitespace-pre-line ${i === 2 ? 'bg-blue-600/20 text-blue-300' : 'text-slate-300'}`}
+                    className={`text-center py-6 px-6 font-semibold whitespace-pre-line transition-colors duration-200 ${
+                      i === 2 
+                        ? 'bg-gradient-to-b from-blue-500/20 to-blue-500/5 border-x border-blue-500/20 text-blue-200' 
+                        : 'text-white/75 hover:text-white/90'
+                    }`}
                   >
                     {pkg.name}
                   </th>
@@ -283,17 +324,27 @@ export function ComparisonTable() {
             </thead>
             <tbody>
               {features.map((feature, i) => (
-                <tr key={i} className="border-b border-slate-800 hover:bg-slate-800/30">
-                  <td className="py-4 px-4 text-slate-300 text-sm">{feature}</td>
+                <tr key={i} className="border-b border-blue-500/10 hover:bg-blue-500/5 transition-colors duration-200">
+                  <td className="py-5 px-6 text-white/70 text-sm font-medium">{feature}</td>
                   {packages.map((pkg, j) => (
                     <td 
                       key={j} 
-                      className={`text-center py-4 px-4 ${j === 2 ? 'bg-blue-600/10' : ''}`}
+                      className={`text-center py-5 px-6 transition-all duration-200 ${
+                        j === 2 
+                          ? 'bg-blue-500/10 border-x border-blue-500/15' 
+                          : 'hover:bg-blue-500/5'
+                      }`}
                     >
                       {pkg.features[i] ? (
-                        <Check className="w-5 h-5 text-blue-400 mx-auto" />
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          whileInView={{ scale: 1 }}
+                          viewport={{ once: true }}
+                        >
+                          <Check className={`w-5 h-5 mx-auto ${j === 2 ? 'text-blue-300' : 'text-blue-400'}`} />
+                        </motion.div>
                       ) : (
-                        <span className="text-slate-600">—</span>
+                        <span className="text-slate-600/50">—</span>
                       )}
                     </td>
                   ))}
@@ -330,7 +381,7 @@ export function PricingFAQ() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712]">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -341,6 +392,7 @@ export function PricingFAQ() {
           <h2 className="text-4xl font-bold text-white mb-4">
             CÂU HỎI THƯỜNG GẶP
           </h2>
+          <p className="text-white/60">Tìm câu trả lời cho các câu hỏi phổ biến về dịch vụ của chúng tôi</p>
         </motion.div>
 
         <div className="space-y-4">
@@ -351,20 +403,37 @@ export function PricingFAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
-              className="border border-slate-800 rounded-lg overflow-hidden bg-slate-900/30"
+              className="group"
             >
-              <button
-                onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                className="w-full flex items-center justify-between p-4 hover:bg-slate-800/30 transition-colors"
+              <motion.div
+                whileHover={{ borderColor: "rgba(59,130,246,0.3)", backgroundColor: "rgba(59,130,246,0.05)" }}
+                transition={{ duration: 0.2 }}
+                className="border border-blue-500/15 rounded-xl overflow-hidden bg-gradient-to-br from-[rgba(10,18,35,0.6)] to-[rgba(7,18,36,0.6)] backdrop-blur-xl transition-all duration-200"
               >
-                <span className="text-left font-semibold text-slate-200">{faq.q}</span>
-                <span className={`text-blue-400 transition-transform ${openIdx === idx ? 'rotate-45' : ''}`}>+</span>
-              </button>
-              {openIdx === idx && (
-                <div className="px-4 pb-4 text-slate-400 border-t border-slate-800">
-                  {faq.a}
-                </div>
-              )}
+                <button
+                  onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-6 hover:bg-blue-500/5 transition-colors duration-200"
+                >
+                  <span className="text-left font-semibold text-white/90 group-hover:text-white transition-colors">{faq.q}</span>
+                  <motion.span 
+                    className="text-blue-400 text-2xl flex-shrink-0"
+                    animate={{ rotate: openIdx === idx ? 45 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    +
+                  </motion.span>
+                </button>
+                <motion.div
+                  initial={false}
+                  animate={{ height: openIdx === idx ? "auto" : 0, opacity: openIdx === idx ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-6 pb-6 text-white/70 border-t border-blue-500/10">
+                    {faq.a}
+                  </div>
+                </motion.div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -377,43 +446,98 @@ export function PricingFinalCTA() {
   const { openModal } = useContactModal()
 
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-900 to-background">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="relative py-32 bg-gradient-to-b from-[#030712] to-[#071224] overflow-hidden">
+      {/* Animated background glows */}
+      <div className="absolute inset-0 opacity-40">
+        <motion.div
+          animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute top-10 right-20 w-80 h-80 bg-blue-600 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{ x: [0, -100, 0], y: [0, -50, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute bottom-10 left-20 w-80 h-80 bg-indigo-600 rounded-full blur-3xl"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
+          {/* Left content */}
           <div className="space-y-6">
-            <h2 className="text-4xl font-bold text-white">
-              CHƯA BIẾT CHỌN GÓI NÀO?
-            </h2>
-            <p className="text-lg text-slate-300">
-              Liên hệ NextGen Media để được tư vấn giải pháp livestream phù hợp nhất.
-            </p>
-            <Button
-              onClick={openModal}
-              className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-12 font-semibold rounded-lg cursor-pointer"
+            <motion.h2 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-5xl font-bold text-white leading-tight"
             >
-              Tư Vấn Miễn Phí
-              <Phone className="w-4 h-4 ml-2" />
-            </Button>
+              CHƯA BIẾT CHỌN GÓI NÀO?
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-lg text-white/75 leading-relaxed"
+            >
+              Liên hệ NextGen Media để được tư vấn giải pháp livestream phù hợp nhất với nhu cầu của bạn.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Button
+                onClick={openModal}
+                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 h-12 font-semibold rounded-lg cursor-pointer group shadow-lg shadow-blue-500/30 transition-all duration-300"
+              >
+                Tư Vấn Miễn Phí
+                <Phone className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* Right grid features */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-2 gap-4"
+          >
             {[
-              { icon: "🎧", title: "Tư vấn miễn phí" },
-              { icon: "⚙️", title: "Hỗ trợ lắn nội" },
-              { icon: "📷", title: "Thiết bị hiện đại" },
-              { icon: "✅", title: "Bảo hành & hỗ trợ" },
+              { icon: "🎧", title: "Tư vấn miễn phí", desc: "Hỗ trợ 24/7" },
+              { icon: "⚙️", title: "Hỗ trợ tận nơi", desc: "Khảo sát chi tiết" },
+              { icon: "📷", title: "Thiết bị hiện đại", desc: "Chuyên nghiệp" },
+              { icon: "✅", title: "Bảo hành & hỗ trợ", desc: "Đầy đủ dịch vụ" },
             ].map((item, idx) => (
-              <div key={idx} className="p-4 bg-slate-900/50 border border-slate-800 rounded-lg text-center">
-                <div className="text-3xl mb-2">{item.icon}</div>
-                <p className="text-sm text-slate-300">{item.title}</p>
-              </div>
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + idx * 0.05 }}
+                whileHover={{ y: -8, borderColor: "rgba(59,130,246,0.5)", backgroundColor: "rgba(59,130,246,0.1)" }}
+                className="p-6 bg-gradient-to-br from-[rgba(10,18,35,0.7)] to-[rgba(7,18,36,0.7)] border border-blue-500/15 backdrop-blur-xl rounded-xl text-center transition-all duration-300 group cursor-default"
+              >
+                <motion.div 
+                  className="text-4xl mb-3 transition-transform group-hover:scale-110"
+                >
+                  {item.icon}
+                </motion.div>
+                <p className="font-semibold text-white mb-1">{item.title}</p>
+                <p className="text-sm text-white/60">{item.desc}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
