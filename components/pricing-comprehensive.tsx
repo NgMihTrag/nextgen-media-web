@@ -241,9 +241,9 @@ export function ComparisonTable() {
               {features.map((feature, i) => (
                 <tr key={i} className="border-b border-slate-800 hover:bg-slate-900/30">
                   <td className="py-4 px-4 text-slate-300">{feature}</td>
-                  {comparison[i].map((hasFeature, j) => (
+                  {comparison.map((pkg, j) => (
                     <td key={j} className="text-center py-4 px-4">
-                      {hasFeature ? (
+                      {pkg[i] ? (
                         <Check className="w-5 h-5 text-blue-400 mx-auto" />
                       ) : (
                         <div className="w-5 h-5 mx-auto" />
