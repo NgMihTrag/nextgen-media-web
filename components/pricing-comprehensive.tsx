@@ -162,7 +162,7 @@ export function PricingCards() {
                   )}
                   <CardContent className="p-6 flex flex-col h-full">
                     {/* Header Section */}
-                    <div className={`mb-4 ${pkg.id === 3 ? 'pt-8' : ''}`}>
+                    <div className={`mb-4`}>
                       <div className={`text-xl font-bold tracking-widest mb-3 ${
                         pkg.id === 1 ? 'text-cyan-300' :
                         pkg.id === 2 ? 'text-emerald-300' :
