@@ -58,57 +58,51 @@ export function PricingCards() {
     {
       id: 1,
       label: "GÓI 01",
-      title: "Set-up Ảnh Sáng - Điện Thoại - PC",
-      price: "2.000.000",
-      currency: "đ",
-      badge: null,
-      badgeColor: null,
+      title: "Set-up Ánh Sáng - Điện Thoại - PC",
+      audience: "👤 Phù Hợp Idol Live Cá Nhân",
+      price: "2.000.000đ",
       features: [
-        "Set up ảnh sáng cho quay Video và Livestream với điện thoại",
-        "Livestream đa nền tảng Facebook, TikTok, Shopee...",
+        "Set up ánh sáng cho quay Video và Livestream với điện thoại",
+        "Livestream đa nền tảng Facebook, TikTok, Shopee,...",
         "Chỉnh màu cho Livestream",
       ],
-      warning: "Yêu cầu có máy tính để Livestream",
+      warnings: ["❗ Yêu cầu có máy tính để Livestream"],
       cta: "Tư Vấn Gói Này",
       ctaStyle: "blue",
     },
     {
       id: 2,
       label: "GÓI 02",
-      title: "Set-up Ảnh Sáng - Camera Cơ Bản",
-      price: "2.500.000",
-      currency: "đ",
-      tag: "Phù Hợp Cả Nhân & Shop Mới",
-      tagBg: "bg-green-500/20 border-green-500/50",
-      badge: null,
-      badgeColor: null,
+      title: "Set-up Ánh Sáng - Camera Cơ Bản",
+      audience: "🛍 Phù Hợp Cá Nhân & Shop Mới",
+      price: "2.500.000đ",
       features: [
-        "Set up ảnh sáng cho quay Video và Livestream bằng máy ảnh",
-        "Chỉnh màu nâng cao livestream",
-        "Livestream TikTok Studio",
-        "Hình ảnh sắc nét và chuyên nghiệp",
-        "Tối ưu camera cho livestream",
+        "Set up ánh sáng cho quay Video và Livestream với máy ảnh",
+        "Chỉnh màu riêng cho livestream",
+        "Livestream TikTok Studio đẹp như Douyin",
+        "Livestream sắc nét",
       ],
-      warning: "Yêu cầu có máy tính để Livestream",
+      warnings: ["❗ Yêu cầu có máy tính để Livestream"],
       cta: "Tư Vấn Gói Này",
       ctaStyle: "blue",
     },
     {
       id: 3,
       label: "GÓI 03",
-      title: "Set-up Ảnh Sáng Camera Nâng Cao",
-      price: "3.500.000",
-      currency: "đ",
-      badge: "★ PHỔ BIẾN NHẤT",
-      badgeColor: "bg-blue-500",
+      title: "Set-up Ánh Sáng Camera Nâng Cao",
+      audience: "🚀 Hướng Tới Sự Chuyên Nghiệp",
+      price: "3.500.000đ",
+      badge: "🔥 PHỔ BIẾN NHẤT",
       features: [
-        "Set up ảnh sáng cho quay Video và Livestream với máy ảnh",
-        "Chỉnh màu nâng cao cho quay video để Douyin",
-        "Điều chỉnh màu đủ và hữu khắn mặt",
-        "Livestream đa nền tảng đông bay tiêu...",
-        "Tích hợp phông ảo 3D cho phòng xanh",
+        "Set up ánh sáng cho quay Video và Livestream với máy ảnh",
+        "Chỉnh màu riêng cho quay video và livestream",
+        "Phần mềm Livestream làm đẹp tích hợp filter, màu, làm mịn da",
+        "Điều chỉnh hiệu ứng bóp mặt, tô son, trang điểm",
+        "Chỉnh sửa hiệu ứng cơ thể",
+        "Livestream đa nền tảng đồng bộ màu giữa các nền tảng đẹp như Douyin",
+        "Tích hợp các phông 3D dùng cho phông xanh",
       ],
-      warning: "Khách hàng cần có 2 màn hình để sử dụng",
+      warnings: ["❗ Yêu cầu có máy tính để Livestream", "❗ Khách hàng cần có 2 màn hình để sử dụng"],
       cta: "Tư Vấn Gói Này",
       ctaStyle: "blue",
     },
@@ -116,12 +110,8 @@ export function PricingCards() {
       id: 4,
       label: "GÓI 04",
       title: "Set-up Livestream Trọn Gói",
+      audience: "🏢 Tư Vấn Từ Đầu Cho Cá Nhân & Doanh Nghiệp",
       price: "Liên Hệ Báo Giá",
-      currency: "",
-      badge: null,
-      badgeColor: null,
-      tag: "Giải Pháp Doanh Nghiệp",
-      tagBg: "bg-purple-500/20 border-purple-500/50",
       features: [
         "Khảo sát tận nơi",
         "Thiết kế hệ thống livestream",
@@ -131,16 +121,35 @@ export function PricingCards() {
         "Bàn giao công nghệ",
         "Hỗ trợ kỹ thuật sau bàn giao",
       ],
-      warning: null,
+      warnings: [],
       cta: "Nhận Báo Giá",
       ctaStyle: "orange",
     },
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712]">
+    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712] relative">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+        {/* Badge positioned outside grid */}
+        <div className="flex justify-center mb-20 h-12">
+          {packages.find(p => p.id === 3)?.badge && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute lg:left-1/2 lg:-translate-x-1/2 lg:ml-[12.5%]"
+            >
+              <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg shadow-blue-500/50 whitespace-nowrap">
+                {packages.find(p => p.id === 3)?.badge}
+              </div>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg, idx) => (
             <motion.div
               key={pkg.id}
@@ -148,102 +157,87 @@ export function PricingCards() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className={pkg.id === 3 ? "lg:scale-105" : ""}
+              className={pkg.id === 3 ? "md:col-span-2 lg:col-span-1" : ""}
             >
               <motion.div
-                whileHover={pkg.id === 3 ? { y: -8, boxShadow: "0 30px 80px rgba(37,99,235,0.4)" } : { y: -4, boxShadow: "0 20px 60px rgba(0,0,0,0.4)" }}
+                whileHover={pkg.id === 3 ? { y: -8 } : { y: -4 }}
                 transition={{ duration: 0.3 }}
                 className="h-full"
               >
-                <Card className={`relative bg-gradient-to-br from-[rgba(10,18,35,0.85)] to-[rgba(7,18,36,0.85)] backdrop-blur-xl border transition-all duration-300 ${
+                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-300 flex flex-col h-full ${
                   pkg.id === 3 
-                    ? 'border-blue-500 shadow-2xl shadow-blue-500/30' 
+                    ? 'border-blue-500 shadow-2xl shadow-blue-500/30 lg:scale-105' 
                     : 'border-blue-500/15 hover:border-blue-500/30 shadow-xl shadow-black/30'
-                } h-full flex flex-col rounded-2xl overflow-hidden`}>
-                  {pkg.id === 3 && (
-                    <motion.div 
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="absolute -top-4 left-1/2 -translate-x-1/2 z-10"
-                    >
-                      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg shadow-blue-500/50">
-                        {pkg.badge}
-                      </div>
-                    </motion.div>
-                  )}
-                  
+                }`}>
                   <CardContent className="p-6 flex flex-col h-full">
-                    <div className="mb-6">
-                      <div className={`text-sm font-bold mb-4 tracking-wide ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
+                    {/* Header Section */}
+                    <div className="mb-4">
+                      <div className={`text-xs font-bold tracking-widest mb-3 ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
                         {pkg.label}
                       </div>
                       
-                      {pkg.tag && (
-                        <div className={`text-xs font-semibold px-3 py-1.5 rounded-full border mb-4 ${pkg.tagBg} inline-block`}>
-                          {pkg.tag}
-                        </div>
-                      )}
-
-                      <div className="flex items-center justify-center h-16 mb-4">
-                        {pkg.id === 1 && <Smartphone className="w-10 h-10 text-slate-400" />}
-                        {pkg.id === 2 && <Camera className="w-10 h-10 text-slate-400" />}
-                        {pkg.id === 3 && <Camera className="w-10 h-10 text-blue-400" />}
-                        {pkg.id === 4 && <Monitor className="w-10 h-10 text-slate-400" />}
-                      </div>
-
-                      <h3 className="text-lg font-bold text-white text-center mb-3">
-                        {pkg.title}
-                      </h3>
-
-                      <div className="text-center mb-6">
-                        {pkg.price === "Liên Hệ Báo Giá" ? (
-                          <div className={`${pkg.ctaStyle === 'orange' ? 'text-orange-400' : 'text-blue-300'} font-bold text-lg`}>
-                            {pkg.price}
-                          </div>
-                        ) : (
-                          <>
-                            <div className={`text-3xl font-bold ${pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' : 'text-blue-400'}`}>
-                              {pkg.price}
-                              <span className="text-lg">{pkg.currency}</span>
-                            </div>
-                          </>
-                        )}
+                      <div className="text-xs text-white/70 mb-4 h-5 flex items-center">
+                        {pkg.audience}
                       </div>
                     </div>
 
-                    <div className="space-y-3 mb-6 flex-grow">
+                    {/* Icon Section */}
+                    <div className="flex items-center justify-center h-12 mb-4">
+                      {pkg.id === 1 && <Smartphone className="w-8 h-8 text-slate-400" />}
+                      {pkg.id === 2 && <Camera className="w-8 h-8 text-slate-400" />}
+                      {pkg.id === 3 && <Camera className="w-8 h-8 text-blue-400" />}
+                      {pkg.id === 4 && <Monitor className="w-8 h-8 text-slate-400" />}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-base font-bold text-white text-center mb-4 line-clamp-2 h-14 flex items-center justify-center">
+                      {pkg.title}
+                    </h3>
+
+                    {/* Price */}
+                    <div className="text-center mb-6">
+                      <div className={`text-2xl font-bold ${pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' : 'text-blue-400'}`}>
+                        {pkg.price}
+                      </div>
+                    </div>
+
+                    {/* Features */}
+                    <div className="space-y-2 mb-6 flex-grow">
                       {pkg.features.map((feature, i) => (
                         <motion.div 
                           key={i} 
-                          className="flex items-start gap-3 group hover:pl-2 transition-all duration-200"
-                          whileHover={{ x: 4 }}
+                          className="flex items-start gap-2 group"
+                          whileHover={{ x: 2 }}
                         >
-                          <Check className="w-4 h-4 text-blue-400 flex-shrink-0 mt-1 group-hover:text-blue-300 transition-colors" />
-                          <span className="text-sm text-white/75 group-hover:text-white/90 transition-colors leading-relaxed">{feature}</span>
+                          <Check className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-xs text-white/75 leading-relaxed">{feature}</span>
                         </motion.div>
                       ))}
                     </div>
 
-                    {pkg.warning && (
-                      <motion.div 
-                        whileHover={{ backgroundColor: "rgba(251,146,60,0.15)" }}
-                        className="flex items-start gap-3 mb-6 p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg transition-colors duration-200"
-                      >
-                        <AlertCircle className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
-                        <span className="text-xs text-orange-400/90">{pkg.warning}</span>
-                      </motion.div>
+                    {/* Warnings */}
+                    {pkg.warnings.length > 0 && (
+                      <div className="space-y-2 mb-6">
+                        {pkg.warnings.map((warning, i) => (
+                          <div key={i} className="flex items-start gap-2 p-2 bg-orange-500/10 border border-orange-500/20 rounded">
+                            <span className="text-xs text-orange-400/90 leading-relaxed">{warning}</span>
+                          </div>
+                        ))}
+                      </div>
                     )}
 
+                    {/* CTA Button - Fixed to bottom */}
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      className="mt-auto"
                     >
                       <Button
                         onClick={openModal}
-                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group ${
+                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group text-sm ${
                           pkg.ctaStyle === 'orange' 
-                            ? 'bg-orange-500 hover:bg-orange-600 shadow-orange-500/30 hover:shadow-orange-500/40' 
-                            : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40'
+                            ? 'bg-orange-500 hover:bg-orange-600 shadow-orange-500/30 hover:shadow-orange-500/40 text-white' 
+                            : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40 text-white'
                         }`}
                       >
                         {pkg.cta}
@@ -364,7 +358,7 @@ export function PricingFAQ() {
   const faqs = [
     {
       q: "Tôi cần chuẩn bị gì trước khi setup livestream?",
-      a: "Bạn cần chuẩn bị không gian thích hợp, máy quay (điện thoại hoặc camera), và đảm bảo kết nối internet ổn định.",
+      a: "Bạn c��n chuẩn bị không gian thích hợp, máy quay (điện thoại hoặc camera), và đảm bảo kết nối internet ổn định.",
     },
     {
       q: "Bao lâu có thể hoàn thành hệ thống livestream?",
