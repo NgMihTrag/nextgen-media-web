@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 const navItems = [
   { label: "Trang chủ", href: "/" },
   { label: "Dịch vụ", href: "/services" },
+  { label: "Quy Trình", href: "/livestream-process" },
   { label: "Thuê Studio", href: "/studio-rental" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Bảng giá", href: "/pricing" },
