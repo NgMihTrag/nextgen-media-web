@@ -130,24 +130,6 @@ export function PricingCards() {
   return (
     <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712] relative">
       <div className="container mx-auto px-4 lg:px-8">
-        {/* Badge positioned outside grid */}
-        <div className="flex justify-center mb-20 h-12">
-          {packages.find(p => p.id === 3)?.badge && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              animate={{ y: [0, -4, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute lg:left-1/2 lg:-translate-x-1/2 lg:ml-[12.5%]"
-            >
-              <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-sm font-bold px-6 py-3 rounded-full shadow-lg shadow-blue-500/50 whitespace-nowrap">
-                {packages.find(p => p.id === 3)?.badge}
-              </div>
-            </motion.div>
-          )}
-        </div>
-
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {packages.map((pkg, idx) => (
@@ -164,14 +146,22 @@ export function PricingCards() {
                 transition={{ duration: 0.3 }}
                 className="h-full"
               >
-                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-hidden transition-all duration-300 flex flex-col h-full ${
+                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-visible transition-all duration-300 flex flex-col h-full ${
                   pkg.id === 3 
-                    ? 'border-blue-500 shadow-2xl shadow-blue-500/30 lg:scale-105' 
+                    ? 'border-blue-500 shadow-2xl shadow-blue-500/30 lg:scale-105 relative' 
                     : 'border-blue-500/15 hover:border-blue-500/30 shadow-xl shadow-black/30'
                 }`}>
+                  {/* Featured Badge - Inside Card Top Right */}
+                  {pkg.id === 3 && pkg.badge && (
+                    <div className="absolute -top-4 right-6 z-20">
+                      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg shadow-blue-500/40 whitespace-nowrap flex items-center gap-1">
+                        {pkg.badge}
+                      </div>
+                    </div>
+                  )}
                   <CardContent className="p-6 flex flex-col h-full">
                     {/* Header Section */}
-                    <div className="mb-4">
+                    <div className={`mb-4 ${pkg.id === 3 ? 'pt-8' : ''}`}>
                       <div className={`text-xs font-bold tracking-widest mb-3 ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
                         {pkg.label}
                       </div>
