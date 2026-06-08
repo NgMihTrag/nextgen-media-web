@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Clock } from "lucide-react"
+import { Check } from "lucide-react"
 
 const steps = [
   {
@@ -15,7 +15,7 @@ const steps = [
       "Lên kế hoạch ngân sách",
       "Định hình chiến lược nội dung"
     ],
-    duration: "1-2 ngày"
+    benefit: "Miễn Phí Tư Vấn"
   },
   {
     number: "02",
@@ -27,7 +27,7 @@ const steps = [
       "Lập sơ đồ thiết bị",
       "Xác định điểm phát sóng tối ưu"
     ],
-    duration: "2-3 ngày"
+    benefit: "Khảo Sát Tận Nơi"
   },
   {
     number: "03",
@@ -39,7 +39,7 @@ const steps = [
       "Kiểm tra công nghệ",
       "Đào tạo nhân viên"
     ],
-    duration: "3-5 ngày"
+    benefit: "Kịch Bản Riêng"
   },
   {
     number: "04",
@@ -51,7 +51,7 @@ const steps = [
       "Cấu hình mixer & encoder",
       "Kiểm tra chất lượng âm video"
     ],
-    duration: "2-3 ngày"
+    benefit: "Thiết Bị Chuyên Nghiệp"
   },
   {
     number: "05",
@@ -63,7 +63,7 @@ const steps = [
       "Hỗ trợ kỹ thuật 24/7",
       "Ghi lại tất cả phiên phát sóng"
     ],
-    duration: "Theo lịch phát sóng"
+    benefit: "Kỹ Thuật Trực Tiếp"
   },
   {
     number: "06",
@@ -75,7 +75,7 @@ const steps = [
       "Lập báo cáo chi tiết",
       "Đề xuất cải thiện"
     ],
-    duration: "1-2 ngày"
+    benefit: "Báo Cáo Chi Tiết"
   }
 ]
 
@@ -138,9 +138,9 @@ export function VerticalProcessTimeline() {
                               {step.title}
                             </h3>
                           </div>
-                          <div className="flex items-center gap-2 text-blue-300 bg-blue-500/10 px-4 py-2 rounded-lg whitespace-nowrap">
-                            <Clock className="w-4 h-4" />
-                            <span className="text-sm font-medium">{step.duration}</span>
+                          <div className="flex items-center gap-2 text-blue-300 bg-blue-500/10 px-4 py-2 rounded-lg whitespace-nowrap border border-blue-500/20 shadow-lg shadow-blue-500/10">
+                            <Check className="w-4 h-4" />
+                            <span className="text-sm font-medium">{step.benefit}</span>
                           </div>
                         </div>
                         <p className="text-slate-300 text-base leading-relaxed">
