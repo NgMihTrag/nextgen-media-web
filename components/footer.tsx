@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const FacebookIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
@@ -61,10 +62,14 @@ export function Footer() {
           {/* Company Info */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">N</span>
-              </div>
-              <span className="font-bold text-xl text-primary-foreground">NextGen Media</span>
+            <Image
+              src="/logo-horizontal.png"
+              alt="NextGen Media"
+              width={168}
+              height={48}
+              className="h-12 w-auto object-contain"
+              priority
+            />
             </Link>
             <p className="text-primary-foreground/70 mb-6 leading-relaxed">
               Giải pháp livestream chuyên nghiệp hàng đầu Việt Nam. 
