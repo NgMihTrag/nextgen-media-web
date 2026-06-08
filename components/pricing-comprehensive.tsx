@@ -18,7 +18,7 @@ export function PricingHero() {
         <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-20"></div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+      <div className="container mx-auto lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,18 +33,6 @@ export function PricingHero() {
           <p className="text-base text-white/60 mb-8 max-w-2xl mx-auto">
             Từ livestream cơ bản đến hệ thống livestream chuyên nghiệp cho doanh nghiệp và nhà bán hàng.
           </p>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Button
-              onClick={openModal}
-              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-8 h-12 font-semibold rounded-lg cursor-pointer group shadow-lg shadow-blue-500/30 transition-all duration-300"
-            >
-              Tư Vấn Miễn Phí
-              <Phone className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -146,12 +134,11 @@ export function PricingCards() {
                 transition={{ duration: 0.3 }}
                 className="h-full"
               >
-                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-visible transition-all duration-300 flex flex-col h-full relative ${
-                  pkg.id === 1 ? 'border-cyan-500 hover:border-cyan-400 shadow-2xl shadow-cyan-500/30 lg:scale-105' :
-                  pkg.id === 2 ? 'border-emerald-500 hover:border-emerald-400 shadow-2xl shadow-emerald-500/30 lg:scale-105' :
-                  pkg.id === 3 ? 'border-blue-500 hover:border-blue-400 shadow-2xl shadow-blue-500/30 lg:scale-105' :
-                  'border-purple-500 hover:border-purple-400 shadow-2xl shadow-purple-500/30 lg:scale-105'
-                }`}>
+                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-visible transition-all duration-300 flex flex-col h-full relative ${pkg.id === 1 ? 'border-cyan-500 hover:border-cyan-400 shadow-2xl shadow-cyan-500/30 lg:scale-105' :
+                    pkg.id === 2 ? 'border-emerald-500 hover:border-emerald-400 shadow-2xl shadow-emerald-500/30 lg:scale-105' :
+                      pkg.id === 3 ? 'border-blue-500 hover:border-blue-400 shadow-2xl shadow-blue-500/30 lg:scale-105' :
+                        'border-purple-500 hover:border-purple-400 shadow-2xl shadow-purple-500/30 lg:scale-105'
+                  }`}>
                   {/* Featured Badge - Inside Card Top Right */}
                   {pkg.id === 3 && pkg.badge && (
                     <div className="absolute -top-4 right-6 z-20">
@@ -163,21 +150,19 @@ export function PricingCards() {
                   <CardContent className="p-6 flex flex-col h-full">
                     {/* Header Section */}
                     <div className={`mb-4`}>
-                      <div className={`text-xl font-bold tracking-widest mb-3 ${
-                        pkg.id === 1 ? 'text-cyan-300' :
-                        pkg.id === 2 ? 'text-emerald-300' :
-                        pkg.id === 3 ? 'text-blue-300' :
-                        'text-purple-300'
-                      }`}>
+                      <div className={`text-xl font-bold tracking-widest mb-3 ${pkg.id === 1 ? 'text-cyan-300' :
+                          pkg.id === 2 ? 'text-emerald-300' :
+                            pkg.id === 3 ? 'text-blue-300' :
+                              'text-purple-300'
+                        }`}>
                         {pkg.label}
                       </div>
-                      
-                      <div className={`inline-flex items-center px-3 py-1 mb-4 rounded-full border backdrop-blur-sm text-xs font-medium shadow-[0_0_12px_rgba(59,130,246,0.2)] ${
-                        pkg.id === 1 ? 'border-cyan-400/50 bg-cyan-500/10 text-cyan-200' :
-                        pkg.id === 2 ? 'border-emerald-400/50 bg-emerald-500/10 text-emerald-200' :
-                        pkg.id === 3 ? 'border-blue-400/50 bg-blue-500/10 text-blue-200' :
-                        'border-purple-400/50 bg-purple-500/10 text-purple-200'
-                      }`}>
+
+                      <div className={`inline-flex items-center px-3 py-1 mb-4 rounded-full border backdrop-blur-sm text-xs font-medium shadow-[0_0_12px_rgba(59,130,246,0.2)] ${pkg.id === 1 ? 'border-cyan-400/50 bg-cyan-500/10 text-cyan-200' :
+                          pkg.id === 2 ? 'border-emerald-400/50 bg-emerald-500/10 text-emerald-200' :
+                            pkg.id === 3 ? 'border-blue-400/50 bg-blue-500/10 text-blue-200' :
+                              'border-purple-400/50 bg-purple-500/10 text-purple-200'
+                        }`}>
                         {pkg.audience}
                       </div>
                     </div>
@@ -197,12 +182,11 @@ export function PricingCards() {
 
                     {/* Price */}
                     <div className="text-center mb-6">
-                      <div className={`text-2xl font-bold ${
-                        pkg.id === 1 ? 'bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent' :
-                        pkg.id === 2 ? 'bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent' :
-                        pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' :
-                        'bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent'
-                      }`}>
+                      <div className={`text-2xl font-bold ${pkg.id === 1 ? 'bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent' :
+                          pkg.id === 2 ? 'bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent' :
+                            pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' :
+                              'bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent'
+                        }`}>
                         {pkg.price}
                       </div>
                     </div>
@@ -210,17 +194,16 @@ export function PricingCards() {
                     {/* Features */}
                     <div className="space-y-2 mb-6 flex-grow">
                       {pkg.features.map((feature, i) => (
-                        <motion.div 
-                          key={i} 
+                        <motion.div
+                          key={i}
                           className="flex items-start gap-2 group"
                           whileHover={{ x: 2 }}
                         >
-                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
-                            pkg.id === 1 ? 'text-cyan-400' :
-                            pkg.id === 2 ? 'text-emerald-400' :
-                            pkg.id === 3 ? 'text-blue-400' :
-                            'text-purple-400'
-                          }`} />
+                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${pkg.id === 1 ? 'text-cyan-400' :
+                              pkg.id === 2 ? 'text-emerald-400' :
+                                pkg.id === 3 ? 'text-blue-400' :
+                                  'text-purple-400'
+                            }`} />
                           <span className="text-xs text-white/75 leading-relaxed">{feature}</span>
                         </motion.div>
                       ))}
@@ -245,14 +228,13 @@ export function PricingCards() {
                     >
                       <Button
                         onClick={openModal}
-                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group text-sm text-white ${
-                          pkg.ctaStyle === 'orange' 
-                            ? 'bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 shadow-orange-500/30 hover:shadow-orange-500/40' 
+                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group text-sm text-white ${pkg.ctaStyle === 'orange'
+                            ? 'bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 shadow-orange-500/30 hover:shadow-orange-500/40'
                             : pkg.id === 1 ? 'bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 shadow-cyan-500/30 hover:shadow-cyan-500/40'
-                            : pkg.id === 2 ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 shadow-emerald-500/30 hover:shadow-emerald-500/40'
-                            : pkg.id === 3 ? 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40'
-                            : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 shadow-purple-500/30 hover:shadow-purple-500/40'
-                        }`}
+                              : pkg.id === 2 ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 shadow-emerald-500/30 hover:shadow-emerald-500/40'
+                                : pkg.id === 3 ? 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40'
+                                  : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 shadow-purple-500/30 hover:shadow-purple-500/40'
+                          }`}
                       >
                         {pkg.cta}
                         <MessageCircle className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -317,13 +299,12 @@ export function ComparisonTable() {
               <tr className="border-b border-blue-500/20">
                 <th className="text-left py-6 px-6 text-white/75 font-semibold w-48 bg-gradient-to-r from-blue-500/5 to-transparent">TÍNH NĂNG</th>
                 {packages.map((pkg, i) => (
-                  <th 
-                    key={i} 
-                    className={`text-center py-6 px-6 font-semibold whitespace-pre-line transition-colors duration-200 ${
-                      i === 2 
-                        ? 'bg-gradient-to-b from-blue-500/20 to-blue-500/5 border-x border-blue-500/20 text-blue-200' 
+                  <th
+                    key={i}
+                    className={`text-center py-6 px-6 font-semibold whitespace-pre-line transition-colors duration-200 ${i === 2
+                        ? 'bg-gradient-to-b from-blue-500/20 to-blue-500/5 border-x border-blue-500/20 text-blue-200'
                         : 'text-white/75 hover:text-white/90'
-                    }`}
+                      }`}
                   >
                     {pkg.name}
                   </th>
@@ -335,13 +316,12 @@ export function ComparisonTable() {
                 <tr key={i} className="border-b border-blue-500/10 hover:bg-blue-500/5 transition-colors duration-200">
                   <td className="py-5 px-6 text-white/70 text-sm font-medium">{feature}</td>
                   {packages.map((pkg, j) => (
-                    <td 
-                      key={j} 
-                      className={`text-center py-5 px-6 transition-all duration-200 ${
-                        j === 2 
-                          ? 'bg-blue-500/10 border-x border-blue-500/15' 
+                    <td
+                      key={j}
+                      className={`text-center py-5 px-6 transition-all duration-200 ${j === 2
+                          ? 'bg-blue-500/10 border-x border-blue-500/15'
                           : 'hover:bg-blue-500/5'
-                      }`}
+                        }`}
                     >
                       {pkg.features[i] ? (
                         <motion.div
@@ -423,7 +403,7 @@ export function PricingFAQ() {
                   className="w-full flex items-center justify-between p-6 hover:bg-blue-500/5 transition-colors duration-200"
                 >
                   <span className="text-left font-semibold text-white/90 group-hover:text-white transition-colors">{faq.q}</span>
-                  <motion.span 
+                  <motion.span
                     className="text-blue-400 text-2xl flex-shrink-0"
                     animate={{ rotate: openIdx === idx ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -478,7 +458,7 @@ export function PricingFinalCTA() {
         >
           {/* Left content */}
           <div className="space-y-6">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -486,7 +466,7 @@ export function PricingFinalCTA() {
             >
               CHƯA BIẾT CHỌN GÓI NÀO?
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -514,7 +494,7 @@ export function PricingFinalCTA() {
           </div>
 
           {/* Right grid features */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -536,7 +516,7 @@ export function PricingFinalCTA() {
                 whileHover={{ y: -8, borderColor: "rgba(59,130,246,0.5)", backgroundColor: "rgba(59,130,246,0.1)" }}
                 className="p-6 bg-gradient-to-br from-[rgba(10,18,35,0.7)] to-[rgba(7,18,36,0.7)] border border-blue-500/15 backdrop-blur-xl rounded-xl text-center transition-all duration-300 group cursor-default"
               >
-                <motion.div 
+                <motion.div
                   className="text-4xl mb-3 transition-transform group-hover:scale-110"
                 >
                   {item.icon}
