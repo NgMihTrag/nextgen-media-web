@@ -6,6 +6,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { Phone, Menu, X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useContactModal } from "@/context/contact-modal-context"
 
 const navItems = [
   // { label: "Trang chủ", href: "/" },
@@ -21,6 +22,7 @@ const navItems = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { openModal } = useContactModal()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +77,10 @@ export function Header() {
               </div>
               <span className="text-sm font-medium">0838 110 501</span>
             </div>
-            <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 h-10 text-sm font-semibold group">
+            <Button 
+              onClick={openModal}
+              className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-6 h-10 text-sm font-semibold group cursor-pointer"
+            >
               TƯ VẤN NGAY
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Button>
@@ -118,7 +123,10 @@ export function Header() {
                   <Phone className="w-4 h-4" />
                   <span className="text-sm font-medium">0838 110 501</span>
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-full">
+                <Button 
+                  onClick={openModal}
+                  className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-full cursor-pointer"
+                >
                   TƯ VẤN NGAY
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
