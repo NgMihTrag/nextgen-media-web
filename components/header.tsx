@@ -8,10 +8,10 @@ import { Phone, Menu, X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { label: "Trang chủ", href: "/" },
+  // { label: "Trang chủ", href: "/" },
   { label: "Dịch vụ", href: "/services" },
   { label: "Quy Trình", href: "/livestream-process" },
-  { label: "Thuê Studio", href: "/studio-rental" },
+  // { label: "Thuê Studio", href: "/studio-rental" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Bảng giá", href: "/pricing" },
   { label: "Về chúng tôi", href: "/about" },

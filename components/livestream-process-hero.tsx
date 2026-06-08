@@ -3,8 +3,10 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import { useContactModal } from "@/context/contact-modal-context"
 
 export function LivestreamProcessHero() {
+  const { openModal } = useContactModal()
   return (
     <section className="py-20 md:py-28 bg-[#0a0f1e] relative overflow-hidden">
       {/* Background Effects */}
@@ -61,7 +63,8 @@ export function LivestreamProcessHero() {
           >
             <Button 
               size="lg" 
-              className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
+              onClick={openModal}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group cursor-pointer"
             >
               Nhận Tư Vấn Miễn Phí
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />

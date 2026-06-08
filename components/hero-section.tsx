@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, Monitor, Headphones, Phone } from "lucide-react"
 import Image from "next/image"
+import { useContactModal } from "@/context/contact-modal-context"
 
 const features = [
   {
@@ -24,6 +25,7 @@ const features = [
 ]
 
 export function HeroSection() {
+  const { openModal } = useContactModal()
   return (
     <section className="relative min-h-screen bg-[#0a0f1e] overflow-hidden">
       {/* Background gradient effects */}
@@ -91,7 +93,8 @@ export function HeroSection() {
               </Button>
               <Button 
                 size="lg" 
-                className="border border-slate-600 bg-transparent hover:bg-slate-800/50 text-white px-8 h-11 text-sm font-semibold rounded-lg transition-all duration-300 group"
+                onClick={openModal}
+                className="border border-slate-600 bg-transparent hover:bg-slate-800/50 text-white px-8 h-11 text-sm font-semibold rounded-lg transition-all duration-300 group cursor-pointer"
               >
                 Liên hệ ngay
                 <Phone className="w-4 h-4 ml-2" />

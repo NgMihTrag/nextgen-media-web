@@ -3,8 +3,10 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap } from "lucide-react"
+import { useContactModal } from "@/context/contact-modal-context"
 
 export function CTASection() {
+  const { openModal } = useContactModal()
   return (
     <section className="py-12 bg-[#0a0f1e] relative overflow-hidden">
       {/* Background Effects */}
@@ -45,7 +47,8 @@ export function CTASection() {
           >
             <Button 
               size="lg" 
-              className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-12 font-semibold rounded-lg transition-all duration-300 group whitespace-nowrap"
+              onClick={openModal}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-12 font-semibold rounded-lg transition-all duration-300 group whitespace-nowrap cursor-pointer"
             >
               Tư vấn miễn phí
               <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />

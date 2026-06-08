@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/header'
+import { ContactModalProvider } from '@/context/contact-modal-context'
+import { ContactModal } from '@/components/contact-modal'
 
 const inter = Inter({ 
   subsets: ['latin', 'vietnamese'],
@@ -40,9 +42,12 @@ export default function RootLayout({
   return (
     <html lang="vi" className="bg-background">
       <body className={`${inter.className} antialiased`}>
-        <Header />
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <ContactModalProvider>
+          <Header />
+          {children}
+          <ContactModal />
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ContactModalProvider>
       </body>
     </html>
   )
