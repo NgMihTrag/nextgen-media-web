@@ -59,7 +59,7 @@ export function PricingCards() {
       id: 1,
       label: "GÓI 01",
       title: "Set-up Ánh Sáng - Điện Thoại - PC",
-      audience: "👤 Phù Hợp Idol Live Cá Nhân",
+      audience: "Phù Hợp Idol Live Cá Nhân",
       price: "2.000.000đ",
       features: [
         "Set up ánh sáng cho quay Video và Livestream với điện thoại",
@@ -74,7 +74,7 @@ export function PricingCards() {
       id: 2,
       label: "GÓI 02",
       title: "Set-up Ánh Sáng - Camera Cơ Bản",
-      audience: "🛍 Phù Hợp Cá Nhân & Shop Mới",
+      audience: "Phù Hợp Cá Nhân & Shop Mới",
       price: "2.500.000đ",
       features: [
         "Set up ánh sáng cho quay Video và Livestream với máy ảnh",
@@ -90,7 +90,7 @@ export function PricingCards() {
       id: 3,
       label: "GÓI 03",
       title: "Set-up Ánh Sáng Camera Nâng Cao",
-      audience: "🚀 Hướng Tới Sự Chuyên Nghiệp",
+      audience: "Hướng Tới Sự Chuyên Nghiệp",
       price: "3.500.000đ",
       badge: "🔥 PHỔ BIẾN NHẤT",
       features: [
@@ -110,7 +110,7 @@ export function PricingCards() {
       id: 4,
       label: "GÓI 04",
       title: "Set-up Livestream Trọn Gói",
-      audience: "🏢 Tư Vấn Từ Đầu Cho Cá Nhân & Doanh Nghiệp",
+      audience: "Tư Vấn Từ Đầu Cho Cá Nhân & Doanh Nghiệp",
       price: "Liên Hệ Báo Giá",
       features: [
         "Khảo sát tận nơi",
@@ -162,22 +162,22 @@ export function PricingCards() {
                   <CardContent className="p-6 flex flex-col h-full">
                     {/* Header Section */}
                     <div className={`mb-4 ${pkg.id === 3 ? 'pt-8' : ''}`}>
-                      <div className={`text-xs font-bold tracking-widest mb-3 ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
+                      <div className={`text-xl font-bold tracking-widest mb-3 ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
                         {pkg.label}
                       </div>
                       
-                      <div className="text-xs text-white/70 mb-4 h-5 flex items-center">
-                        {pkg.audience}
-                      </div>
+<div className="inline-flex items-center px-3 py-1 mb-4 rounded-full border border-blue-400/30 bg-blue-500/10 backdrop-blur-sm text-xs font-medium text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.2)]">
+  {pkg.audience}
+</div>
                     </div>
 
                     {/* Icon Section */}
-                    <div className="flex items-center justify-center h-12 mb-4">
+                    {/* <div className="flex items-center justify-center h-12 mb-4">
                       {pkg.id === 1 && <Smartphone className="w-8 h-8 text-slate-400" />}
                       {pkg.id === 2 && <Camera className="w-8 h-8 text-slate-400" />}
                       {pkg.id === 3 && <Camera className="w-8 h-8 text-blue-400" />}
                       {pkg.id === 4 && <Monitor className="w-8 h-8 text-slate-400" />}
-                    </div>
+                    </div> */}
 
                     {/* Title */}
                     <h3 className="text-base font-bold text-white text-center mb-4 line-clamp-2 h-14 flex items-center justify-center">
