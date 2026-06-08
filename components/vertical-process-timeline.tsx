@@ -76,6 +76,19 @@ const steps = [
       "Đề xuất cải thiện"
     ],
     benefit: "Báo Cáo Chi Tiết"
+  },
+  {
+    number: "07",
+    title: "Bàn Giao & Hướng Dẫn Vận Hành",
+    description: "Sau khi hoàn tất buổi livestream và nghiệm thu hệ thống, NextGen Media tiến hành bàn giao toàn bộ cấu hình, phần mềm, template và quy trình vận hành để khách hàng có thể chủ động sử dụng.",
+    points: [
+      "Bàn giao cấu hình livestream",
+      "Bàn giao phần mềm và template",
+      "Hướng dẫn vận hành thực tế",
+      "Hướng dẫn xử lý các tình huống cơ bản",
+      "Hỗ trợ kỹ thuật sau bàn giao"
+    ],
+    benefit: "Hỗ Trợ Sau Bàn Giao"
   }
 ]
 
@@ -91,10 +104,10 @@ export function VerticalProcessTimeline() {
           className="text-center mb-24"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Quy Trình 6 Giai Đoạn
+            Quy Trình 7 Giai Đoạn
           </h2>
           <p className="text-slate-300 max-w-2xl mx-auto text-lg">
-            Một hành trình toàn diện từ tư vấn ban đầu đến phát sóng thành công
+            Một hành trình toàn diện từ tư vấn ban đầu đến bàn giao và hỗ trợ sau dự án
           </p>
         </motion.div>
 
