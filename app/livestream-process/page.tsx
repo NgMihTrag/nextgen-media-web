@@ -1,10 +1,7 @@
 import { Footer } from "@/components/footer"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { LivestreamProcessHero } from "@/components/livestream-process-hero"
-import { ProcessTimeline } from "@/components/process-timeline"
-import { DetailedProcess } from "@/components/detailed-process"
-import { EquipmentShowcase } from "@/components/equipment-showcase"
-import { ProcessBenefits } from "@/components/process-benefits"
+import { VerticalProcessTimeline } from "@/components/vertical-process-timeline"
 import { CTASection } from "@/components/cta-section"
 
 export const metadata = {
@@ -22,10 +19,7 @@ export default function LivestreamProcessPage() {
         ]} />
       </div>
       <LivestreamProcessHero />
-      <ProcessTimeline />
-      <DetailedProcess />
-      <EquipmentShowcase />
-      <ProcessBenefits />
+      <VerticalProcessTimeline />
       <CTASection />
       <Footer />
     </main>
