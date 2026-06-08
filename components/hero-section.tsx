@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Zap, Monitor, Headphones, Phone } from "lucide-react"
 import Image from "next/image"
 import { useContactModal } from "@/context/contact-modal-context"
+import Link from "next/link"
+
 
 const features = [
   {
@@ -84,13 +86,16 @@ export function HeroSection() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex flex-wrap gap-4 mb-12"
             >
-              <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-11 text-sm font-semibold rounded-lg transition-all duration-300 group"
-              >
-                Khám phá dịch vụ
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
+              
+<Link href="/services">
+  <Button
+    size="lg"
+    className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-11 text-sm font-semibold rounded-lg transition-all duration-300 group"
+  >
+    Khám phá dịch vụ
+    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+  </Button>
+</Link>
               <Button 
                 size="lg" 
                 onClick={openModal}
