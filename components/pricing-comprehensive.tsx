@@ -146,10 +146,11 @@ export function PricingCards() {
                 transition={{ duration: 0.3 }}
                 className="h-full"
               >
-                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-visible transition-all duration-300 flex flex-col h-full ${
-                  pkg.id === 3 
-                    ? 'border-blue-500 shadow-2xl shadow-blue-500/30 lg:scale-105 relative' 
-                    : 'border-blue-500/15 hover:border-blue-500/30 shadow-xl shadow-black/30'
+                <Card className={`bg-gradient-to-br from-[rgba(10,18,35,0.9)] to-[rgba(7,18,36,0.9)] backdrop-blur-xl border rounded-2xl overflow-visible transition-all duration-300 flex flex-col h-full relative ${
+                  pkg.id === 1 ? 'border-cyan-500 hover:border-cyan-400 shadow-2xl shadow-cyan-500/30 lg:scale-105' :
+                  pkg.id === 2 ? 'border-emerald-500 hover:border-emerald-400 shadow-2xl shadow-emerald-500/30 lg:scale-105' :
+                  pkg.id === 3 ? 'border-blue-500 hover:border-blue-400 shadow-2xl shadow-blue-500/30 lg:scale-105' :
+                  'border-purple-500 hover:border-purple-400 shadow-2xl shadow-purple-500/30 lg:scale-105'
                 }`}>
                   {/* Featured Badge - Inside Card Top Right */}
                   {pkg.id === 3 && pkg.badge && (
@@ -162,13 +163,23 @@ export function PricingCards() {
                   <CardContent className="p-6 flex flex-col h-full">
                     {/* Header Section */}
                     <div className={`mb-4 ${pkg.id === 3 ? 'pt-8' : ''}`}>
-                      <div className={`text-xl font-bold tracking-widest mb-3 ${pkg.id === 3 ? 'text-blue-300' : 'text-blue-400'}`}>
+                      <div className={`text-xl font-bold tracking-widest mb-3 ${
+                        pkg.id === 1 ? 'text-cyan-300' :
+                        pkg.id === 2 ? 'text-emerald-300' :
+                        pkg.id === 3 ? 'text-blue-300' :
+                        'text-purple-300'
+                      }`}>
                         {pkg.label}
                       </div>
                       
-<div className="inline-flex items-center px-3 py-1 mb-4 rounded-full border border-blue-400/30 bg-blue-500/10 backdrop-blur-sm text-xs font-medium text-blue-200 shadow-[0_0_12px_rgba(59,130,246,0.2)]">
-  {pkg.audience}
-</div>
+                      <div className={`inline-flex items-center px-3 py-1 mb-4 rounded-full border backdrop-blur-sm text-xs font-medium shadow-[0_0_12px_rgba(59,130,246,0.2)] ${
+                        pkg.id === 1 ? 'border-cyan-400/50 bg-cyan-500/10 text-cyan-200' :
+                        pkg.id === 2 ? 'border-emerald-400/50 bg-emerald-500/10 text-emerald-200' :
+                        pkg.id === 3 ? 'border-blue-400/50 bg-blue-500/10 text-blue-200' :
+                        'border-purple-400/50 bg-purple-500/10 text-purple-200'
+                      }`}>
+                        {pkg.audience}
+                      </div>
                     </div>
 
                     {/* Icon Section */}
@@ -186,7 +197,12 @@ export function PricingCards() {
 
                     {/* Price */}
                     <div className="text-center mb-6">
-                      <div className={`text-2xl font-bold ${pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' : 'text-blue-400'}`}>
+                      <div className={`text-2xl font-bold ${
+                        pkg.id === 1 ? 'bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent' :
+                        pkg.id === 2 ? 'bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent' :
+                        pkg.id === 3 ? 'bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent' :
+                        'bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent'
+                      }`}>
                         {pkg.price}
                       </div>
                     </div>
@@ -199,7 +215,12 @@ export function PricingCards() {
                           className="flex items-start gap-2 group"
                           whileHover={{ x: 2 }}
                         >
-                          <Check className="w-4 h-4 text-blue-400 flex-shrink-0 mt-0.5" />
+                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+                            pkg.id === 1 ? 'text-cyan-400' :
+                            pkg.id === 2 ? 'text-emerald-400' :
+                            pkg.id === 3 ? 'text-blue-400' :
+                            'text-purple-400'
+                          }`} />
                           <span className="text-xs text-white/75 leading-relaxed">{feature}</span>
                         </motion.div>
                       ))}
@@ -224,10 +245,13 @@ export function PricingCards() {
                     >
                       <Button
                         onClick={openModal}
-                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group text-sm ${
+                        className={`w-full font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg group text-sm text-white ${
                           pkg.ctaStyle === 'orange' 
-                            ? 'bg-orange-500 hover:bg-orange-600 shadow-orange-500/30 hover:shadow-orange-500/40 text-white' 
-                            : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40 text-white'
+                            ? 'bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 shadow-orange-500/30 hover:shadow-orange-500/40' 
+                            : pkg.id === 1 ? 'bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 shadow-cyan-500/30 hover:shadow-cyan-500/40'
+                            : pkg.id === 2 ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 shadow-emerald-500/30 hover:shadow-emerald-500/40'
+                            : pkg.id === 3 ? 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 shadow-blue-500/30 hover:shadow-blue-500/40'
+                            : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 shadow-purple-500/30 hover:shadow-purple-500/40'
                         }`}
                       >
                         {pkg.cta}
