@@ -127,7 +127,7 @@ export default function PortfolioManager() {
                 placeholder="Project title"
                 value={formData.title || ''}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-white"
+                className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
               />
             </div>
             
@@ -149,7 +149,7 @@ export default function PortfolioManager() {
                   placeholder="e.g., Web Design, Development"
                   value={formData.category || ''}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-white"
+                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
                 />
               </div>
               <div>
@@ -158,7 +158,7 @@ export default function PortfolioManager() {
                   placeholder="https://..."
                   value={formData.imageUrl || ''}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-white"
+                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
                 />
               </div>
             </div>
@@ -170,7 +170,7 @@ export default function PortfolioManager() {
                   placeholder="Alt text for image"
                   value={formData.imageAlt || ''}
                   onChange={(e) => setFormData({ ...formData, imageAlt: e.target.value })}
-                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-white"
+                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
                 />
               </div>
               <div>
@@ -179,7 +179,7 @@ export default function PortfolioManager() {
                   placeholder="https://..."
                   value={formData.link || ''}
                   onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-white"
+                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
                 />
               </div>
             </div>
