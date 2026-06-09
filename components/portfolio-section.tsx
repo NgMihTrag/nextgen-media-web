@@ -75,7 +75,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex-shrink-0 w-80 lg:w-96"
+              className="flex-shrink-0 w-56 lg:w-72"
             >
               {/* Vertical Project Card - 9:16 Aspect Ratio */}
               <div className="group cursor-pointer h-full">
