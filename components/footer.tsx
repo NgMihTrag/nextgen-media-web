@@ -61,15 +61,15 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-6">
-            <Image
-              src="/logo-horizontal.png"
-              alt="NextGen Media"
-              width={168}
-              height={48}
-              className="h-12 w-auto object-contain"
-              priority
-            />
+            <Link href="/" className="inline-flex items-center mb-6">
+              <Image
+                src="/logo-horizontal.png"
+                alt="NextGen Media"
+                width={168}
+                height={48}
+                className="h-12 w-auto object-contain"
+                priority
+              />
             </Link>
             <p className="text-primary-foreground/70 mb-6 leading-relaxed">
               Giải pháp livestream chuyên nghiệp hàng đầu Việt Nam. 

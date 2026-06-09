@@ -45,7 +45,7 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center m-1.25">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logo-horizontal.png"
               alt="NextGen Media"
