@@ -48,7 +48,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
   ]
 
   return (
-    <section id="portfolio" className="py-20 bg-[#0a0f1e]">
+    <section id="portfolio" className="pb-20 bg-[#0a0f1e]">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
