@@ -57,7 +57,7 @@ export const verification = pgTable('verification', {
 
 export const portfolioProjects = pgTable('portfolio_projects', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userId: text('userId').notNull(),
+  userId: text('userid').notNull(),
   title: text('title').notNull(),
   description: text('description').notNull(),
   category: text('category').notNull(),
@@ -73,7 +73,7 @@ export const portfolioProjects = pgTable('portfolio_projects', {
 
 export const testimonials = pgTable('testimonials', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userId: text('userId').notNull(),
+  userId: text('userid').notNull(),
   clientName: text('client_name').notNull(),
   company: text('company'),
   quote: text('quote').notNull(),
@@ -87,7 +87,7 @@ export const testimonials = pgTable('testimonials', {
 
 export const teamMembers = pgTable('team_members', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userId: text('userId').notNull(),
+  userId: text('userid').notNull(),
   name: text('name').notNull(),
   role: text('role').notNull(),
   bio: text('bio'),
@@ -101,7 +101,7 @@ export const teamMembers = pgTable('team_members', {
 
 export const siteStats = pgTable('site_stats', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userId: text('userId').notNull(),
+  userId: text('userid').notNull(),
   statKey: text('stat_key').notNull(),
   statValue: integer('stat_value').default(0),
   statLabel: text('stat_label'),

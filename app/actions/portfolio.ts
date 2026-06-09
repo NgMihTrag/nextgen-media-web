@@ -48,14 +48,43 @@ export async function createPortfolioProject(data: {
   techStack?: string[]
   featured?: boolean
 }) {
-  const userId = await getUserId()
-  await db.insert(portfolioProjects).values({
-    userId,
-    ...data,
-    techStack: data.techStack || [],
-  })
-  revalidatePath('/portfolio')
-  revalidatePath('/admin/portfolio')
+  try {
+    // Validate required fields
+    if (!data.title || !data.description || !data.category) {
+      throw new Error('Missing required fields: title, description, category')
+    }
+
+    const userId = await getUserId()
+    
+    console.log('[Portfolio] Creating project:', {
+      userId,
+      title: data.title,
+      category: data.category,
+    })
+
+    const result = await db.insert(portfolioProjects).values({
+      userId,
+      title: data.title,
+      description: data.description,
+      category: data.category,
+      imageUrl: data.imageUrl || null,
+      imageAlt: data.imageAlt || null,
+      link: data.link || null,
+      techStack: data.techStack || [],
+      featured: data.featured || false,
+    })
+
+    console.log('[Portfolio] Project created successfully')
+    
+    revalidatePath('/portfolio')
+    revalidatePath('/admin')
+    
+    return { success: true }
+  } catch (error) {
+    console.error('PROJECT SAVE ERROR:', error instanceof Error ? error.message : String(error))
+    console.error('Full error:', error)
+    throw error
+  }
 }
 
 export async function updatePortfolioProject(
@@ -72,22 +101,48 @@ export async function updatePortfolioProject(
     orderIndex?: number
   }
 ) {
-  const userId = await getUserId()
-  await db
-    .update(portfolioProjects)
-    .set({ ...data, updatedAt: new Date() })
-    .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
-  revalidatePath('/portfolio')
-  revalidatePath('/admin/portfolio')
+  try {
+    const userId = await getUserId()
+    
+    console.log('[Portfolio] Updating project:', { id, userId })
+
+    await db
+      .update(portfolioProjects)
+      .set({ ...data, updatedAt: new Date() })
+      .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
+
+    console.log('[Portfolio] Project updated successfully')
+    
+    revalidatePath('/portfolio')
+    revalidatePath('/admin')
+    
+    return { success: true }
+  } catch (error) {
+    console.error('PROJECT UPDATE ERROR:', error instanceof Error ? error.message : String(error))
+    throw error
+  }
 }
 
 export async function deletePortfolioProject(id: string) {
-  const userId = await getUserId()
-  await db
-    .delete(portfolioProjects)
-    .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
-  revalidatePath('/portfolio')
-  revalidatePath('/admin/portfolio')
+  try {
+    const userId = await getUserId()
+    
+    console.log('[Portfolio] Deleting project:', { id, userId })
+
+    await db
+      .delete(portfolioProjects)
+      .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
+
+    console.log('[Portfolio] Project deleted successfully')
+    
+    revalidatePath('/portfolio')
+    revalidatePath('/admin')
+    
+    return { success: true }
+  } catch (error) {
+    console.error('PROJECT DELETE ERROR:', error instanceof Error ? error.message : String(error))
+    throw error
+  }
 }
 
 // Testimonials (Admin)

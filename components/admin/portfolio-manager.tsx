@@ -25,6 +25,7 @@ export default function PortfolioManager() {
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState<Partial<Project>>({
     title: '',
     description: '',
@@ -43,10 +44,14 @@ export default function PortfolioManager() {
   async function loadProjects() {
     try {
       setLoading(true)
+      setError(null)
       const data = await getPortfolioProjects()
       setProjects(data as Project[])
     } catch (error) {
-      console.error('Failed to load projects:', error)
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[v0] Failed to load projects:', errorMessage)
+      setError(`Failed to load projects: ${errorMessage}`)
+      setProjects([])
     } finally {
       setLoading(false)
     }
@@ -54,32 +59,40 @@ export default function PortfolioManager() {
 
   async function handleSave() {
     try {
+      setError(null)
+      
       if (!formData.title || !formData.description || !formData.category) {
-        alert('Please fill in all required fields')
+        setError('Please fill in all required fields: Title, Description, and Category')
         return
       }
       
       if (editingId) {
         await updatePortfolioProject(editingId, formData)
       } else {
-        await createPortfolioProject(formData as any)
+        console.log('[v0] Creating project with data:', formData)
+        const result = await createPortfolioProject(formData as any)
+        console.log('[v0] Project creation result:', result)
       }
+      
       resetForm()
       await loadProjects()
     } catch (error) {
-      console.error('Failed to save project:', error)
-      alert('Failed to save project')
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[v0] Failed to save project:', errorMessage, error)
+      setError(`Failed to save project: ${errorMessage}`)
     }
   }
 
   async function handleDelete(id: string) {
     if (confirm('Are you sure you want to delete this project?')) {
       try {
+        setError(null)
         await deletePortfolioProject(id)
         await loadProjects()
       } catch (error) {
-        console.error('Failed to delete project:', error)
-        alert('Failed to delete project')
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        console.error('[v0] Failed to delete project:', errorMessage)
+        setError(`Failed to delete project: ${errorMessage}`)
       }
     }
   }
@@ -120,6 +133,11 @@ export default function PortfolioManager() {
 
       {showForm && (
         <Card className="p-6 bg-[rgba(10,18,35,0.9)] border-blue-500/15">
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded text-red-300 text-sm">
+              {error}
+            </div>
+          )}
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-white/80 mb-1">Title *</label>
