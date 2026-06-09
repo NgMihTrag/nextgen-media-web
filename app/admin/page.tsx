@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Plus, LogOut } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { authClient } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
 import PortfolioManager from '@/components/admin/portfolio-manager'
@@ -22,12 +21,12 @@ export default function AdminDashboard() {
       try {
         const session = await authClient.getSession()
         if (!session?.user) {
-          router.push('/sign-in')
+          router.push('/admin/login')
           return
         }
         setUser(session.user)
       } catch (error) {
-        router.push('/sign-in')
+        router.push('/admin/login')
       } finally {
         setLoading(false)
       }
@@ -36,13 +35,19 @@ export default function AdminDashboard() {
   }, [router])
 
   const handleSignOut = async () => {
-    await authClient.signOut()
-    router.push('/')
+    try {
+      await authClient.signOut()
+      router.push('/admin/login')
+      router.refresh()
+    } catch (error) {
+      console.error('Sign out error:', error)
+      router.push('/admin/login')
+    }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#030712] to-[#0B1730]">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
           <p className="mt-4 text-white">Loading...</p>
@@ -58,7 +63,7 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-            <p className="text-white/60 text-sm mt-1">Welcome, {user?.name}</p>
+            <p className="text-white/60 text-sm mt-1">Welcome, {user?.name || 'Admin'}</p>
           </div>
           <Button
             onClick={handleSignOut}

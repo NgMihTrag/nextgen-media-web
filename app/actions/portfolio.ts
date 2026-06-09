@@ -10,6 +10,12 @@ import { revalidatePath } from 'next/cache'
 async function getUserId() {
   const session = await auth.api.getSession({ headers: await headers() })
   if (!session?.user) throw new Error('Unauthorized')
+  
+  // Only allow the admin user
+  if (session.user.email !== 'nextgenmedia868@gmail.com') {
+    throw new Error('Only admin user can manage portfolio')
+  }
+  
   return session.user.id
 }
 
