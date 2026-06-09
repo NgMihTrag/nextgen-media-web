@@ -19,10 +19,13 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function loadUser() {
       try {
-const session = await authClient.getSession()
+      const result = await authClient.getSession()
 
-console.log("SESSION:", session)
-        setUser(session.user)
+      if (!result?.data?.user) {
+        router.push('/admin/login')
+        return
+      }
+        setUser(result.data.user)
       } catch (error) {
         router.push('/admin/login')
       } finally {
