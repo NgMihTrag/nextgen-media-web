@@ -251,7 +251,7 @@ export default function PortfolioManager() {
                   size="sm"
                   variant="ghost"
                   onClick={() => handleEdit(project)}
-                  className="hover:bg-blue-500/20"
+                  className="text-white hover:text-white hover:bg-white/10"
                 >
                   <Edit2 className="w-4 h-4" />
                 </Button>
