@@ -1,86 +1,51 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-
-const allProjects = [
-  {
-    id: 1,
-    name: "Stream Thời Trang - LEVENTS",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=720&fit=crop",
-  },
-  {
-    id: 2,
-    name: "Shopee Live - Cocolux",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=720&fit=crop",
-  },
-  {
-    id: 3,
-    name: "Lazada 11.11 Super Show",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=720&fit=crop",
-  },
-  {
-    id: 4,
-    name: "LockLock Vietnam",
-    image: "https://images.unsplash.com/photo-1441986300352-7e3dee05ae6e?w=400&h=720&fit=crop",
-  },
-  {
-    id: 5,
-    name: "PNJ Jewelry",
-    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=720&fit=crop",
-  },
-  {
-    id: 6,
-    name: "TikTok 9.9 Super Brand Day",
-    image: "https://images.unsplash.com/photo-1489599849228-8d604c3ee4a1?w=400&h=720&fit=crop",
-  },
-  {
-    id: 7,
-    name: "Beauty Store VN",
-    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=720&fit=crop",
-  },
-  {
-    id: 8,
-    name: "Fashion Hub",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&h=720&fit=crop",
-  },
-  {
-    id: 9,
-    name: "Tech Gadget Pro",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=720&fit=crop",
-  },
-  {
-    id: 10,
-    name: "Home Living",
-    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=720&fit=crop",
-  },
-  {
-    id: 11,
-    name: "Food Delivery Pro",
-    image: "https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=720&fit=crop",
-  },
-  {
-    id: 12,
-    name: "Wellness Shop",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=720&fit=crop",
-  },
-]
+import { useState, useMemo } from 'react'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
 
 const PROJECTS_PER_PAGE = 12
 
-export function PortfolioGallery() {
+interface Project {
+  id: string
+  title: string
+  description: string
+  category: string
+  imageUrl?: string
+  imageAlt?: string
+  link?: string
+  featured?: boolean
+}
+
+interface PortfolioGalleryProps {
+  projects: Project[]
+}
+
+export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
   const [displayCount, setDisplayCount] = useState(PROJECTS_PER_PAGE)
 
   const displayedProjects = useMemo(() => {
-    return allProjects.slice(0, displayCount)
-  }, [displayCount])
+    return projects.slice(0, displayCount)
+  }, [projects, displayCount])
 
-  const hasMore = displayCount < allProjects.length
+  const hasMore = displayCount < projects.length
 
   const handleLoadMore = () => {
-    setDisplayCount((prev) => Math.min(prev + PROJECTS_PER_PAGE, allProjects.length))
+    setDisplayCount((prev) => Math.min(prev + PROJECTS_PER_PAGE, projects.length))
+  }
+
+  // Fallback if no projects
+  if (!projects || projects.length === 0) {
+    return (
+      <section className="py-20 bg-[#0a0f1e]">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center py-12">
+            <p className="text-white/60">Không có dự án nào để hiển thị.</p>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (
@@ -101,12 +66,19 @@ export function PortfolioGallery() {
               <div className="relative rounded-lg overflow-hidden bg-slate-900 border border-slate-800 group-hover:border-blue-500 transition-all duration-300 h-full">
                 {/* Image Container */}
                 <div className="relative w-full aspect-[9/16] overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {project.imageUrl ? (
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.imageAlt || project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-b from-blue-500/20 to-blue-600/20 flex items-center justify-center">
+                      <span className="text-white/40 text-xs text-center">{project.title}</span>
+                    </div>
+                  )}
                   {/* Dark Overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
                 </div>
@@ -114,8 +86,11 @@ export function PortfolioGallery() {
                 {/* Title Below Image */}
                 <div className="p-3 bg-gradient-to-t from-slate-950 to-slate-900/50">
                   <h3 className="text-sm font-medium text-white line-clamp-2 leading-tight">
-                    {project.name}
+                    {project.title}
                   </h3>
+                  {project.featured && (
+                    <span className="inline-block text-xs text-yellow-400 mt-1">⭐ Featured</span>
+                  )}
                 </div>
               </div>
             </motion.div>
