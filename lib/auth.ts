@@ -3,6 +3,7 @@ import { pool } from '@/lib/db'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@/lib/db'
 import * as schema from '@/lib/db/schema'
+import '@/lib/db/init' // Initialize schema on load
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
