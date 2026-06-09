@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const FacebookIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
@@ -41,7 +42,7 @@ const footerLinks = {
   ],
   contact: [
     { label: "0838 11 05 01", href: "tel:0838110501" },
-    { label: "trang.2663@gmail.com", href: "mailto:trang.2663@gmail.com" },
+    { label: "nextgenmedia868@gmail.com", href: "mailto:nextgenmedia868@gmail.com" },
     { label: "54 Lê Lai, Hà Đông, Hà Nội", href: "#" },
   ],
 }
@@ -60,11 +61,15 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">N</span>
-              </div>
-              <span className="font-bold text-xl text-primary-foreground">NextGen Media</span>
+            <Link href="/" className="inline-flex items-center mb-6">
+              <Image
+                src="/logo-horizontal.png"
+                alt="NextGen Media"
+                width={168}
+                height={48}
+                className="h-10 w-auto object-contain"
+                priority
+              />
             </Link>
             <p className="text-primary-foreground/70 mb-6 leading-relaxed">
               Giải pháp livestream chuyên nghiệp hàng đầu Việt Nam. 

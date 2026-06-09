@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Zap, Monitor, Headphones } from "lucide-react"
+import { ArrowRight, Zap, Monitor, Headphones, Phone } from "lucide-react"
 import Image from "next/image"
+import { useContactModal } from "@/context/contact-modal-context"
+import Link from "next/link"
+
 
 const features = [
   {
@@ -24,6 +27,7 @@ const features = [
 ]
 
 export function HeroSection() {
+  const { openModal } = useContactModal()
   return (
     <section className="relative min-h-screen bg-[#0a0f1e] overflow-hidden">
       {/* Background gradient effects */}
@@ -32,7 +36,7 @@ export function HeroSection() {
         <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 pt-28 lg:pt-32 pb-16 relative z-10">
+      <div className="container mx-auto px-4 lg:px-8 pt-28 lg:pt-32 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <motion.div
@@ -46,10 +50,10 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 mb-6"
+              className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-blue-500/30 bg-blue-500/10"
             >
-              <div className="w-2 h-2 bg-amber-400 rounded-full" />
-              <span className="text-sm font-semibold text-amber-400 tracking-wide uppercase">
+              <div className="w-2 h-2 bg-blue-400 rounded-full" />
+              <span className="text-xs font-semibold text-blue-300 tracking-wider uppercase">
                 Giải pháp livestream chuyên nghiệp
               </span>
             </motion.div>
@@ -59,13 +63,10 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-[3.5rem] xl:text-6xl font-bold leading-[1.1] mb-6 tracking-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-6 tracking-tight"
             >
-              <span className="text-white block">NEXTGEN MEDIA</span>
-              <span className="text-white block">NÂNG TẦM THƯƠNG HIỆU</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 block">
-                BỨT PHÁ DOANH SỐ
-              </span>
+              <span className="text-white block">GIẢI PHÁP TRUYỀN THÔNG</span>
+              <span className="text-blue-400 block">LIVESTREAM TOÀN DIỆN</span>
             </motion.h1>
 
             {/* Description */}
@@ -73,10 +74,9 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-base md:text-lg text-slate-400 mb-8 max-w-md leading-relaxed"
+              className="text-base text-slate-300 mb-8 max-w-md leading-relaxed"
             >
-              Cung cấp giải pháp livestream trọn gói từ A-Z: Setup phòng live, cung cấp 
-              thiết bị, vận hành kênh Tiktok Shop chuyên nghiệp.
+              NextGen Media cung cấp giải pháp livestream chuyên nghiệp, setup studio hiện đại, thiết bị tối tân và đội ngũ vận hành giàu kinh nghiệm.
             </motion.p>
 
             {/* Buttons */}
@@ -86,20 +86,23 @@ export function HeroSection() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex flex-wrap gap-4 mb-12"
             >
+              
+<Link href="/services">
+  <Button
+    size="lg"
+    className="bg-blue-600 hover:bg-blue-500 text-white px-8 h-11 text-sm font-semibold rounded-lg transition-all duration-300 group"
+  >
+    Khám phá dịch vụ
+    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+  </Button>
+</Link>
               <Button 
                 size="lg" 
-                className="bg-blue-600 hover:bg-blue-500 text-white px-6 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
+                onClick={openModal}
+                className="border border-slate-600 bg-transparent hover:bg-slate-800/50 text-white px-8 h-11 text-sm font-semibold rounded-lg transition-all duration-300 group cursor-pointer"
               >
-                TƯ VẤN MIỄN PHÍ
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-slate-600 bg-transparent text-white hover:bg-white/5 hover:border-slate-500 px-6 h-12 text-sm font-semibold rounded-lg transition-all duration-300 group"
-              >
-                XEM BẢNG GIÁ
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                Liên hệ ngay
+                <Phone className="w-4 h-4 ml-2" />
               </Button>
             </motion.div>
 

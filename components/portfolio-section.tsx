@@ -1,48 +1,54 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Users, ExternalLink } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
-const creators = [
-  {
-    name: "Beauty Store VN",
-    industry: "Mỹ phẩm",
-    followers: "125K",
-    description: "Tăng 300% doanh số sau 3 tháng hợp tác",
-    avatar: "BS",
-    color: "#ec4899",
-  },
-  {
-    name: "Fashion Hub",
-    industry: "Thời trang",
-    followers: "89K",
-    description: "Từ 0 đến 100K followers trong 6 tháng",
-    avatar: "FH",
-    color: "#8b5cf6",
-  },
-  {
-    name: "Tech Gadget Pro",
-    industry: "Công nghệ",
-    followers: "256K",
-    description: "Top 1 bán hàng công nghệ trên TikTok Shop",
-    avatar: "TG",
-    color: "#06b6d4",
-  },
-  {
-    name: "Home Living",
-    industry: "Nội thất",
-    followers: "67K",
-    description: "Mở rộng thị trường online thành công",
-    avatar: "HL",
-    color: "#f97316",
-  },
-]
+interface Project {
+  id: string
+  title: string
+  description: string
+  category: string
+  imageUrl?: string | null
+  imageAlt?: string | null
+}
 
-export function PortfolioSection() {
+export function PortfolioSection({ projects }: { projects: Project[] }) {
+  // Show placeholder if no projects
+  const displayProjects = projects.length > 0 ? projects : [
+    {
+      id: "1",
+      title: "Stream Thời Trang - LEVENTS",
+      category: "Livestream Thời Trang",
+      description: "Livestream",
+      imageUrl: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=720&fit=crop",
+    },
+    {
+      id: "2",
+      title: "Shopee Live - Cocolux",
+      category: "TikTok Shop",
+      description: "Livestream",
+      imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=720&fit=crop",
+    },
+    {
+      id: "3",
+      title: "Lazada 11.11 Super Show",
+      category: "Livestream Sự Kiện",
+      description: "Livestream",
+      imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=720&fit=crop",
+    },
+    {
+      id: "4",
+      title: "LockLock Vietnam",
+      category: "Livestream Bán Hàng",
+      description: "Livestream",
+      imageUrl: "https://images.unsplash.com/photo-1441986300352-7e3dee05ae6e?w=400&h=720&fit=crop",
+    },
+  ]
+
   return (
-    <section id="portfolio" className="py-24 bg-muted/30">
+    <section id="portfolio" className="pb-20 bg-[#0a0f1e]">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -51,76 +57,74 @@ export function PortfolioSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Khách hàng đã triển khai cùng chúng tôi
+          <div className="text-xs font-semibold text-blue-400 tracking-widest uppercase mb-3">
+            Portfolio
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Dự án tiêu biểu
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Những dự án tiêu biểu đã được NextGen Media đồng hành.
-          </p>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto" />
         </motion.div>
 
-        {/* Portfolio Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {creators.map((creator, index) => (
+        {/* Featured Projects Carousel */}
+        <div className="flex gap-6 overflow-x-auto pb-4 lg:overflow-visible lg:justify-center">
+          {displayProjects.map((project, index) => (
             <motion.div
-              key={creator.name}
+              key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              className="flex-shrink-0 w-56 lg:w-72"
             >
-              <Card className="group h-full bg-card hover:border-primary/50 transition-all duration-300 hover:shadow-lg overflow-hidden">
-                {/* Cover Image */}
-                <div 
-                  className="h-32 relative"
-                  style={{ backgroundColor: `${creator.color}20` }}
-                >
-                  <div 
-                    className="absolute inset-0 opacity-50"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${creator.color}40 0%, transparent 100%)` 
-                    }}
-                  />
+              {/* Vertical Project Card - 9:16 Aspect Ratio */}
+              <div className="group cursor-pointer h-full">
+                <div className="relative rounded-2xl overflow-hidden bg-slate-900 border-2 border-slate-800 group-hover:border-blue-500/80 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-blue-500/20">
+                  {/* Image Container - 9:16 Ratio */}
+                  <div className="relative w-full aspect-[9/16] overflow-hidden">
+                    {project.imageUrl && (
+                      <Image
+                        src={project.imageUrl}
+                        alt={project.imageAlt || project.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  </div>
+                  
+                  {/* Content Below Image */}
+                  <div className="p-5 bg-gradient-to-t from-slate-950 to-slate-900/50">
+                    <h3 className="text-base font-semibold text-white mb-1 line-clamp-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-blue-400 font-medium">
+                      {project.category}
+                    </p>
+                  </div>
                 </div>
-                
-                <CardContent className="p-6 pt-0 relative">
-                  {/* Avatar */}
-                  <div 
-                    className="w-16 h-16 rounded-full flex items-center justify-center text-primary-foreground font-bold text-xl -mt-8 relative z-10 border-4 border-card"
-                    style={{ backgroundColor: creator.color }}
-                  >
-                    {creator.avatar}
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold text-card-foreground mt-4 mb-1">
-                    {creator.name}
-                  </h3>
-                  
-                  <p className="text-sm text-muted-foreground mb-3">{creator.industry}</p>
-                  
-                  <div className="flex items-center gap-1 text-sm text-foreground mb-3">
-                    <Users className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{creator.followers}</span>
-                    <span className="text-muted-foreground">followers</span>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    {creator.description}
-                  </p>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="w-full group/btn border-border text-foreground hover:border-primary hover:text-primary"
-                  >
-                    Xem Case Study
-                    <ExternalLink className="w-3 h-3 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                  </Button>
-                </CardContent>
-              </Card>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        {/* View All Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex justify-center mt-12"
+        >
+          <a href="/portfolio">
+            <Button 
+              size="lg"
+              className="border border-blue-500 bg-transparent hover:bg-blue-500/10 text-blue-400 hover:text-blue-300 px-8 rounded-lg transition-all duration-300"
+            >
+              Xem tất cả dự án
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
+        </motion.div>
       </div>
     </section>
   )
