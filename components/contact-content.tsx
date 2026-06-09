@@ -20,7 +20,7 @@ export function ContactContent() {
             {
               icon: Mail,
               title: "Email",
-              content: "trang.2663@gmail.com",
+              content: "nextgenmedia868@gmail.com",
               description: "Gửi email với bất kỳ câu hỏi"
             },
             {

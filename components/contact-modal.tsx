@@ -97,7 +97,7 @@ export function ContactModal() {
                   </p>
                   <div className="space-y-2 text-sm text-slate-600">
                     <p>Hotline: <span className="font-semibold text-slate-900">0838 110 501</span></p>
-                    <p>Email: <span className="font-semibold text-slate-900">trang.2663@gmail.com</span></p>
+                    <p>Email: <span className="font-semibold text-slate-900">nextgenmedia868@gmail.com</span></p>
                   </div>
                 </div>
 
