@@ -2,7 +2,7 @@ import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { PortfolioGallery } from "@/components/portfolio-gallery"
-import { getPublicPortfolioProjects } from "@/app/actions/portfolio"
+import { getAllPublicPortfolioProjects } from "@/app/actions/portfolio"
 
 export const metadata = {
   title: "Portfolio | NextGen Media",
@@ -16,7 +16,7 @@ export default async function PortfolioPage() {
   let projects = []
   
   try {
-    projects = await getPublicPortfolioProjects()
+    projects = await getAllPublicPortfolioProjects()
   } catch (error) {
     console.error('Failed to fetch portfolio projects:', error)
     // Return empty array if database fails - projects list will show "no projects" message

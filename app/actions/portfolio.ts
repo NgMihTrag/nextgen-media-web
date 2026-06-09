@@ -19,13 +19,22 @@ async function getUserId() {
   return session.user.id
 }
 
-// Public portfolio projects (for public display)
-export async function getPublicPortfolioProjects() {
-  // Get all featured projects first, then all others
+// Public portfolio projects (all projects for portfolio page)
+export async function getAllPublicPortfolioProjects() {
   return db
     .select()
     .from(portfolioProjects)
-    .orderBy(desc(portfolioProjects.featured), desc(portfolioProjects.orderIndex))
+    .orderBy(desc(portfolioProjects.createdAt))
+}
+
+// Public portfolio projects (for public display - featured only, limit 4, newest first)
+export async function getPublicPortfolioProjects() {
+  return db
+    .select()
+    .from(portfolioProjects)
+    .where(eq(portfolioProjects.featured, true))
+    .orderBy(desc(portfolioProjects.createdAt))
+    .limit(4)
 }
 
 // Portfolio Projects (Admin)
