@@ -199,7 +199,7 @@ export function ContactForm() {
                 disabled={loading}
                 className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 h-12 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
               >
-                {loading ? "Đang gửi..." : "Tư V���n Miễn Phí"}
+                {loading ? "Đang gửi..." : "Tư Vấn Miễn Phí"}
               </Button>
             </form>
           </motion.div>
