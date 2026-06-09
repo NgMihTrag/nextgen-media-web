@@ -51,7 +51,7 @@ export function Header() {
               alt="NextGen Media"
               width={168}
               height={48}
-              className="h-12 w-auto object-contain"
+              className="h-10 w-auto object-contain"
               priority
             />
           </Link>
