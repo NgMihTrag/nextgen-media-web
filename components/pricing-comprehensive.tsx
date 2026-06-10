@@ -352,15 +352,15 @@ export function PricingFAQ() {
   const faqs = [
     {
       q: "Tôi cần chuẩn bị gì trước khi setup livestream?",
-      a: "Bạn c��n chuẩn bị không gian thích hợp, máy quay (điện thoại hoặc camera), và đảm bảo kết nối internet ổn định.",
+      a: "Bạn cần chuẩn bị không gian thích hợp, máy quay (điện thoại hoặc camera), và đảm bảo kết nối internet ổn định.",
     },
     {
       q: "Bao lâu có thể hoàn thành hệ thống livestream?",
-      a: "Tùy thuộc vào gói dịch vụ, từ 1-3 ngày cho gói cơ bản đến 1-2 tuần cho gói trọn gói.",
+      a: "Tùy thuộc vào gói dịch vụ, từ 1-2 ngày cho gói cơ bản đến 3-5 ngày cho gói trọn gói.",
     },
     {
       q: "Tôi có được hỗ trợ kỹ thuật sau khi bàn giao không?",
-      a: "Có, chúng tôi cung cấp hỗ trợ kỹ thuật sau bàn giao trong 30 ngày đầu.",
+      a: "Có, chúng tôi cung cấp hỗ trợ kỹ thuật sau bàn giao trtừ 8h-20h (trừ CN, lễ tết) trong 1 năm đầu.",
     },
     {
       q: "NextGen Media có hỗ trợ tân nơi không?",

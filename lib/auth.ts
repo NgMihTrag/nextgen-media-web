@@ -23,6 +23,8 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     'http://localhost:3000',
+    'https://www.nexttgenmedia.com',
+    'https://nexttgenmedia.com',
     ...(process.env.V0_RUNTIME_URL ? [process.env.V0_RUNTIME_URL] : []),
     ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
     ...(process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -34,10 +36,9 @@ export const auth = betterAuth({
     updateAge: 60 * 60 * 24, // 1 day
   },
   advanced: {
-    // Default secure cookies, but allow insecure in development
     defaultCookieAttributes: {
-      sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict' as const,
-      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'lax' as const,
+      secure: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development' ? true : true,
     },
   },
 })
