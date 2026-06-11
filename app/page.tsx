@@ -1,5 +1,5 @@
 import { HeroSection } from "@/components/hero-section"
-import { PortfolioSection } from "@/components/portfolio-section"
+import { FeaturedProjectsSection } from "@/components/sections/featured-projects-section"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 import { getPublicPortfolioProjects } from "@/app/actions/portfolio"
@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <main>
       <HeroSection />
-      <PortfolioSection projects={featuredProjects} />
+      <FeaturedProjectsSection projects={featuredProjects} />
       <CTASection />
       <Footer />
     </main>

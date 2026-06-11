@@ -236,64 +236,6 @@ export function ServicesEquipment() {
   )
 }
 
-export function ServicesFeaturedProjects() {
-  const projects = [
-    { name: "Stream Thời Trang - LEVENTS", category: "Livestream Thời Trang" },
-    { name: "Shopee Live - Cocolux", category: "TikTok Shop" },
-    { name: "Lazada 11.11 Super Show", category: "Livestream Sự Kiện" },
-    { name: "LockLock Vietnam", category: "Livestream Bán Hàng" }
-  ]
-
-  return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Dự Án Tiêu Biểu</h2>
-          <p className="text-slate-300 max-w-2xl mx-auto">Những livestream thành công của NextGen Media</p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card className="h-full bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700 hover:border-blue-500/50 transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-white mb-2">{project.name}</h3>
-                  <p className="text-blue-400 text-sm font-medium">{project.category}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <Link href="/portfolio">
-            <Button className="bg-transparent border border-blue-500 text-blue-400 hover:bg-blue-500/10 px-8 h-11 font-semibold rounded-lg transition-all duration-300 cursor-pointer group">
-              Xem Tất Cả Dự Án
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
-
 export function ServicesBenefits() {
   const benefits = [
     { icon: Award, title: "Kinh Nghiệm 5+ Năm", desc: "Đội ngũ chuyên nghiệp, giàu kinh nghiệm" },
