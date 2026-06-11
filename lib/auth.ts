@@ -33,7 +33,8 @@ export const auth = betterAuth({
   advanced: {
     defaultCookieAttributes: {
       sameSite: 'lax' as const,
-      secure: true, // Always use secure in production, lax in dev handled by sameSite
+      secure: process.env.NODE_ENV !== 'development',
+      // secure: true, // Always use secure in production, lax in dev handled by sameSite
     },
   },
 })
