@@ -25,6 +25,7 @@ export const auth = betterAuth({
     'http://localhost:3000',
     'https://www.nexttgenmedia.com',
     'https://nexttgenmedia.com',
+    'https://vm-nextgen-media-1m.vusercontent.net',
   ],
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
