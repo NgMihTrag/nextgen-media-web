@@ -18,19 +18,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/favicon-ngmedia.png',
+        url: '/Favicon.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/favicon-ngmedia.png',
+        url: '/Favicon.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/favicon-ngmedia.png',
+        url: '/Favicon.png',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/favicon-ngmedia.png',
+    apple: '/Favicon.png',
   },
 }
 
