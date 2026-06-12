@@ -362,8 +362,8 @@ export function ServicesEquipment() {
 
 export function ServicesBenefits() {
   const benefits = [
-    { icon: Award, title: "200+ dự án", desc: "Dự án đã triển khai" },
-    { icon: Zap, title: "98% hài lòng", desc: "Khách hàng hài lòng" },
+    { icon: Award, title: "20+ dự án", desc: "Dự án đã triển khai" },
+    { icon: Zap, title: "99% hài lòng", desc: "Khách hàng hài lòng" },
     { icon: Star, title: "300%+ tăng trưởng", desc: "Tăng trưởng doanh số TB" },
     { icon: Sparkles, title: "24/7 hỗ trợ", desc: "Hỗ trợ kỹ thuật mọi lúc" }
   ]
