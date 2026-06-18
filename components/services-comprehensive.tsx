@@ -382,7 +382,7 @@ export function ServicesBenefits() {
             <h3 className="text-3xl font-bold text-white mb-6">Studio Before / After</h3>
             <div className="relative rounded-2xl overflow-hidden h-80 bg-gradient-to-br from-slate-900 to-slate-800 border border-blue-500/20">
               <Image
-                src="https://images.unsplash.com/photo-1598507438047-08377294cc99?w=600&h=600&fit=crop"
+                src="https://storage.googleapis.com/nexttgenmedia-assets-2026/after-before.png"
                 alt="Before and After studio transformation"
                 fill
                 className="object-cover"
