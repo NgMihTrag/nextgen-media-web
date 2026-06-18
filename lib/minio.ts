@@ -1,14 +1,23 @@
 import 'server-only'
 import * as Minio from 'minio'
 
-// Initialize MinIO client
-const minioClient = new Minio.Client({
-  endPoint: process.env.MINIO_ENDPOINT || '',
-  port: Number(process.env.MINIO_PORT || 443),
-  useSSL: process.env.MINIO_USE_SSL === 'true',
-  accessKey: process.env.MINIO_ACCESS_KEY || '',
-  secretKey: process.env.MINIO_SECRET_KEY || '',
-})
+// Initialize MinIO client - may be null if not configured
+let minioClient: Minio.Client | null = null
+
+const isMinIOConfigured =
+  process.env.MINIO_ENDPOINT &&
+  process.env.MINIO_ACCESS_KEY &&
+  process.env.MINIO_SECRET_KEY
+
+if (isMinIOConfigured) {
+  minioClient = new Minio.Client({
+    endPoint: process.env.MINIO_ENDPOINT || '',
+    port: Number(process.env.MINIO_PORT || 443),
+    useSSL: process.env.MINIO_USE_SSL === 'true',
+    accessKey: process.env.MINIO_ACCESS_KEY || '',
+    secretKey: process.env.MINIO_SECRET_KEY || '',
+  })
+}
 
 export const MINIO_BUCKET = process.env.MINIO_BUCKET || 'portfolio'
 export const MINIO_PUBLIC_URL = process.env.MINIO_PUBLIC_URL || ''
@@ -41,6 +50,10 @@ export function validateMinIOConfig(): { valid: boolean; errors: string[] } {
 
 // Ensure bucket exists
 export async function ensureBucketExists(): Promise<void> {
+  if (!minioClient) {
+    throw new Error('MinIO is not configured. Check environment variables.')
+  }
+
   try {
     const exists = await minioClient.bucketExists(MINIO_BUCKET)
     if (!exists) {
@@ -94,10 +107,13 @@ export async function uploadPortfolioImage(
   buffer: Buffer,
   mimeType: string
 ): Promise<{ objectKey: string; imageUrl: string }> {
-  const { v4: uuidv4 } = require('crypto')
+  if (!minioClient) {
+    throw new Error('MinIO is not configured. Check environment variables.')
+  }
+
   const crypto = require('crypto')
 
-  // Use crypto.randomUUID as fallback
+  // Use crypto.randomUUID
   const uuid = crypto.randomUUID()
   const extension = getFileExtension(mimeType)
   const objectKey = `portfolio/${uuid}.${extension}`
@@ -120,6 +136,11 @@ export async function uploadPortfolioImage(
 
 // Delete image from MinIO
 export async function deletePortfolioImage(objectKey: string): Promise<void> {
+  if (!minioClient) {
+    console.warn('[MinIO] Not configured - skipping delete')
+    return
+  }
+
   try {
     await minioClient.removeObject(MINIO_BUCKET, objectKey)
     console.log('[MinIO] Delete successful:', objectKey)
@@ -132,4 +153,4 @@ export async function deletePortfolioImage(objectKey: string): Promise<void> {
   }
 }
 
-export default minioClient
+export { minioClient }
