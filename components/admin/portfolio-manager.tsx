@@ -13,7 +13,6 @@ interface Project {
   title: string
   description: string
   category: string
-  imageKey?: string
   imageUrl?: string
   imageAlt?: string
   link?: string
@@ -36,7 +35,6 @@ export default function PortfolioManager() {
     title: '',
     description: '',
     category: '',
-    imageKey: '',
     imageUrl: '',
     imageAlt: '',
     link: '',
@@ -97,7 +95,6 @@ export default function PortfolioManager() {
 
       setFormData((prev) => ({
         ...prev,
-        imageKey: result.objectKey,
         imageUrl: result.imageUrl,
         imageAlt: file.name,
       }))
@@ -159,7 +156,6 @@ export default function PortfolioManager() {
       title: '',
       description: '',
       category: '',
-      imageKey: '',
       imageUrl: '',
       imageAlt: '',
       link: '',

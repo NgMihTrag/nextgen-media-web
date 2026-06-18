@@ -56,7 +56,6 @@ export async function createPortfolioProject(data: {
   description: string
   category: string
   imageUrl?: string
-  imageKey?: string
   imageAlt?: string
   link?: string
   techStack?: string[]
@@ -82,7 +81,6 @@ export async function createPortfolioProject(data: {
       title: data.title,
       description: data.description,
       category: data.category,
-      imageKey: data.imageKey || null,
       imageUrl: data.imageUrl || null,
       imageAlt: data.imageAlt || null,
       link: data.link || null,
@@ -110,7 +108,6 @@ export async function updatePortfolioProject(
     description?: string
     category?: string
     imageUrl?: string
-    imageKey?: string
     imageAlt?: string
     link?: string
     techStack?: string[]
@@ -121,7 +118,7 @@ export async function updatePortfolioProject(
   try {
     const userId = await getUserId()
     
-    console.log('[Portfolio] Updating project:', { id, userId, hasNewImage: !!data.imageKey })
+    console.log('[Portfolio] Updating project:', { id, userId, hasNewImage: !!data.imageUrl })
 
     await db
       .update(portfolioProjects)
@@ -145,24 +142,6 @@ export async function deletePortfolioProject(id: string) {
     const userId = await getUserId()
     
     console.log('[Portfolio] Deleting project:', { id, userId })
-
-    // Get the project to retrieve imageKey if it exists
-    const project = await db
-      .select()
-      .from(portfolioProjects)
-      .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
-      .limit(1)
-
-    if (project.length > 0 && project[0].imageKey) {
-      // Delete from MinIO if image exists
-      try {
-        const { deletePortfolioImage } = await import('@/lib/minio')
-        await deletePortfolioImage(project[0].imageKey)
-      } catch (storageError) {
-        console.warn('[Portfolio] Failed to delete image from MinIO:', storageError)
-        // Continue with database deletion even if MinIO deletion fails
-      }
-    }
 
     await db
       .delete(portfolioProjects)
