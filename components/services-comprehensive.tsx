@@ -153,7 +153,7 @@ export function ServicesCardsGrid() {
     {
       number: "03",
       title: "Vận hành Livestream Chuyên nghiệp",
-      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=600&fit=crop",
+      image: "https://storage.googleapis.com/nexttgenmedia-assets-2026/tetrapak.JPG",
       features: [
         "Kịch bản livestream",
         "Điều phối livestream",
@@ -166,7 +166,7 @@ export function ServicesCardsGrid() {
     {
       number: "04",
       title: "Đào tạo Livestream & Coaching 1-1",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop",
+      image: "https://storage.googleapis.com/nexttgenmedia-assets-2026/tetrapak2.JPG",
       features: [
         "Đào tạo livestream",
         "Coaching thực chiến",
