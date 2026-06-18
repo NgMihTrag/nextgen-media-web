@@ -100,10 +100,10 @@ export function ServicesHero() {
           >
             {/* Glow Effect Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/10 to-transparent rounded-2xl" />
-            
+
             {/* Studio Image */}
             <Image
-              src="https://images.unsplash.com/photo-1598507438047-08377294cc99?w=800&h=800&fit=crop"
+              src="https://storage.googleapis.com/nexttgenmedia-assets-2026/Studio%20Image.png"
               alt="Professional livestream studio setup"
               fill
               className="object-cover rounded-2xl"
@@ -112,7 +112,7 @@ export function ServicesHero() {
 
             {/* Cinematic Overlay Glow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/30 via-transparent to-purple-600/20 rounded-2xl" />
-            
+
             {/* Neon Border Glow */}
             <div className="absolute inset-0 rounded-2xl shadow-2xl shadow-blue-500/50" />
           </motion.div>
@@ -127,7 +127,7 @@ export function ServicesCardsGrid() {
     {
       number: "01",
       title: "Setup Live Trọn Gói",
-      image: "https://images.unsplash.com/photo-1598507438047-08377294cc99?w=600&h=600&fit=crop",
+      image: "https://storage.googleapis.com/nexttgenmedia-assets-2026/setuplivetrongoi.JPG",
       features: [
         "Setup studio livestream chuyên nghiệp",
         "Thiết kế ánh sáng",
@@ -212,7 +212,7 @@ export function ServicesCardsGrid() {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
-                  
+
                   {/* Number Badge */}
                   <div className="absolute top-4 left-4 w-10 h-10 bg-blue-600/90 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                     {service.number}
@@ -299,7 +299,7 @@ export function ServicesProcessOverview() {
 
                 {/* Title */}
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                
+
                 {/* Description */}
                 <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">{step.description}</p>
               </motion.div>
@@ -438,7 +438,7 @@ export function ServicesCTA() {
           <h2 className="text-4xl md:text-5xl font-bold text-white">
             Sẵn sàng bứt phá doanh số với Livestream chuyên nghiệp?
           </h2>
-          
+
           <p className="text-gray-300 text-lg">
             Đội ngũ NextGen Media luôn sẵn sàng đồng hành cùng bạn.
           </p>
@@ -458,7 +458,7 @@ export function ServicesCTA() {
             >
               Liên Hệ Ngay
               <ChevronRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Button>
+            </Button>
           </div>
         </motion.div>
       </div>
