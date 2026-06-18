@@ -61,6 +61,7 @@ export const portfolioProjects = pgTable('portfolio_projects', {
   title: text('title').notNull(),
   description: text('description').notNull(),
   category: text('category').notNull(),
+  imageKey: text('image_key'), // MinIO object key e.g., portfolio/uuid.jpg
   imageUrl: text('image_url'),
   imageAlt: text('image_alt'),
   link: text('link'),

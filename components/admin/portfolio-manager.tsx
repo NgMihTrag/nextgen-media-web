@@ -1,17 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Edit2, Trash2, Save, X } from 'lucide-react'
+import { Edit2, Trash2, Save, X, Upload, Image as ImageIcon } from 'lucide-react'
 import { getPortfolioProjects, createPortfolioProject, updatePortfolioProject, deletePortfolioProject } from '@/app/actions/portfolio'
+import Image from 'next/image'
 
 interface Project {
   id: string
   title: string
   description: string
   category: string
+  imageKey?: string
   imageUrl?: string
   imageAlt?: string
   link?: string
@@ -26,10 +28,15 @@ export default function PortfolioManager() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [formData, setFormData] = useState<Partial<Project>>({
     title: '',
     description: '',
     category: '',
+    imageKey: '',
     imageUrl: '',
     imageAlt: '',
     link: '',
@@ -54,6 +61,56 @@ export default function PortfolioManager() {
       setProjects([])
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleFileSelect(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      setError(null)
+      setUploading(true)
+      setUploadProgress(0)
+
+      // Show preview immediately
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setPreviewUrl(e.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+
+      // Upload to MinIO
+      const formDataToSend = new FormData()
+      formDataToSend.append('file', file)
+
+      const response = await fetch('/api/admin/uploads', {
+        method: 'POST',
+        body: formDataToSend,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Upload failed')
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        imageKey: result.objectKey,
+        imageUrl: result.imageUrl,
+        imageAlt: file.name,
+      }))
+
+      setUploadProgress(100)
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[v0] Upload failed:', errorMessage)
+      setError(`Upload failed: ${errorMessage}`)
+      setPreviewUrl(null)
+    } finally {
+      setUploading(false)
+      setUploadProgress(0)
     }
   }
 
@@ -102,14 +159,19 @@ export default function PortfolioManager() {
       title: '',
       description: '',
       category: '',
+      imageKey: '',
       imageUrl: '',
       imageAlt: '',
       link: '',
       techStack: [],
       featured: false,
     })
+    setPreviewUrl(null)
     setEditingId(null)
     setShowForm(false)
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   function handleEdit(project: Project) {
@@ -171,15 +233,42 @@ export default function PortfolioManager() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-white/80 mb-1">Image URL</label>
-                <Input
-                  placeholder="https://..."
-                  value={formData.imageUrl || ''}
-                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
-                />
+                <label className="block text-sm font-medium text-white/80 mb-1">Upload Image</label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:opacity-50"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    {uploading ? `Uploading...` : 'Choose File'}
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                  />
+                </div>
               </div>
             </div>
+
+            {/* Image Preview */}
+            {(previewUrl || formData.imageUrl) && (
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">Image Preview</label>
+                <div className="relative w-full h-40 bg-[rgba(20,30,50,0.8)] border border-blue-500/20 rounded overflow-hidden">
+                  <Image
+                    src={previewUrl || formData.imageUrl || ''}
+                    alt="Preview"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-2 gap-4">
               <div>
