@@ -2,6 +2,7 @@ import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { AboutContent } from "@/components/about-content"
+import { CTASection } from "@/components/cta-section"
 
 export const metadata = {
   title: "Về Chúng Tôi | NextGen Media",
@@ -23,6 +24,7 @@ export default function AboutPage() {
         description="Đối tác tin cậy cho các chiến dịch livestream chuyên nghiệp"
       />
       <AboutContent />
+      <CTASection />
       <Footer />
     </main>
   )

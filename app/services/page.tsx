@@ -2,6 +2,7 @@ import { Footer } from "@/components/footer"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { ServicesHero, ServicesCardsGrid, ServicesProcessOverview, ServicesEquipment, ServicesBenefits, ServicesCTA } from "@/components/services-comprehensive"
 import { ServicesFeaturedProjectsServer } from "@/components/services-featured-projects-server"
+import { CTASection } from "@/components/cta-section"
 
 export const metadata = {
   title: "Dịch Vụ | NextGen Media",
@@ -23,7 +24,8 @@ export default function ServicesPage() {
       <ServicesEquipment />
       <ServicesFeaturedProjectsServer />
       <ServicesBenefits />
-      <ServicesCTA />
+      {/* <ServicesCTA /> */}
+      <CTASection />
       <Footer />
     </main>
   )
