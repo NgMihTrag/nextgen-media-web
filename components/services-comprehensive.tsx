@@ -12,7 +12,7 @@ export function ServicesHero() {
   const { openModal } = useContactModal()
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-[#020617] via-[#071329] to-[#020617] border-b border-blue-500/10 overflow-hidden">
+    <section className="py-16 md:py-24 border-b border-blue-500/10 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* LEFT: Text Content */}
@@ -179,7 +179,7 @@ export function ServicesCardsGrid() {
   ]
 
   return (
-    <section className="py-24 bg-[#020617]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Title */}
         <motion.div
@@ -261,7 +261,7 @@ export function ServicesProcessOverview() {
   ]
 
   return (
-    <section className="py-24 bg-[#071329]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Title */}
         <motion.div
@@ -322,7 +322,7 @@ export function ServicesEquipment() {
   ]
 
   return (
-    <section className="py-24 bg-[#020617]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -369,7 +369,7 @@ export function ServicesBenefits() {
   ]
 
   return (
-    <section className="py-24 bg-[#071329]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Before/After Comparison */}
@@ -427,7 +427,7 @@ export function ServicesCTA() {
   const { openModal } = useContactModal()
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#020617] to-[#071329] border-t border-blue-500/10">
+    <section className="py-24 border-t border-blue-500/10">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -13,7 +13,7 @@ export default async function Home() {
   const featuredProjects = await getPublicPortfolioProjects()
 
   return (
-    <main>
+    <main className="min-h-screen bg-[#020617] text-white">
       <HeroSection />
       <FeaturedProjectsSection projects={featuredProjects} />
       <CTASection />

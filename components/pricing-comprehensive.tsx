@@ -116,7 +116,7 @@ export function PricingCards() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712] relative">
+    <section className="py-24 relative">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -275,7 +275,7 @@ export function ComparisonTable() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#030712] to-[#071224]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -369,7 +369,7 @@ export function PricingFAQ() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
