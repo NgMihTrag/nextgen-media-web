@@ -140,7 +140,7 @@ export function ServicesCardsGrid() {
     {
       number: "02",
       title: "Hỗ trợ phần mềm, Plugin",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop",
+      image: "https://storage.googleapis.com/nexttgenmedia-assets-2026/spapp.JPG",
       features: [
         "TikTok Studio",
         "OBS Studio",
