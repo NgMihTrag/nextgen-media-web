@@ -8,7 +8,7 @@ import { useContactModal } from "@/context/contact-modal-context"
 export function CTASection() {
   const { openModal } = useContactModal()
   return (
-    <section className="py-12 bg-[#0a0f1e] relative overflow-hidden">
+    <section className="py-12 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-blue-500/15 rounded-full blur-3xl" />

@@ -33,7 +33,7 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-24 bg-muted/30">
+    <section id="faq" className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div

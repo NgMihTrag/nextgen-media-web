@@ -38,7 +38,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
   // Fallback if no projects
   if (!projects || projects.length === 0) {
     return (
-      <section className="py-20 bg-[#0a0f1e]">
+      <section className="py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center py-12">
             <p className="text-white/60">Không có dự án nào để hiển thị.</p>
@@ -49,7 +49,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
   }
 
   return (
-    <section className="py-20 bg-[#0a0f1e]">
+    <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Gallery Grid - Responsive Columns */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6 mb-12">

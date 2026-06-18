@@ -48,7 +48,7 @@ export function FeaturedProjectsSection({ projects }: { projects: Project[] }) {
   ]
 
   return (
-    <section id="portfolio" className="py-24 bg-[#0a0f1e]">
+    <section id="portfolio" className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div

@@ -94,7 +94,7 @@ const steps = [
 
 export function VerticalProcessTimeline() {
   return (
-    <section className="py-24 bg-[#0a0f1e] relative">
+    <section className="py-24 relative">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
