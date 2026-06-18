@@ -12,7 +12,7 @@ export function ServicesHero() {
   const { openModal } = useContactModal()
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-background via-background to-background/50 border-b border-blue-500/10 overflow-hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-[#020617] via-[#071329] to-[#020617] border-b border-blue-500/10 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* LEFT: Text Content */}
@@ -179,7 +179,7 @@ export function ServicesCardsGrid() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-[#020617]">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Title */}
         <motion.div
@@ -261,7 +261,7 @@ export function ServicesProcessOverview() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-[#071329]">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Title */}
         <motion.div
@@ -322,7 +322,7 @@ export function ServicesEquipment() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-[#020617]">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -330,7 +330,7 @@ export function ServicesEquipment() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Thiết Bị & Công Cụ</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Thiết Bị & Công Cụ</h2>
           <p className="text-slate-300 max-w-2xl mx-auto">Trang bị chuyên nghiệp cho livestream chất lượng cao</p>
         </motion.div>
 
@@ -369,7 +369,7 @@ export function ServicesBenefits() {
   ]
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-[#071329]">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Before/After Comparison */}
@@ -427,7 +427,7 @@ export function ServicesCTA() {
   const { openModal } = useContactModal()
 
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-background/50 border-t border-blue-500/10">
+    <section className="py-24 bg-gradient-to-b from-[#020617] to-[#071329] border-t border-blue-500/10">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
