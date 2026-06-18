@@ -94,7 +94,7 @@ export function ContactForm() {
             className="space-y-6"
           >
             <div className="bg-gradient-to-br from-blue-900/30 to-blue-800/20 border-2 border-blue-500/30 rounded-2xl p-8 shadow-lg shadow-blue-500/10">
-              <h3 className="text-2xl font-bold text-white mb-8">Thông Tin Liên Hệ</h3>
+              <h3 className="text-2xl font-bold text-slate-50 mb-8">Thông Tin Liên Hệ</h3>
               
               <div className="space-y-6">
                 {contactInfo.map((info, idx) => (
@@ -111,7 +111,7 @@ export function ContactForm() {
                     </div>
                     <div>
                       <p className="text-sm text-slate-400 mb-1">{info.title}</p>
-                      <p className="text-white font-semibold whitespace-pre-line">
+                      <p className="text-slate-100 font-semibold whitespace-pre-line">
                         {info.content}
                       </p>
                     </div>
@@ -131,7 +131,7 @@ export function ContactForm() {
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Full Name */}
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Họ và tên
                 </label>
                 <input
@@ -147,7 +147,7 @@ export function ContactForm() {
 
               {/* Phone */}
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Số điện thoại
                 </label>
                 <input
@@ -163,7 +163,7 @@ export function ContactForm() {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Email
                 </label>
                 <input
@@ -179,8 +179,8 @@ export function ContactForm() {
 
               {/* Message */}
               <div>
-                <label className="block text-sm font-medium text-white mb-2">
-                  Nội dung yêu cầu
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Lời nhắn
                 </label>
                 <textarea
                   name="message"
@@ -199,7 +199,7 @@ export function ContactForm() {
                 disabled={loading}
                 className="w-full bg-blue-600 hover:bg-blue-500 text-white py-3 h-12 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
               >
-                {loading ? "Đang gửi..." : "Tư Vấn Miễn Phí"}
+                {loading ? "Đang gửi..." : "Tư Vấn Mi��n Phí"}
               </Button>
             </form>
           </motion.div>

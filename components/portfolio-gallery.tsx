@@ -76,7 +76,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-b from-blue-500/20 to-blue-600/20 flex items-center justify-center">
-                      <span className="text-white/40 text-xs text-center">{project.title}</span>
+                      <span className="text-slate-400 text-xs text-center">{project.title}</span>
                     </div>
                   )}
                   {/* Dark Overlay */}
@@ -85,7 +85,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
 
                 {/* Title Below Image */}
                 <div className="p-3 bg-gradient-to-t from-slate-950 to-slate-900/50">
-                  <h3 className="text-sm font-medium text-white line-clamp-2 leading-tight">
+                  <h3 className="text-sm font-medium text-slate-100 line-clamp-2 leading-tight">
                     {project.title}
                   </h3>
                   {project.featured && (
