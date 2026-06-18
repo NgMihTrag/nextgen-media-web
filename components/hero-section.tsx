@@ -65,7 +65,7 @@ export function HeroSection() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] mb-6 tracking-tight"
             >
-              <span className="text-white block">GIẢI PHÁP TRUYỀN THÔNG</span>
+              <span className="text-slate-50 block">GIẢI PHÁP TRUYỀN THÔNG</span>
               <span className="text-blue-400 block">LIVESTREAM TOÀN DIỆN</span>
             </motion.h1>
 

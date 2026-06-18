@@ -24,13 +24,13 @@ export function PricingHero() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance tracking-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-slate-50 mb-6 text-balance tracking-tight">
             BẢNG GIÁ DỊCH VỤ
           </h1>
-          <p className="text-xl text-white/75 mb-4">
+          <p className="text-xl text-slate-300 mb-4">
             Lựa chọn gói livestream phù hợp với nhu cầu của bạn
           </p>
-          <p className="text-base text-white/60 mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-slate-400 mb-8 max-w-2xl mx-auto">
             Từ livestream cơ bản đến hệ thống livestream chuyên nghiệp cho doanh nghiệp và nhà bán hàng.
           </p>
         </motion.div>

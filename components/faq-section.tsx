@@ -42,10 +42,10 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-4">
             Những câu hỏi thường gặp
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             Giải đáp các thắc mắc phổ biến của khách hàng.
           </p>
         </motion.div>
@@ -64,10 +64,10 @@ export function FAQSection() {
                 value={`item-${index}`}
                 className="bg-card border border-border rounded-xl px-6 data-[state=open]:border-primary/50"
               >
-                <AccordionTrigger className="text-left text-card-foreground hover:text-primary hover:no-underline py-5">
+                <AccordionTrigger className="text-left text-slate-100 hover:text-blue-400 hover:no-underline py-5">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                <AccordionContent className="text-slate-300 pb-5 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

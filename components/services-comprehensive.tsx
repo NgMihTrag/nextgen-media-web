@@ -37,7 +37,7 @@ export function ServicesHero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-5xl md:text-6xl font-bold text-white leading-tight"
+              className="text-5xl md:text-6xl font-bold text-slate-50 leading-tight"
             >
               Giải pháp Livestream
               <br />
@@ -49,7 +49,7 @@ export function ServicesHero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-gray-300 text-lg leading-relaxed max-w-xl"
+              className="text-slate-300 text-lg leading-relaxed max-w-xl"
             >
               NextGen Media cung cấp hệ thống giải pháp livestream chuyên nghiệp giúp doanh nghiệp và nhà bán hàng phát triển mạnh mẽ trên nền tảng TikTok, Facebook, Shopee và đa nền tảng.
             </motion.p>
@@ -63,15 +63,15 @@ export function ServicesHero() {
             >
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                <span className="text-gray-200 font-medium">Giải pháp trọn gói</span>
+                <span className="text-slate-100 font-medium">Giải pháp trọn gói</span>
               </div>
               <div className="flex items-center gap-2">
                 <Zap className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                <span className="text-gray-200 font-medium">Hiệu quả vượt trội</span>
+                <span className="text-slate-100 font-medium">Hiệu quả vượt trội</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                <span className="text-gray-200 font-medium">Hỗ trợ 24/7</span>
+                <span className="text-slate-100 font-medium">Hỗ trợ 24/7</span>
               </div>
             </motion.div>
 
@@ -186,9 +186,9 @@ export function ServicesCardsGrid() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl font-bold text-white mb-4">Dịch vụ của chúng tôi</h2>
+          <h2 className="text-5xl font-bold text-slate-50 mb-4">Dịch vụ của chúng tôi</h2>
         </motion.div>
 
         {/* Services Grid - 4 Columns */}
