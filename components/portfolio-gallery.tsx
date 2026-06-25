@@ -12,9 +12,9 @@ interface Project {
   title: string
   description: string
   category: string
-  imageUrl?: string
-  imageAlt?: string
-  link?: string
+  imageUrl?: string | null
+  imageAlt?: string | null
+  link?: string | null
   featured?: boolean
 }
 
@@ -85,11 +85,13 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
 
                 {/* Title Below Image */}
                 <div className="p-3 bg-gradient-to-t from-slate-950 to-slate-900/50">
-                  <h3 className="text-sm font-medium text-slate-100 line-clamp-2 leading-tight">
+                  <h3 className="text-sm font-semibold text-white line-clamp-2 leading-tight mb-2">
                     {project.title}
                   </h3>
-                  {project.featured && (
-                    <span className="inline-block text-xs text-yellow-400 mt-1">⭐ Featured</span>
+                  {project.category && (
+                    <span className="inline-block text-xs font-medium text-blue-300 bg-blue-500/20 px-2 py-1 rounded-full border border-blue-500/30 group-hover:border-blue-400 group-hover:text-blue-200 transition-all duration-300">
+                      {project.category}
+                    </span>
                   )}
                 </div>
               </div>
