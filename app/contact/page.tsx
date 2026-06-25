@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main>
+    <main className="min-h-screen bg-[#020617] text-white">
       <Toaster position="top-center" />
       <div className="container mx-auto px-4 lg:px-8">
         <Breadcrumb items={[

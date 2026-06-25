@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function StudioRentalPage() {
   return (
-    <main>
+    <main className="min-h-screen bg-[#020617] text-white">
       <div className="container mx-auto px-4 lg:px-8">
         <Breadcrumb items={[
           { label: "Trang chủ", href: "/" },

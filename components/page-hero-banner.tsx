@@ -10,7 +10,7 @@ interface PageHeroBannerProps {
 
 export function PageHeroBanner({ title, subtitle, description }: PageHeroBannerProps) {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-background via-background to-background/50">
+    <section className="py-16 md:py-24">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ export function PageHeroBanner({ title, subtitle, description }: PageHeroBannerP
               {subtitle}
             </motion.p>
           )}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 text-balance">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-balance">
             {title}
           </h1>
           {description && (
@@ -36,7 +36,7 @@ export function PageHeroBanner({ title, subtitle, description }: PageHeroBannerP
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto text-balance"
+              className="text-lg text-white max-w-2xl mx-auto text-balance"
             >
               {description}
             </motion.p>

@@ -3,6 +3,7 @@ import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { PortfolioGallery } from "@/components/portfolio-gallery"
 import { getAllPublicPortfolioProjects } from "@/app/actions/portfolio"
+import { CTASection } from "@/components/cta-section"
 
 export const metadata = {
   title: "Portfolio | NextGen Media",
@@ -23,7 +24,7 @@ export default async function PortfolioPage() {
   }
 
   return (
-    <main>
+    <main className="min-h-screen bg-[#020617] text-white">
       <div className="container mx-auto px-4 lg:px-8">
         <Breadcrumb items={[
           { label: "Trang chủ", href: "/" },
@@ -36,6 +37,7 @@ export default async function PortfolioPage() {
         description="Những dự án livestream và truyền thông đã được NextGen Media triển khai."
       />
       <PortfolioGallery projects={projects as any} />
+      <CTASection />
       <Footer />
     </main>
   )

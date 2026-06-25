@@ -14,24 +14,24 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'NextGen Media - Giải Pháp Livestream Chuyên Nghiệp',
   description: 'NextGen Media chuyên setup livestream TikTok Shop, ánh sáng, camera, vận hành livestream và xây dựng studio chuyên nghiệp tại Hà Nội.',
-  // generator: 'v0.app',
-  // icons: {
-  //   icon: [
-  //     {
-  //       url: '/icon-light-32x32.png',
-  //       media: '(prefers-color-scheme: light)',
-  //     },
-  //     {
-  //       url: '/icon-dark-32x32.png',
-  //       media: '(prefers-color-scheme: dark)',
-  //     },
-  //     {
-  //       url: '/icon.svg',
-  //       type: 'image/svg+xml',
-  //     },
-  //   ],
-  //   apple: '/apple-icon.png',
-  // },
+  generator: 'v0.app',
+  icons: {
+    icon: [
+      {
+        url: '/Favicon.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/Favicon.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/Favicon.png',
+        type: 'image/svg+xml',
+      },
+    ],
+    apple: '/Favicon.png',
+  },
 }
 
 export default function RootLayout({

@@ -24,13 +24,13 @@ export function PricingHero() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 text-balance tracking-tight">
+          <h1 className="text-5xl md:text-6xl font-bold text-slate-50 mb-6 text-balance tracking-tight">
             BẢNG GIÁ DỊCH VỤ
           </h1>
-          <p className="text-xl text-white/75 mb-4">
+          <p className="text-xl text-slate-300 mb-4">
             Lựa chọn gói livestream phù hợp với nhu cầu của bạn
           </p>
-          <p className="text-base text-white/60 mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-slate-400 mb-8 max-w-2xl mx-auto">
             Từ livestream cơ bản đến hệ thống livestream chuyên nghiệp cho doanh nghiệp và nhà bán hàng.
           </p>
         </motion.div>
@@ -116,7 +116,7 @@ export function PricingCards() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712] relative">
+    <section className="py-24 relative">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -275,7 +275,7 @@ export function ComparisonTable() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#030712] to-[#071224]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -369,7 +369,7 @@ export function PricingFAQ() {
   ]
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0B1730] to-[#030712]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

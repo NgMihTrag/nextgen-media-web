@@ -46,7 +46,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function WhyChooseUs() {
   return (
-    <section className="py-24 bg-[#0f172a]">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div

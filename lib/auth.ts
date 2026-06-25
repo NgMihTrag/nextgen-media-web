@@ -25,11 +25,7 @@ export const auth = betterAuth({
     'http://localhost:3000',
     'https://www.nexttgenmedia.com',
     'https://nexttgenmedia.com',
-    ...(process.env.V0_RUNTIME_URL ? [process.env.V0_RUNTIME_URL] : []),
-    ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
-    ...(process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? [`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`]
-      : []),
+    'https://vm-nextgen-media-1m.vusercontent.net',
   ],
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
@@ -38,7 +34,8 @@ export const auth = betterAuth({
   advanced: {
     defaultCookieAttributes: {
       sameSite: 'lax' as const,
-      secure: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development' ? true : true,
+      secure: process.env.NODE_ENV !== 'development',
+      // secure: true, // Always use secure in production, lax in dev handled by sameSite
     },
   },
 })

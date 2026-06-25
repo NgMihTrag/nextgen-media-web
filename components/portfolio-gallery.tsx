@@ -12,9 +12,9 @@ interface Project {
   title: string
   description: string
   category: string
-  imageUrl?: string
-  imageAlt?: string
-  link?: string
+  imageUrl?: string | null
+  imageAlt?: string | null
+  link?: string | null
   featured?: boolean
 }
 
@@ -38,7 +38,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
   // Fallback if no projects
   if (!projects || projects.length === 0) {
     return (
-      <section className="py-20 bg-[#0a0f1e]">
+      <section className="py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center py-12">
             <p className="text-white/60">Không có dự án nào để hiển thị.</p>
@@ -49,7 +49,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
   }
 
   return (
-    <section className="py-20 bg-[#0a0f1e]">
+    <section className="py-20">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Gallery Grid - Responsive Columns */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-6 mb-12">
@@ -76,7 +76,7 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-b from-blue-500/20 to-blue-600/20 flex items-center justify-center">
-                      <span className="text-white/40 text-xs text-center">{project.title}</span>
+                      <span className="text-slate-400 text-xs text-center">{project.title}</span>
                     </div>
                   )}
                   {/* Dark Overlay */}
@@ -85,11 +85,13 @@ export function PortfolioGallery({ projects }: PortfolioGalleryProps) {
 
                 {/* Title Below Image */}
                 <div className="p-3 bg-gradient-to-t from-slate-950 to-slate-900/50">
-                  <h3 className="text-sm font-medium text-white line-clamp-2 leading-tight">
+                  <h3 className="text-sm font-semibold text-white line-clamp-2 leading-tight mb-2">
                     {project.title}
                   </h3>
-                  {project.featured && (
-                    <span className="inline-block text-xs text-yellow-400 mt-1">⭐ Featured</span>
+                  {project.category && (
+                    <span className="inline-block text-xs font-medium text-blue-300 bg-blue-500/20 px-2 py-1 rounded-full border border-blue-500/30 group-hover:border-blue-400 group-hover:text-blue-200 transition-all duration-300">
+                      {project.category}
+                    </span>
                   )}
                 </div>
               </div>

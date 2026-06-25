@@ -14,7 +14,7 @@ interface Project {
   imageAlt?: string | null
 }
 
-export function PortfolioSection({ projects }: { projects: Project[] }) {
+export function FeaturedProjectsSection({ projects }: { projects: Project[] }) {
   // Show placeholder if no projects
   const displayProjects = projects.length > 0 ? projects : [
     {
@@ -48,7 +48,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
   ]
 
   return (
-    <section id="portfolio" className="pb-20 bg-[#0a0f1e]">
+    <section id="portfolio" className="pt-0 pb-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -75,7 +75,7 @@ export function PortfolioSection({ projects }: { projects: Project[] }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="flex-shrink-0 w-56 lg:w-72"
+              className="flex-shrink-0 w-80 lg:w-96"
             >
               {/* Vertical Project Card - 9:16 Aspect Ratio */}
               <div className="group cursor-pointer h-full">

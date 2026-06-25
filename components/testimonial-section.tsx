@@ -41,7 +41,7 @@ export function TestimonialSection() {
   }
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -50,10 +50,10 @@ export function TestimonialSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-4">
             Khách hàng nói gì về chúng tôi
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             Những phản hồi chân thực từ khách hàng đã sử dụng dịch vụ.
           </p>
         </motion.div>
@@ -71,20 +71,20 @@ export function TestimonialSection() {
               <CardContent className="p-8 md:p-12">
                 <Quote className="w-12 h-12 text-primary/20 mb-6" />
                 
-                <p className="text-xl md:text-2xl text-card-foreground leading-relaxed mb-8">
+                <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-8">
                   {`"${testimonials[currentIndex].review}"`}
                 </p>
                 
                 <div className="flex items-center gap-4">
                   <div 
-                    className="w-14 h-14 rounded-full flex items-center justify-center text-primary-foreground font-bold text-lg"
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg"
                     style={{ backgroundColor: testimonials[currentIndex].color }}
                   >
                     {testimonials[currentIndex].avatar}
                   </div>
                   <div>
-                    <h4 className="font-semibold text-card-foreground">{testimonials[currentIndex].name}</h4>
-                    <p className="text-muted-foreground">{testimonials[currentIndex].company}</p>
+                    <h4 className="font-semibold text-slate-100">{testimonials[currentIndex].name}</h4>
+                    <p className="text-slate-400">{testimonials[currentIndex].company}</p>
                   </div>
                 </div>
               </CardContent>
