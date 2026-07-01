@@ -13,32 +13,7 @@ import StatsManager from '@/components/admin/stats-manager'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // TODO: Re-enable admin authentication before production launch
-    // Currently disabled for development - session checks bypassed
-    setLoading(false)
-    
-    // TEMPORARILY DISABLED - Authentication checks bypassed for development
-    // async function loadUser() {
-    //   try {
-    //   const result = await authClient.getSession()
-    //
-    //   if (!result?.data?.user) {
-    //     router.push('/admin/login')
-    //     return
-    //   }
-    //     setUser(result.data.user)
-    //   } catch (error) {
-    //     router.push('/admin/login')
-    //   } finally {
-    //     setLoading(false)
-    //   }
-    // }
-    // loadUser()
-  }, [router])
+  const [loading, setLoading] = useState(false)
 
   const handleSignOut = async () => {
     try {
@@ -69,14 +44,12 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 py-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-            {/* TODO: Update welcome message when authentication is re-enabled */}
-            <p className="text-white/60 text-sm mt-1">Welcome, Developer</p>
+            <p className="text-white/60 text-sm mt-1">Content Management System</p>
           </div>
           <Button
             onClick={handleSignOut}
             variant="outline"
-            className="border-red-500/30 text-red-400 hover:bg-red-500/10 hidden"
-            disabled
+            className="border-red-500/30 text-red-400 hover:bg-red-500/10"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sign Out

@@ -26,15 +26,21 @@ export default function AdminLoginPage() {
 
       if (response.error) {
         setError(response.error.message || 'Invalid email or password')
+        setLoading(false)
         return
       }
 
-      router.push('/admin')
+      // Wait a moment for session to be established before redirecting
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Use replace to avoid redirect loop
+      router.replace('/admin')
+      
+      // Then refresh to ensure latest session state
       router.refresh()
     } catch (err) {
       setError('An error occurred. Please try again.')
-      console.error(err)
-    } finally {
+      console.error('[v0] Login error:', err)
       setLoading(false)
     }
   }
