@@ -12,9 +12,39 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'NextGen Media - Giải Pháp Livestream Chuyên Nghiệp',
-  description: 'NextGen Media chuyên setup livestream TikTok Shop, ánh sáng, camera, vận hành livestream và xây dựng studio chuyên nghiệp tại Hà Nội.',
+  title: 'NextGen Media - Setup Livestream Chuyên Nghiệp',
+  description: 'Dịch vụ setup livestream trọn gói, ánh sáng, camera, phần mềm, vận hành livestream chuyên nghiệp cho cá nhân, shop và doanh nghiệp.',
   generator: 'v0.app',
+  
+  // Open Graph metadata for social sharing
+  openGraph: {
+    title: 'NextGen Media - Setup Livestream Chuyên Nghiệp',
+    description: 'Giải pháp livestream chuyên nghiệp từ setup thiết bị đến vận hành.',
+    type: 'website',
+    locale: 'vi_VN',
+    url: 'https://www.nexttgenmedia.com',
+    siteName: 'NextGen Media',
+    images: [
+      {
+        url: 'https://www.nexttgenmedia.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'NextGen Media - Setup Livestream Chuyên Nghiệp',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  
+  // Twitter Card metadata
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NextGen Media - Setup Livestream Chuyên Nghiệp',
+    description: 'Giải pháp livestream chuyên nghiệp từ setup thiết bị đến vận hành.',
+    images: ['https://www.nexttgenmedia.com/og-image.jpg'],
+    site: '@nexttgenmedia',
+    creator: '@nexttgenmedia',
+  },
+  
   icons: {
     icon: [
       {
