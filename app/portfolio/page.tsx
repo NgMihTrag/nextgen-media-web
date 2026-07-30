@@ -1,7 +1,7 @@
 import { Footer } from "@/components/footer"
 import { PageHeroBanner } from "@/components/page-hero-banner"
 import { Breadcrumb } from "@/components/breadcrumb"
-import { PortfolioGallery } from "@/components/portfolio-gallery"
+import { PremiumProjectShowcase } from "@/components/premium-project-showcase"
 import { getAllPublicPortfolioProjects } from "@/app/actions/portfolio"
 import { CTASection } from "@/components/cta-section"
 
@@ -36,7 +36,7 @@ export default async function PortfolioPage() {
         title="Tất Cả Dự Án"
         description="Những dự án livestream và truyền thông đã được NextGen Media triển khai."
       />
-      <PortfolioGallery projects={projects as any} />
+      <PremiumProjectShowcase projects={projects as any} />
       <CTASection />
       <Footer />
     </main>

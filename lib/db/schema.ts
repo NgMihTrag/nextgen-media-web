@@ -67,6 +67,9 @@ export const portfolioProjects = pgTable('portfolio_projects', {
   techStack: text('tech_stack').array().default([]),
   featured: boolean('featured').default(false),
   orderIndex: integer('order_index').default(0),
+  clientName: text('client_name'),
+  location: text('location'),
+  galleryImages: text('gallery_images').array().default([]),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })
