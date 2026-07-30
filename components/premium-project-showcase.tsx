@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,7 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
   const [displayCount, setDisplayCount] = useState(PROJECTS_PER_PAGE)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
+  const [touchStart, setTouchStart] = useState(0)
   const { openModal } = useContactModal()
 
   const displayedProjects = useMemo(() => {
@@ -49,10 +50,46 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
 
   const closeProject = () => {
     setSelectedProject(null)
-    document.body.style.overflow = 'unset'
+    document.body.style.overflow = 'auto'
   }
 
   const galleryImages = selectedProject?.imageUrl ? [selectedProject.imageUrl] : []
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!selectedProject) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        handlePrevGallery()
+      } else if (e.key === 'ArrowRight') {
+        handleNextGallery()
+      } else if (e.key === 'Escape') {
+        closeProject()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedProject, lightboxIndex])
+
+  // Touch swipe handling
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEnd = e.changedTouches[0].clientX
+    const diff = touchStart - touchEnd
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        handleNextGallery()
+      } else {
+        handlePrevGallery()
+      }
+    }
+  }
 
   const handlePrevGallery = () => {
     setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
@@ -212,187 +249,169 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
             >
-              <motion.div className="relative w-full max-w-7xl bg-gradient-to-br from-slate-900/90 via-slate-950/95 to-black/95 backdrop-blur-xl rounded-[24px] overflow-hidden border border-blue-500/30 shadow-2xl shadow-blue-500/20 my-auto">
+              <motion.div className="relative w-full max-w-6xl bg-slate-950/95 backdrop-blur-xl rounded-[24px] overflow-hidden border border-blue-500/30 shadow-2xl shadow-blue-500/20 max-h-[90vh] flex flex-col">
                 {/* Close Button */}
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={closeProject}
-                  className="absolute top-6 right-6 z-20 p-2.5 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full border border-white/20 hover:border-blue-400/50 transition-all duration-300"
+                  className="absolute top-6 right-6 z-20 p-2.5 bg-black/50 hover:bg-black/70 backdrop-blur-md rounded-full border border-white/20 hover:border-blue-400/50 transition-all duration-300"
                 >
                   <X className="w-6 h-6 text-white" />
                 </motion.button>
 
-                {/* Content - 2 Column Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-[55%_45%] gap-0 min-h-[80vh]">
-                  {/* LEFT COLUMN - Portrait Image & Gallery */}
-                  <div className="bg-black/40 border-r border-blue-500/20 flex flex-col items-center justify-center p-6">
-                    {/* Main Portrait Image */}
-                    <div className="relative w-full max-w-sm h-full flex items-center justify-center">
-                      <div className="relative rounded-[16px] overflow-hidden bg-slate-950/80 border border-blue-500/30 shadow-lg shadow-blue-500/10 max-h-[80vh]">
-                        <div className="relative aspect-[9/16] w-80 bg-gradient-to-br from-slate-800 to-slate-950 flex items-center justify-center">
+                {/* Gallery & Main Image Section */}
+                <div className="flex flex-1 overflow-hidden">
+                  {/* LEFT SIDEBAR - Thumbnail Gallery */}
+                  {galleryImages.length > 1 && (
+                    <div className="w-32 bg-black/40 border-r border-blue-500/20 flex flex-col items-center py-6 px-3 gap-3 overflow-y-auto">
+                      {galleryImages.map((img, i) => (
+                        <motion.button
+                          key={i}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setLightboxIndex(i)}
+                          className={`relative flex-shrink-0 rounded-[16px] overflow-hidden border-2 transition-all duration-300 ${
+                            lightboxIndex === i
+                              ? 'border-blue-400 shadow-lg shadow-blue-400/60 ring-2 ring-blue-400/50'
+                              : 'border-slate-700 hover:border-blue-400/70 hover:shadow-lg hover:shadow-blue-400/40'
+                          }`}
+                          style={{ width: '100%', aspectRatio: '9/16' }}
+                        >
+                          <Image
+                            src={img}
+                            alt={`Gallery ${i + 1}`}
+                            fill
+                            className="object-cover"
+                            sizes="120px"
+                          />
+                        </motion.button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* CENTER - Main Portrait Image */}
+                  <div className="flex-1 bg-slate-900/50 flex flex-col items-center justify-center p-6 overflow-y-auto">
+                    {/* Large Portrait Image */}
+                    <motion.div
+                      key={lightboxIndex}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.25 }}
+                      className="relative w-full max-w-sm flex-shrink-0"
+                      onTouchStart={handleTouchStart}
+                      onTouchEnd={handleTouchEnd}
+                    >
+                      <div className="relative rounded-[24px] overflow-hidden bg-gradient-to-br from-slate-800 to-slate-950 border border-blue-500/40 shadow-2xl shadow-blue-500/30">
+                        <div className="relative aspect-[9/16] w-full flex items-center justify-center bg-slate-950">
                           {galleryImages.length > 0 ? (
                             <Image
                               src={galleryImages[lightboxIndex]}
-                              alt={`${selectedProject.title} - ${lightboxIndex + 1}`}
+                              alt={selectedProject.title}
                               fill
                               className="object-contain"
                               priority
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-slate-400">
-                              No Image
-                            </div>
+                            <div className="flex items-center justify-center text-slate-400">No Image</div>
                           )}
                         </div>
-
-                        {/* Navigation Arrows */}
-                        {galleryImages.length > 1 && (
-                          <>
-                            <motion.button
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={handlePrevGallery}
-                              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-blue-600/50 backdrop-blur-md rounded-full border border-blue-400/30 hover:border-blue-300/80 transition-all duration-300"
-                            >
-                              <ChevronLeft className="w-5 h-5 text-white" />
-                            </motion.button>
-                            <motion.button
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.95 }}
-                              onClick={handleNextGallery}
-                              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-blue-600/50 backdrop-blur-md rounded-full border border-blue-400/30 hover:border-blue-300/80 transition-all duration-300"
-                            >
-                              <ChevronRight className="w-5 h-5 text-white" />
-                            </motion.button>
-                          </>
-                        )}
                       </div>
-                    </div>
 
-                    {/* Thumbnail Gallery - Horizontal */}
-                    {galleryImages.length > 1 && (
-                      <div className="mt-6 flex gap-2 justify-center">
-                        {galleryImages.map((img, i) => (
+                      {/* Navigation Arrows - Show on Hover (Desktop) */}
+                      {galleryImages.length > 1 && (
+                        <>
                           <motion.button
-                            key={i}
-                            whileHover={{ scale: 1.05 }}
-                            onClick={() => setLightboxIndex(i)}
-                            className={`relative flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
-                              lightboxIndex === i
-                                ? 'border-blue-400 shadow-lg shadow-blue-400/50'
-                                : 'border-slate-700 hover:border-blue-400/50'
-                            }`}
-                            style={{ width: '72px', aspectRatio: '9/16' }}
+                            whileHover={{ scale: 1.15, opacity: 1 }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 0.5 }}
+                            onClick={handlePrevGallery}
+                            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 p-3 bg-black/50 hover:bg-blue-600/60 backdrop-blur-md rounded-full border border-blue-400/40 hover:border-blue-300 transition-all duration-300 hidden md:block"
                           >
-                            <Image
-                              src={img}
-                              alt={`Thumbnail ${i + 1}`}
-                              fill
-                              className="object-cover"
-                              sizes="72px"
-                            />
+                            <ChevronLeft className="w-6 h-6 text-white" />
                           </motion.button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                          <motion.button
+                            whileHover={{ scale: 1.15, opacity: 1 }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 0.5 }}
+                            onClick={handleNextGallery}
+                            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 p-3 bg-black/50 hover:bg-blue-600/60 backdrop-blur-md rounded-full border border-blue-400/40 hover:border-blue-300 transition-all duration-300 hidden md:block"
+                          >
+                            <ChevronRight className="w-6 h-6 text-white" />
+                          </motion.button>
+                        </>
+                      )}
+                    </motion.div>
 
-                  {/* RIGHT COLUMN - Project Information */}
-                  <div className="flex flex-col justify-between p-8 overflow-y-auto">
-                    {/* Content */}
-                    <div className="space-y-6">
-                      {/* Category Badge */}
-                      {selectedProject.category && (
-                        <div>
-                          <span className="inline-block text-xs font-semibold text-blue-300 bg-blue-500/25 px-3 py-1 rounded-full border border-blue-500/50">
+                    {/* Project Information Below Image */}
+                    <div className="w-full mt-8 space-y-6 text-center md:text-left">
+                      {/* Project Name */}
+                      <div>
+                        <h2 className="text-2xl font-bold text-white">{selectedProject.title}</h2>
+                      </div>
+
+                      {/* Category & Location */}
+                      <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                        {selectedProject.category && (
+                          <span className="text-xs font-semibold text-blue-300 bg-blue-500/25 px-3 py-1.5 rounded-full border border-blue-500/50">
                             {selectedProject.category}
                           </span>
-                        </div>
-                      )}
-
-                      {/* Client & Title */}
-                      <div>
-                        <p className="text-xl font-bold text-white">
-                          {selectedProject.title}
-                        </p>
+                        )}
                       </div>
 
-                      {/* Location */}
+                      {/* Description */}
                       {selectedProject.description && (
-                        <p className="text-sm text-white/70 leading-relaxed">
+                        <p className="text-sm text-white/70 leading-relaxed max-w-2xl">
                           {selectedProject.description}
                         </p>
                       )}
 
-                      <div className="border-t border-blue-500/20" />
-
-                      {/* NextGen Media Services Section */}
-                      <div>
-                        <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest mb-3">
-                          Hạng mục NextGen Media thực hiện
-                        </p>
-                        <div className="space-y-2">
-                          {selectedProject.techStack && selectedProject.techStack.length > 0 ? (
-                            selectedProject.techStack.map((item, i) => (
-                              <div key={i} className="flex items-start gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
-                                <span className="text-sm text-white/80">{item}</span>
-                              </div>
-                            ))
-                          ) : (
-                            <p className="text-sm text-white/60">Thiết bị truyền phát chuyên nghiệp</p>
-                          )}
+                      {/* Technology Stack */}
+                      {selectedProject.techStack && selectedProject.techStack.length > 0 && (
+                        <div>
+                          <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest mb-3">
+                            Công nghệ sử dụng
+                          </p>
+                          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                            {selectedProject.techStack.map((tech, i) => (
+                              <span
+                                key={i}
+                                className="text-xs font-medium text-slate-300 bg-slate-700/50 px-2.5 py-1 rounded-full border border-slate-600/50 hover:border-blue-500/30 hover:text-blue-200 transition-all duration-300"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="border-t border-blue-500/20" />
-
-                      {/* Equipment Section */}
-                      <div>
-                        <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest mb-3">
-                          Thiết bị sử dụng
-                        </p>
-                        <div className="grid grid-cols-3 gap-3">
-                          {[
-                            { icon: '📹', label: 'Camera 4K' },
-                            { icon: '💡', label: 'Ánh sáng LED' },
-                            { icon: '🎙️', label: 'Micro Pro' },
-                          ].map((item, i) => (
-                            <div key={i} className="p-3 bg-blue-500/15 border border-blue-500/30 rounded-lg text-center hover:bg-blue-500/25 transition-colors duration-300">
-                              <div className="text-2xl mb-1">{item.icon}</div>
-                              <p className="text-xs text-white/70 font-medium">{item.label}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* CTA Buttons */}
-                    <div className="flex gap-3 pt-6 mt-6 border-t border-blue-500/20">
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={closeProject}
-                        className="flex-1 px-4 py-2.5 bg-slate-700/40 hover:bg-slate-700/60 text-white font-semibold rounded-lg transition-all duration-300 border border-slate-600/50 hover:border-slate-500"
-                      >
-                        Đóng
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => {
-                          closeProject()
-                          openModal()
-                        }}
-                        className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/50 border border-blue-400/50 hover:border-blue-300"
-                      >
-                        Tư Vấn Góc Tương Tự
-                      </motion.button>
+                      )}
                     </div>
                   </div>
+                </div>
+
+                {/* Bottom CTA - Full Width */}
+                <div className="border-t border-blue-500/20 bg-black/30 backdrop-blur-sm p-4 flex gap-3">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={closeProject}
+                    className="px-6 py-2.5 bg-slate-700/40 hover:bg-slate-700/60 text-white font-semibold rounded-lg transition-all duration-300 border border-slate-600/50 hover:border-slate-500"
+                  >
+                    Đóng
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      closeProject()
+                      openModal()
+                    }}
+                    className="flex-1 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/50 border border-blue-400/50 hover:border-blue-300"
+                  >
+                    Tư Vấn Giải Pháp Tương Tự
+                  </motion.button>
                 </div>
               </motion.div>
             </motion.div>
