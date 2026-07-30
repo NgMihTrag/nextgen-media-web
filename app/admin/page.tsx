@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { LogOut } from 'lucide-react'
-import { authClient } from '@/lib/auth-client'
+import { authClient, useSession } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
 import PortfolioManager from '@/components/admin/portfolio-manager'
 import TestimonialManager from '@/components/admin/testimonial-manager'
@@ -13,7 +13,24 @@ import StatsManager from '@/components/admin/stats-manager'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
+  const { data: session } = useSession()
+  const [loading, setLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check session on mount and when session data changes
+  useEffect(() => {
+    if (session) {
+      // Session exists, user is authenticated
+      setIsAuthenticated(true)
+      setLoading(false)
+    } else if (session === null) {
+      // Explicitly null means we checked and there's no session - redirect to login
+      setIsAuthenticated(false)
+      setLoading(false)
+      router.push('/admin/login')
+    }
+    // If session is undefined, still loading - don't change state
+  }, [session, router])
 
   const handleSignOut = async () => {
     try {
@@ -26,7 +43,7 @@ export default function AdminDashboard() {
     }
   }
 
-  if (loading) {
+  if (loading || !isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#030712] to-[#0B1730]">
         <div className="text-center">

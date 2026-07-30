@@ -42,9 +42,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // Allow preview domains to access admin
-  if (isPreviewDomain && isProtectedPath) {
-    return NextResponse.next()
+  // For preview/dev domains with protected paths:
+  // Check if the session cookie exists (Better Auth sets 'better-auth.session_token')
+  if (isPreviewDomain && isProtectedPath && pathname !== '/admin/login') {
+    const sessionToken = request.cookies.get('better-auth.session_token')?.value
+    
+    // If no session token exists, redirect to login (but allow /admin/login itself)
+    if (!sessionToken) {
+      return NextResponse.redirect(new URL('/admin/login', request.url))
+    }
   }
 
   return NextResponse.next()

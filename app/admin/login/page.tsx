@@ -30,13 +30,12 @@ export default function AdminLoginPage() {
         return
       }
 
-      // Wait a moment for session to be established before redirecting
-      await new Promise(resolve => setTimeout(resolve, 500))
+      // Session established successfully - redirect immediately
+      // The session cookie is automatically set by Better Auth
+      router.push('/admin')
       
-      // Use replace to avoid redirect loop
-      router.replace('/admin')
-      
-      // Then refresh to ensure latest session state
+      // Refresh after a brief delay to ensure the browser has the cookie
+      await new Promise(resolve => setTimeout(resolve, 100))
       router.refresh()
     } catch (err) {
       setError('An error occurred. Please try again.')
