@@ -214,7 +214,7 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
               onClick={(e) => e.stopPropagation()}
               className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
             >
-              <motion.div className="relative w-full max-w-4xl bg-gradient-to-br from-slate-800/80 via-slate-900/90 to-slate-950/95 backdrop-blur-xl rounded-3xl overflow-hidden border border-blue-500/30 shadow-2xl my-auto">
+              <motion.div className="relative w-full max-w-7xl bg-gradient-to-br from-slate-900/90 via-slate-950/95 to-black/95 backdrop-blur-xl rounded-[24px] overflow-hidden border border-blue-500/30 shadow-2xl shadow-blue-500/20 my-auto">
                 {/* Close Button */}
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -225,78 +225,74 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                   <X className="w-6 h-6 text-white" />
                 </motion.button>
 
-                {/* Content */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6 lg:p-8">
-                  {/* Gallery Section */}
-                  <div className="lg:col-span-2">
-                    {/* Main Image with Lightbox */}
-                    <div className="relative rounded-2xl overflow-hidden bg-slate-950/50 border border-blue-500/20">
-                      <div className="relative w-full aspect-video bg-gradient-to-br from-slate-800 to-slate-950">
-                        {galleryImages.length > 0 ? (
-                          <Image
-                            src={galleryImages[lightboxIndex]}
-                            alt={`${selectedProject.title} - ${lightboxIndex + 1}`}
-                            fill
-                            className="object-cover"
-                            priority
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-slate-400">
-                            No Image Available
-                          </div>
+                {/* Content - 2 Column Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-[55%_45%] gap-0 min-h-[80vh]">
+                  {/* LEFT COLUMN - Portrait Image & Gallery */}
+                  <div className="bg-black/40 border-r border-blue-500/20 flex flex-col items-center justify-center p-6">
+                    {/* Main Portrait Image */}
+                    <div className="relative w-full max-w-sm h-full flex items-center justify-center">
+                      <div className="relative rounded-[16px] overflow-hidden bg-slate-950/80 border border-blue-500/30 shadow-lg shadow-blue-500/10 max-h-[80vh]">
+                        <div className="relative aspect-[9/16] w-80 bg-gradient-to-br from-slate-800 to-slate-950 flex items-center justify-center">
+                          {galleryImages.length > 0 ? (
+                            <Image
+                              src={galleryImages[lightboxIndex]}
+                              alt={`${selectedProject.title} - ${lightboxIndex + 1}`}
+                              fill
+                              className="object-contain"
+                              priority
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-400">
+                              No Image
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Navigation Arrows */}
+                        {galleryImages.length > 1 && (
+                          <>
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={handlePrevGallery}
+                              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-blue-600/50 backdrop-blur-md rounded-full border border-blue-400/30 hover:border-blue-300/80 transition-all duration-300"
+                            >
+                              <ChevronLeft className="w-5 h-5 text-white" />
+                            </motion.button>
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={handleNextGallery}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-blue-600/50 backdrop-blur-md rounded-full border border-blue-400/30 hover:border-blue-300/80 transition-all duration-300"
+                            >
+                              <ChevronRight className="w-5 h-5 text-white" />
+                            </motion.button>
+                          </>
                         )}
                       </div>
-
-                      {/* Navigation Arrows */}
-                      {galleryImages.length > 1 && (
-                        <>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={handlePrevGallery}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full border border-white/20 hover:border-blue-400/50 transition-all duration-300"
-                          >
-                            <ChevronLeft className="w-6 h-6 text-white" />
-                          </motion.button>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={handleNextGallery}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full border border-white/20 hover:border-blue-400/50 transition-all duration-300"
-                          >
-                            <ChevronRight className="w-6 h-6 text-white" />
-                          </motion.button>
-
-                          {/* Counter */}
-                          <div className="absolute bottom-4 left-4 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20">
-                            <span className="text-xs font-medium text-white">
-                              {lightboxIndex + 1} / {galleryImages.length}
-                            </span>
-                          </div>
-                        </>
-                      )}
                     </div>
 
-                    {/* Thumbnail Gallery */}
+                    {/* Thumbnail Gallery - Horizontal */}
                     {galleryImages.length > 1 && (
-                      <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
+                      <div className="mt-6 flex gap-2 justify-center">
                         {galleryImages.map((img, i) => (
                           <motion.button
                             key={i}
                             whileHover={{ scale: 1.05 }}
                             onClick={() => setLightboxIndex(i)}
-                            className={`relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                            className={`relative flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
                               lightboxIndex === i
-                                ? 'border-blue-400'
-                                : 'border-slate-600 hover:border-blue-400/50'
+                                ? 'border-blue-400 shadow-lg shadow-blue-400/50'
+                                : 'border-slate-700 hover:border-blue-400/50'
                             }`}
+                            style={{ width: '72px', aspectRatio: '9/16' }}
                           >
                             <Image
                               src={img}
                               alt={`Thumbnail ${i + 1}`}
                               fill
                               className="object-cover"
-                              sizes="64px"
+                              sizes="72px"
                             />
                           </motion.button>
                         ))}
@@ -304,83 +300,98 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                     )}
                   </div>
 
-                  {/* Info Section */}
-                  <div className="flex flex-col justify-between space-y-6">
-                    {/* Project Details */}
-                    <div className="space-y-4">
-                      {/* Project Title */}
-                      <div>
-                        <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
-                          Dự Án
-                        </p>
-                        <p className="text-lg font-semibold text-white">
-                          {selectedProject.title}
-                        </p>
-                      </div>
-
-                      {/* Category */}
+                  {/* RIGHT COLUMN - Project Information */}
+                  <div className="flex flex-col justify-between p-8 overflow-y-auto">
+                    {/* Content */}
+                    <div className="space-y-6">
+                      {/* Category Badge */}
                       {selectedProject.category && (
                         <div>
-                          <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-2">
-                            Danh Mục
-                          </p>
-                          <span className="inline-block text-sm font-medium text-blue-200 bg-blue-500/20 px-3 py-1.5 rounded-full border border-blue-500/40">
+                          <span className="inline-block text-xs font-semibold text-blue-300 bg-blue-500/25 px-3 py-1 rounded-full border border-blue-500/50">
                             {selectedProject.category}
                           </span>
                         </div>
                       )}
 
-                      {/* Technology Stack */}
-                      {selectedProject.techStack && selectedProject.techStack.length > 0 && (
-                        <div>
-                          <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-2">
-                            Công Nghệ
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedProject.techStack.map((tech, i) => (
-                              <span
-                                key={i}
-                                className="text-xs font-medium text-slate-300 bg-slate-700/40 px-2.5 py-1 rounded border border-slate-600/50 hover:border-blue-500/30 hover:text-blue-200 transition-all duration-300"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
+                      {/* Client & Title */}
+                      <div>
+                        <p className="text-xl font-bold text-white">
+                          {selectedProject.title}
+                        </p>
+                      </div>
+
+                      {/* Location */}
+                      {selectedProject.description && (
+                        <p className="text-sm text-white/70 leading-relaxed">
+                          {selectedProject.description}
+                        </p>
                       )}
 
-                      {/* Tags */}
-                      {selectedProject.tags && selectedProject.tags.length > 0 && (
-                        <div>
-                          <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-2">
-                            Từ Khóa
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedProject.tags.map((tag, i) => (
-                              <span
-                                key={i}
-                                className="text-xs text-blue-300 bg-blue-500/15 px-2.5 py-1 rounded-full border border-blue-500/30"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
+                      <div className="border-t border-blue-500/20" />
+
+                      {/* NextGen Media Services Section */}
+                      <div>
+                        <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest mb-3">
+                          Hạng mục NextGen Media thực hiện
+                        </p>
+                        <div className="space-y-2">
+                          {selectedProject.techStack && selectedProject.techStack.length > 0 ? (
+                            selectedProject.techStack.map((item, i) => (
+                              <div key={i} className="flex items-start gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                                <span className="text-sm text-white/80">{item}</span>
+                              </div>
+                            ))
+                          ) : (
+                            <p className="text-sm text-white/60">Thiết bị truyền phát chuyên nghiệp</p>
+                          )}
                         </div>
-                      )}
+                      </div>
+
+                      <div className="border-t border-blue-500/20" />
+
+                      {/* Equipment Section */}
+                      <div>
+                        <p className="text-xs font-semibold text-blue-300 uppercase tracking-widest mb-3">
+                          Thiết bị sử dụng
+                        </p>
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            { icon: '📹', label: 'Camera 4K' },
+                            { icon: '💡', label: 'Ánh sáng LED' },
+                            { icon: '🎙️', label: 'Micro Pro' },
+                          ].map((item, i) => (
+                            <div key={i} className="p-3 bg-blue-500/15 border border-blue-500/30 rounded-lg text-center hover:bg-blue-500/25 transition-colors duration-300">
+                              <div className="text-2xl mb-1">{item.icon}</div>
+                              <p className="text-xs text-white/70 font-medium">{item.label}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
 
-                    {/* CTA Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => {
-                        closeProject()
-                        openModal()
-                      }}
-                      className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/50 border border-blue-400/50 hover:border-blue-300"
-                    >
-                      Tư Vấn Miễn Phí
-                    </motion.button>
+                    {/* CTA Buttons */}
+                    <div className="flex gap-3 pt-6 mt-6 border-t border-blue-500/20">
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={closeProject}
+                        className="flex-1 px-4 py-2.5 bg-slate-700/40 hover:bg-slate-700/60 text-white font-semibold rounded-lg transition-all duration-300 border border-slate-600/50 hover:border-slate-500"
+                      >
+                        Đóng
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => {
+                          closeProject()
+                          openModal()
+                        }}
+                        className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/50 border border-blue-400/50 hover:border-blue-300"
+                      >
+                        Tư Vấn Góc Tương Tự
+                      </motion.button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
