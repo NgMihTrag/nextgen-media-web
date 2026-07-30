@@ -31,13 +31,13 @@ export async function getAllPublicPortfolioProjects() {
     .orderBy(desc(portfolioProjects.createdAt))
 }
 
-// Public portfolio projects (for public display - featured only, limit 4, sorted by displayOrder then newest first)
+// Public portfolio projects (for public display - featured only, limit 4, newest first)
 export async function getPublicPortfolioProjects() {
   return db
     .select()
     .from(portfolioProjects)
     .where(eq(portfolioProjects.featured, true))
-    .orderBy(desc(portfolioProjects.displayOrder), desc(portfolioProjects.createdAt))
+    .orderBy(desc(portfolioProjects.createdAt))
     .limit(4)
 }
 
@@ -48,33 +48,18 @@ export async function getPortfolioProjects() {
     .select()
     .from(portfolioProjects)
     .where(eq(portfolioProjects.userId, userId))
-    .orderBy(desc(portfolioProjects.displayOrder), desc(portfolioProjects.createdAt))
-}
-
-// Helper function to generate slug
-function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
+    .orderBy(desc(portfolioProjects.orderIndex))
 }
 
 export async function createPortfolioProject(data: {
   title: string
   description: string
   category: string
-  clientName?: string
-  clientLogo?: string
-  location?: string
-  coverImage?: string
-  galleryImages?: string[]
   imageUrl?: string
   imageAlt?: string
   link?: string
   techStack?: string[]
-  tags?: string[]
   featured?: boolean
-  displayOrder?: number
 }) {
   try {
     // Validate required fields
@@ -83,34 +68,24 @@ export async function createPortfolioProject(data: {
     }
 
     const userId = await getUserId()
-    const slug = generateSlug(data.title)
     
     console.log('[Portfolio] Creating project:', {
       userId,
       title: data.title,
       category: data.category,
-      clientName: data.clientName,
-      hasImage: !!(data.coverImage || data.imageUrl),
+      hasImage: !!data.imageUrl,
     })
 
     const result = await db.insert(portfolioProjects).values({
       userId,
       title: data.title,
-      slug: slug,
       description: data.description,
-      clientName: data.clientName || null,
-      clientLogo: data.clientLogo || null,
-      location: data.location || null,
       category: data.category,
-      coverImage: data.coverImage || data.imageUrl || null,
-      galleryImages: data.galleryImages || [],
       imageUrl: data.imageUrl || null,
       imageAlt: data.imageAlt || null,
       link: data.link || null,
       techStack: data.techStack || [],
-      tags: data.tags || [],
       featured: data.featured || false,
-      displayOrder: data.displayOrder || 0,
     })
 
     console.log('[Portfolio] Project created successfully')
@@ -130,47 +105,24 @@ export async function updatePortfolioProject(
   id: string,
   data: {
     title?: string
-    slug?: string
     description?: string
-    clientName?: string
-    clientLogo?: string
-    location?: string
     category?: string
-    coverImage?: string
-    galleryImages?: string[]
     imageUrl?: string
     imageAlt?: string
     link?: string
     techStack?: string[]
-    tags?: string[]
     featured?: boolean
-    displayOrder?: number
     orderIndex?: number
   }
 ) {
   try {
     const userId = await getUserId()
     
-    const updateData: Record<string, any> = {
-      ...data,
-      updatedAt: new Date(),
-    }
-    
-    // Generate slug if title is updated
-    if (data.title && !data.slug) {
-      updateData.slug = generateSlug(data.title)
-    }
-    
-    // Migrate imageUrl to coverImage if needed
-    if (data.imageUrl && !data.coverImage) {
-      updateData.coverImage = data.imageUrl
-    }
-    
-    console.log('[Portfolio] Updating project:', { id, userId, hasNewImage: !!(data.coverImage || data.imageUrl) })
+    console.log('[Portfolio] Updating project:', { id, userId, hasNewImage: !!data.imageUrl })
 
     await db
       .update(portfolioProjects)
-      .set(updateData)
+      .set({ ...data, updatedAt: new Date() })
       .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
 
     console.log('[Portfolio] Project updated successfully')

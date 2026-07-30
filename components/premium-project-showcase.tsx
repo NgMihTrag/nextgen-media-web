@@ -12,21 +12,13 @@ const PROJECTS_PER_PAGE = 12
 interface Project {
   id: string
   title: string
-  slug?: string | null
   description: string
-  clientName?: string | null
-  clientLogo?: string | null
-  location?: string | null
   category: string
-  coverImage?: string | null
-  galleryImages?: string[] | null
   imageUrl?: string | null
   imageAlt?: string | null
   link?: string | null
   techStack?: string[] | null
-  tags?: string[] | null
   featured?: boolean
-  displayOrder?: number
 }
 
 interface PremiumProjectShowcaseProps {
@@ -60,25 +52,7 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
     document.body.style.overflow = 'unset'
   }
 
-  // Build gallery images from coverImage and galleryImages array
-  const getGalleryImages = (project: Project): string[] => {
-    const images: string[] = []
-    
-    // Add cover image first (prefer new coverImage field, fall back to imageUrl for compatibility)
-    const coverImg = project.coverImage || project.imageUrl
-    if (coverImg) {
-      images.push(coverImg)
-    }
-    
-    // Add gallery images
-    if (project.galleryImages && project.galleryImages.length > 0) {
-      images.push(...project.galleryImages)
-    }
-    
-    return images
-  }
-  
-  const galleryImages = selectedProject ? getGalleryImages(selectedProject) : []
+  const galleryImages = selectedProject?.imageUrl ? [selectedProject.imageUrl] : []
 
   const handlePrevGallery = () => {
     setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
@@ -127,9 +101,9 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                   
                   {/* Image Container with 9:16 Aspect Ratio */}
                   <div className="relative w-full aspect-[9/16] overflow-hidden rounded-2xl">
-                    {project.coverImage || project.imageUrl ? (
+                    {project.imageUrl ? (
                       <Image
-                        src={project.coverImage || project.imageUrl || ''}
+                        src={project.imageUrl}
                         alt={project.imageAlt || project.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -149,13 +123,8 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
 
                   {/* Content Section */}
                   <div className="flex-1 p-4 flex flex-col justify-between backdrop-blur-sm">
-                    {/* Client & Title */}
+                    {/* Title */}
                     <div className="space-y-2">
-                      {project.clientName && (
-                        <p className="text-xs font-medium text-blue-300 uppercase tracking-wider">
-                          {project.clientName}
-                        </p>
-                      )}
                       <h3 className="text-sm font-semibold text-white line-clamp-2 leading-snug group-hover:text-blue-200 transition-colors duration-300">
                         {project.title}
                       </h3>
@@ -339,18 +308,6 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                   <div className="flex flex-col justify-between space-y-6">
                     {/* Project Details */}
                     <div className="space-y-4">
-                      {/* Client Name */}
-                      {selectedProject.clientName && (
-                        <div>
-                          <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
-                            Khách Hàng
-                          </p>
-                          <p className="text-lg font-semibold text-white">
-                            {selectedProject.clientName}
-                          </p>
-                        </div>
-                      )}
-
                       {/* Project Title */}
                       <div>
                         <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
@@ -360,18 +317,6 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                           {selectedProject.title}
                         </p>
                       </div>
-
-                      {/* Location */}
-                      {selectedProject.location && (
-                        <div>
-                          <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
-                            Vị Trí
-                          </p>
-                          <p className="text-white">
-                            {selectedProject.location}
-                          </p>
-                        </div>
-                      )}
 
                       {/* Category */}
                       {selectedProject.category && (
