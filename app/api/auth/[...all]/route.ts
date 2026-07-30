@@ -1,3 +1,4 @@
 import { auth } from '@/lib/auth'
 
-export const { POST, GET } = auth.toNextJsHandler()
+export const POST = (request: Request) => auth.handler(request)
+export const GET = (request: Request) => auth.handler(request)
