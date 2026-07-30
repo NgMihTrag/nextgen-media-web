@@ -19,6 +19,16 @@ export default function AdminDashboard() {
 
   // Check session on mount and when session data changes
   useEffect(() => {
+    const isDevelopment = process.env.NODE_ENV === 'development'
+    
+    // In development mode, bypass authentication check
+    if (isDevelopment) {
+      setIsAuthenticated(true)
+      setLoading(false)
+      return
+    }
+
+    // Production mode: check actual session
     if (session) {
       // Session exists, user is authenticated
       setIsAuthenticated(true)

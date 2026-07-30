@@ -6,6 +6,8 @@ const authPublicPaths = ['/admin/login', '/api/auth']
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const host = request.headers.get('host') || ''
+  const isDevelopment = process.env.NODE_ENV === 'development'
+  const isLocalhost = host.includes('localhost') || host.includes('127.0.0.1')
 
   // Always allow auth API routes - Better Auth needs these to function
   const isAuthRoute = authPublicPaths.some(
@@ -20,6 +22,11 @@ export async function middleware(request: NextRequest) {
   const isProtectedPath = protectedPaths.some(
     (path) => pathname === path || pathname.startsWith(path + '/')
   )
+
+  // DEVELOPMENT MODE BYPASS: Allow all admin routes without authentication
+  if ((isDevelopment || isLocalhost) && isProtectedPath) {
+    return NextResponse.next()
+  }
 
   // Domain-based access control
   // Block admin routes on production domains
@@ -42,7 +49,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // For preview/dev domains with protected paths:
+  // For preview/dev domains with protected paths (PRODUCTION MODE):
   // Check if the session cookie exists (Better Auth sets 'better-auth.session_token')
   if (isPreviewDomain && isProtectedPath && pathname !== '/admin/login') {
     const sessionToken = request.cookies.get('better-auth.session_token')?.value

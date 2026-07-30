@@ -12,6 +12,7 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('Admin123')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const isDevelopment = process.env.NODE_ENV === 'development'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,6 +54,13 @@ export default function AdminLoginPage() {
             NextGen Media
           </h1>
           <p className="text-white/60">Admin Dashboard</p>
+          
+          {/* Development Mode Badge */}
+          {isDevelopment && (
+            <div className="mt-4 inline-block px-3 py-1.5 bg-amber-500/20 border border-amber-500/50 rounded-full">
+              <p className="text-xs font-semibold text-amber-300">Development Mode - Authentication Disabled</p>
+            </div>
+          )}
         </div>
 
         {/* Login Card */}
