@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { X, ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useContactModal } from '@/context/contact-modal-context'
 
 const PROJECTS_PER_PAGE = 12
@@ -16,10 +16,9 @@ interface Project {
   category: string
   imageUrl?: string | null
   imageAlt?: string | null
-  clientName?: string | null
-  location?: string | null
-  techStack?: string[]
-  galleryImages?: string[]
+  link?: string | null
+  techStack?: string[] | null
+  featured?: boolean
 }
 
 interface PremiumProjectShowcaseProps {
@@ -53,11 +52,7 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
     document.body.style.overflow = 'unset'
   }
 
-  const galleryImages = selectedProject?.galleryImages && selectedProject.galleryImages.length > 0
-    ? selectedProject.galleryImages
-    : selectedProject?.imageUrl
-      ? [selectedProject.imageUrl]
-      : []
+  const galleryImages = selectedProject?.imageUrl ? [selectedProject.imageUrl] : []
 
   const handlePrevGallery = () => {
     setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length)
@@ -123,31 +118,13 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                     {/* Dark Overlay on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-500" />
                     
-                    {/* Location Badge - Top Right */}
-                    {project.location && (
-                      <div className="absolute top-3 right-3 flex items-center gap-1 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 group-hover:border-blue-400/50 transition-all duration-300">
-                        <MapPin className="w-3.5 h-3.5 text-blue-300" />
-                        <span className="text-xs font-medium text-white">{project.location}</span>
-                      </div>
-                    )}
-                    
-                    {/* Gallery Counter - Bottom Left */}
-                    {project.galleryImages && project.galleryImages.length > 1 && (
-                      <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 group-hover:border-blue-400/50 transition-all duration-300">
-                        <span className="text-xs font-medium text-white">{project.galleryImages.length} Ảnh</span>
-                      </div>
-                    )}
+
                   </div>
 
                   {/* Content Section */}
                   <div className="flex-1 p-4 flex flex-col justify-between backdrop-blur-sm">
-                    {/* Client & Title */}
+                    {/* Title */}
                     <div className="space-y-2">
-                      {project.clientName && (
-                        <p className="text-xs font-medium text-blue-300 uppercase tracking-wider">
-                          {project.clientName}
-                        </p>
-                      )}
                       <h3 className="text-sm font-semibold text-white line-clamp-2 leading-snug group-hover:text-blue-200 transition-colors duration-300">
                         {project.title}
                       </h3>
@@ -331,18 +308,6 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                   <div className="flex flex-col justify-between space-y-6">
                     {/* Project Details */}
                     <div className="space-y-4">
-                      {/* Client Name */}
-                      {selectedProject.clientName && (
-                        <div>
-                          <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
-                            Khách hàng
-                          </p>
-                          <p className="text-lg font-semibold text-white">
-                            {selectedProject.clientName}
-                          </p>
-                        </div>
-                      )}
-
                       {/* Project Title */}
                       <div>
                         <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
@@ -352,19 +317,6 @@ export function PremiumProjectShowcase({ projects }: PremiumProjectShowcaseProps
                           {selectedProject.title}
                         </p>
                       </div>
-
-                      {/* Location */}
-                      {selectedProject.location && (
-                        <div className="flex items-start gap-2">
-                          <MapPin className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <p className="text-xs font-medium text-blue-300 uppercase tracking-widest mb-1">
-                              Vị Trí
-                            </p>
-                            <p className="text-white">{selectedProject.location}</p>
-                          </div>
-                        </div>
-                      )}
 
                       {/* Category */}
                       {selectedProject.category && (
