@@ -1,25 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/lib/auth'
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
-  // 1. Always allow auth API routes - Better Auth needs these to function
+  // 1. Always allow auth API routes
   if (pathname.startsWith('/api/auth')) {
     return NextResponse.next()
   }
 
-  // 2. Always allow login page
-  if (pathname === '/admin/login') {
+  // 2. Always allow login page and session check endpoint
+  if (pathname === '/admin/login' || pathname === '/api/auth/session') {
     return NextResponse.next()
   }
 
-  // 3. Protect /admin/* routes using Better Auth session validation
+  // 3. Protect /admin/* routes using session cookie check (Edge-safe)
   if (pathname.startsWith('/admin')) {
-    const session = await auth.api.getSession({ headers: request.headers })
+    // Check if session cookie exists (set by Better Auth)
+    // This is a lightweight Edge-safe check - full validation happens in Route Handler
+    const sessionCookie = request.cookies.get('better-auth.session_token')
 
-    if (!session) {
-      // No valid session - redirect to login
+    if (!sessionCookie) {
+      // No session cookie - redirect to login
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
   }

@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { LogOut } from 'lucide-react'
-import { authClient, useSession } from '@/lib/auth-client'
+import { authClient } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
+import { getValidSession } from '@/app/actions/session'
 import PortfolioManager from '@/components/admin/portfolio-manager'
 import TestimonialManager from '@/components/admin/testimonial-manager'
 import TeamManager from '@/components/admin/team-manager'
@@ -13,23 +14,37 @@ import StatsManager from '@/components/admin/stats-manager'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const { data: session, isPending } = useSession()
+  const [session, setSession] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Wait for session to fully load before checking authentication
-  // Only redirect if session is explicitly false (not loading)
+  // Validate session on component mount using server action
   useEffect(() => {
-    if (!isPending && !session) {
-      router.push('/admin/login')
+    const validateSession = async () => {
+      try {
+        const validSession = await getValidSession()
+        if (!validSession) {
+          router.push('/admin/login')
+          return
+        }
+        setSession(validSession)
+      } catch (error) {
+        console.error('[v0] Session validation failed:', error)
+        router.push('/admin/login')
+      } finally {
+        setLoading(false)
+      }
     }
-  }, [session, isPending, router])
+
+    validateSession()
+  }, [router])
 
   const handleSignOut = async () => {
     await authClient.signOut()
     router.push('/admin/login')
   }
 
-  // Show loading state while session is being checked
-  if (isPending) {
+  // Show loading state while session is being validated
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#030712] to-[#0B1730]">
         <div className="text-center">
@@ -40,7 +55,7 @@ export default function AdminDashboard() {
     )
   }
 
-  // Only render dashboard if session exists (middleware will redirect if not)
+  // Only render dashboard if session exists (server action validation ensures this)
   if (!session) {
     return null
   }
