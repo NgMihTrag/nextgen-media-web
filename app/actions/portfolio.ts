@@ -1,25 +1,12 @@
 'use server'
 
-import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { portfolioProjects, testimonials, teamMembers, siteStats } from '@/lib/db/schema'
 import { and, desc, eq } from 'drizzle-orm'
-import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 
-// async function getUserId() {
-//   const session = await auth.api.getSession({ headers: await headers() })
-//   if (!session?.user) throw new Error('Unauthorized')
-  
-//   // Only allow the admin user
-//   if (session.user.email !== 'nextgenmedia868@gmail.com') {
-//     throw new Error('Only admin user can manage portfolio')
-//   }
-  
-//   return session.user.id
-// }
+// Public access - no authentication required for admin functions
 async function getUserId() {
-  // TODO: Re-enable authentication before production launch
   return 'dev-admin'
 }
 
