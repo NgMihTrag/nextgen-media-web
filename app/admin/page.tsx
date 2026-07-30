@@ -1,64 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
-import { LogOut } from 'lucide-react'
-import { authClient } from '@/lib/auth-client'
-import { useRouter } from 'next/navigation'
-import { getValidSession } from '@/app/actions/session'
 import PortfolioManager from '@/components/admin/portfolio-manager'
 import TestimonialManager from '@/components/admin/testimonial-manager'
 import TeamManager from '@/components/admin/team-manager'
 import StatsManager from '@/components/admin/stats-manager'
 
 export default function AdminDashboard() {
-  const router = useRouter()
-  const [session, setSession] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  // Validate session on component mount using server action
-  useEffect(() => {
-    const validateSession = async () => {
-      try {
-        const validSession = await getValidSession()
-        if (!validSession) {
-          router.push('/admin/login')
-          return
-        }
-        setSession(validSession)
-      } catch (error) {
-        console.error('[v0] Session validation failed:', error)
-        router.push('/admin/login')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    validateSession()
-  }, [router])
-
-  const handleSignOut = async () => {
-    await authClient.signOut()
-    router.push('/admin/login')
-  }
-
-  // Show loading state while session is being validated
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#030712] to-[#0B1730]">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500" />
-          <p className="mt-4 text-white">Loading...</p>
-        </div>
-      </div>
-    )
-  }
-
-  // Only render dashboard if session exists (server action validation ensures this)
-  if (!session) {
-    return null
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#030712] to-[#0B1730]">
@@ -69,14 +17,6 @@ export default function AdminDashboard() {
             <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
             <p className="text-white/60 text-sm mt-1">Content Management System</p>
           </div>
-          <Button
-            onClick={handleSignOut}
-            variant="outline"
-            className="border-red-500/30 text-red-400 hover:bg-red-500/10"
-          >
-            <LogOut className="w-4 h-4 mr-2" />
-            Sign Out
-          </Button>
         </div>
       </header>
 
