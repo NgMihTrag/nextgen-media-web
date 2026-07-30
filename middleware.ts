@@ -1,61 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-const protectedPaths = ['/admin', '/admin/projects']
-const authPublicPaths = ['/admin/login', '/api/auth']
+import { auth } from '@/lib/auth'
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
-  const host = request.headers.get('host') || ''
-  const isDevelopment = process.env.NODE_ENV === 'development'
-  const isLocalhost = host.includes('localhost') || host.includes('127.0.0.1')
 
-  // Always allow auth API routes - Better Auth needs these to function
-  const isAuthRoute = authPublicPaths.some(
-    (path) => pathname === path || pathname.startsWith(path + '/')
-  )
-  
-  if (isAuthRoute) {
+  // 1. Always allow auth API routes - Better Auth needs these to function
+  if (pathname.startsWith('/api/auth')) {
     return NextResponse.next()
   }
 
-  // Check if the path is a protected admin route
-  const isProtectedPath = protectedPaths.some(
-    (path) => pathname === path || pathname.startsWith(path + '/')
-  )
-
-  // DEVELOPMENT MODE BYPASS: Allow all admin routes without authentication
-  if ((isDevelopment || isLocalhost) && isProtectedPath) {
+  // 2. Always allow login page
+  if (pathname === '/admin/login') {
     return NextResponse.next()
   }
 
-  // Domain-based access control
-  // Block admin routes on production domains
-  const isProductionDomain = 
-    host === 'www.nexttgenmedia.com' || 
-    host === 'nexttgenmedia.com'
+  // 3. Protect /admin/* routes using Better Auth session validation
+  if (pathname.startsWith('/admin')) {
+    const session = await auth.api.getSession({ headers: request.headers })
 
-  // Allowed preview domains (v0 and Vercel preview)
-  const isPreviewDomain = 
-    host.includes('vusercontent.net') ||
-    host.includes('vercel.app') ||
-    host.includes('v0.dev') ||
-    host.includes('v0.app') ||
-    host === 'localhost:3000' ||
-    host.startsWith('localhost:')
-
-  // Block admin access on production domain
-  if (isProductionDomain && isProtectedPath) {
-    // Redirect admin routes to home page on production domain
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-
-  // For preview/dev domains with protected paths (PRODUCTION MODE):
-  // Check if the session cookie exists (Better Auth sets 'better-auth.session_token')
-  if (isPreviewDomain && isProtectedPath && pathname !== '/admin/login') {
-    const sessionToken = request.cookies.get('better-auth.session_token')?.value
-    
-    // If no session token exists, redirect to login (but allow /admin/login itself)
-    if (!sessionToken) {
+    if (!session) {
+      // No valid session - redirect to login
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
   }

@@ -13,55 +13,36 @@ import StatsManager from '@/components/admin/stats-manager'
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const { data: session } = useSession()
-  const [loading, setLoading] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const { data: session, isPending } = useSession()
 
-  // Check session on mount and when session data changes
+  // Wait for session to fully load before checking authentication
+  // Only redirect if session is explicitly false (not loading)
   useEffect(() => {
-    const isDevelopment = process.env.NODE_ENV === 'development'
-    
-    // In development mode, bypass authentication check
-    if (isDevelopment) {
-      setIsAuthenticated(true)
-      setLoading(false)
-      return
-    }
-
-    // Production mode: check actual session
-    if (session) {
-      // Session exists, user is authenticated
-      setIsAuthenticated(true)
-      setLoading(false)
-    } else if (session === null) {
-      // Explicitly null means we checked and there's no session - redirect to login
-      setIsAuthenticated(false)
-      setLoading(false)
+    if (!isPending && !session) {
       router.push('/admin/login')
     }
-    // If session is undefined, still loading - don't change state
-  }, [session, router])
+  }, [session, isPending, router])
 
   const handleSignOut = async () => {
-    try {
-      await authClient.signOut()
-      router.push('/admin/login')
-      router.refresh()
-    } catch (error) {
-      console.error('Sign out error:', error)
-      router.push('/admin/login')
-    }
+    await authClient.signOut()
+    router.push('/admin/login')
   }
 
-  if (loading || !isAuthenticated) {
+  // Show loading state while session is being checked
+  if (isPending) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#030712] to-[#0B1730]">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500" />
           <p className="mt-4 text-white">Loading...</p>
         </div>
       </div>
     )
+  }
+
+  // Only render dashboard if session exists (middleware will redirect if not)
+  if (!session) {
+    return null
   }
 
   return (
