@@ -1,12 +1,22 @@
 'use client'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Button } from '@/components/ui/button'
+import { LogOut } from 'lucide-react'
+import { authClient } from '@/lib/auth-client'
+import { useRouter } from 'next/navigation'
 import PortfolioManager from '@/components/admin/portfolio-manager'
 import TestimonialManager from '@/components/admin/testimonial-manager'
 import TeamManager from '@/components/admin/team-manager'
 import StatsManager from '@/components/admin/stats-manager'
 
 export default function AdminDashboard() {
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    await authClient.signOut()
+    router.push('/admin/login')
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#030712] to-[#0B1730]">
@@ -17,6 +27,14 @@ export default function AdminDashboard() {
             <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
             <p className="text-white/60 text-sm mt-1">Content Management System</p>
           </div>
+          <Button
+            onClick={handleSignOut}
+            variant="outline"
+            className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Sign Out
+          </Button>
         </div>
       </header>
 
