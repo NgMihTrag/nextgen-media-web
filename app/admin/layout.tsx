@@ -14,14 +14,19 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Server-side session validation
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  })
+  // Validate session using Better Auth server-side API
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    })
 
-  // Redirect to login if no session
-  if (!session) {
-    redirect('/admin/login')
+    // If no session, redirect to login
+    if (!session) {
+      return redirect('/admin/login')
+    }
+  } catch (error) {
+    // If there's an error validating session, redirect to login
+    return redirect('/admin/login')
   }
 
   return <>{children}</>

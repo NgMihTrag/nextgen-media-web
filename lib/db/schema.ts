@@ -61,31 +61,14 @@ export const portfolioProjects = pgTable('portfolio_projects', {
   title: text('title').notNull(),
   description: text('description').notNull(),
   category: text('category').notNull(),
-  // Cover image - first image from portfolio_images relation
-  coverImage: text('cover_image'),
-  // Legacy fields (kept for auto-migration only)
   imageUrl: text('image_url'),
   imageAlt: text('image_alt'),
-  // Deprecated: no longer used after migration to portfolio_images
-  images: text('images').array().default([]),
   link: text('link'),
   techStack: text('tech_stack').array().default([]),
   featured: boolean('featured').default(false),
   orderIndex: integer('order_index').default(0),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
-})
-
-// Normalized gallery table (one-to-many relationship)
-export const portfolioImages = pgTable('portfolio_images', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  projectId: uuid('project_id')
-    .notNull()
-    .references(() => portfolioProjects.id, { onDelete: 'cascade' }),
-  imageUrl: text('image_url').notNull(),
-  alt: text('alt'),
-  sortOrder: integer('sort_order').default(1),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
 export const testimonials = pgTable('testimonials', {

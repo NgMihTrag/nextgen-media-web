@@ -1,25 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export function middleware(request: NextRequest) {
+const protectedPaths = ['/admin', '/admin/projects']
+const authPublicPaths = ['/admin/login', '/api/auth']
+
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  const host = request.headers.get('host') || ''
 
-  // Allow auth API routes
-  if (pathname.startsWith('/api/auth')) {
+  // Always allow auth API routes - Better Auth needs these to function
+  const isAuthRoute = authPublicPaths.some(
+    (path) => pathname === path || pathname.startsWith(path + '/')
+  )
+  
+  if (isAuthRoute) {
     return NextResponse.next()
   }
 
-  // Allow login page
-  if (pathname === '/admin/login') {
-    return NextResponse.next()
+  // Check if the path is a protected admin route
+  const isProtectedPath = protectedPaths.some(
+    (path) => pathname === path || pathname.startsWith(path + '/')
+  )
+
+  // Domain-based access control
+  // Block admin routes on production domains
+  const isProductionDomain = 
+    host === 'www.nexttgenmedia.com' || 
+    host === 'nexttgenmedia.com'
+
+  // Allowed preview domains (v0 and Vercel preview)
+  const isPreviewDomain = 
+    host.includes('vusercontent.net') ||
+    host.includes('vercel.app') ||
+    host.includes('v0.dev') ||
+    host.includes('v0.app') ||
+    host === 'localhost:3000' ||
+    host.startsWith('localhost:')
+
+  // Block admin access on production domain
+  if (isProductionDomain && isProtectedPath) {
+    // Redirect admin routes to home page on production domain
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // Protect /admin/* - check for session cookie
-  if (pathname.startsWith('/admin')) {
-    const sessionCookie = request.cookies.get('better-auth.session_token')
-
-    if (!sessionCookie) {
-      return NextResponse.redirect(new URL('/admin/login', request.url))
-    }
+  // Allow preview domains to access admin
+  if (isPreviewDomain && isProtectedPath) {
+    return NextResponse.next()
   }
 
   return NextResponse.next()

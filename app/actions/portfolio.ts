@@ -1,114 +1,54 @@
 'use server'
 
+import { auth } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { portfolioProjects, portfolioImages, testimonials, teamMembers, siteStats } from '@/lib/db/schema'
+import { portfolioProjects, testimonials, teamMembers, siteStats } from '@/lib/db/schema'
 import { and, desc, eq } from 'drizzle-orm'
+import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 
-// Public access - no authentication required for admin functions
+// async function getUserId() {
+//   const session = await auth.api.getSession({ headers: await headers() })
+//   if (!session?.user) throw new Error('Unauthorized')
+  
+//   // Only allow the admin user
+//   if (session.user.email !== 'nextgenmedia868@gmail.com') {
+//     throw new Error('Only admin user can manage portfolio')
+//   }
+  
+//   return session.user.id
+// }
 async function getUserId() {
+  // TODO: Re-enable authentication before production launch
   return 'dev-admin'
 }
 
-// Helper to get project with all images
-async function getProjectWithImages(projectId: string) {
-  const [project] = await db
-    .select()
-    .from(portfolioProjects)
-    .where(eq(portfolioProjects.id, projectId))
-
-  if (!project) return null
-
-  const images = await db
-    .select()
-    .from(portfolioImages)
-    .where(eq(portfolioImages.projectId, projectId))
-    .orderBy(desc(portfolioImages.sortOrder))
-
-  return {
-    ...project,
-    galleryImages: images.map((img) => img.imageUrl),
-  }
-}
-
-// Public portfolio projects (all projects for portfolio page) - includes gallery
+// Public portfolio projects (all projects for portfolio page)
 export async function getAllPublicPortfolioProjects() {
-  const projects = await db
+  return db
     .select()
     .from(portfolioProjects)
     .orderBy(desc(portfolioProjects.createdAt))
-
-  const projectsWithImages = await Promise.all(
-    projects.map(async (project) => {
-      const images = await db
-        .select()
-        .from(portfolioImages)
-        .where(eq(portfolioImages.projectId, project.id))
-        .orderBy(desc(portfolioImages.sortOrder))
-
-      return {
-        ...project,
-        galleryImages: images.map((img) => img.imageUrl),
-      }
-    })
-  )
-
-  return projectsWithImages
 }
 
-// Public portfolio projects (featured only, limit 4, newest first) - includes gallery
+// Public portfolio projects (for public display - featured only, limit 4, newest first)
 export async function getPublicPortfolioProjects() {
-  const projects = await db
+  return db
     .select()
     .from(portfolioProjects)
     .where(eq(portfolioProjects.featured, true))
     .orderBy(desc(portfolioProjects.createdAt))
     .limit(4)
-
-  const projectsWithImages = await Promise.all(
-    projects.map(async (project) => {
-      const images = await db
-        .select()
-        .from(portfolioImages)
-        .where(eq(portfolioImages.projectId, project.id))
-        .orderBy(desc(portfolioImages.sortOrder))
-
-      return {
-        ...project,
-        galleryImages: images.map((img) => img.imageUrl),
-      }
-    })
-  )
-
-  return projectsWithImages
 }
 
-// Portfolio Projects (Admin) - includes gallery images
+// Portfolio Projects (Admin)
 export async function getPortfolioProjects() {
   const userId = await getUserId()
-  const projects = await db
+  return db
     .select()
     .from(portfolioProjects)
     .where(eq(portfolioProjects.userId, userId))
     .orderBy(desc(portfolioProjects.orderIndex))
-
-  // Attach images for each project
-  const projectsWithImages = await Promise.all(
-    projects.map(async (project) => {
-      const images = await db
-        .select()
-        .from(portfolioImages)
-        .where(eq(portfolioImages.projectId, project.id))
-        .orderBy(desc(portfolioImages.sortOrder))
-
-      return {
-        ...project,
-        galleryImages: images.map((img) => img.imageUrl),
-      }
-    })
-  )
-
-  return projectsWithImages
 }
 
 export async function createPortfolioProject(data: {
@@ -117,7 +57,6 @@ export async function createPortfolioProject(data: {
   category: string
   imageUrl?: string
   imageAlt?: string
-  galleryImages?: string[]
   link?: string
   techStack?: string[]
   featured?: boolean
@@ -128,59 +67,36 @@ export async function createPortfolioProject(data: {
       throw new Error('Missing required fields: title, description, category')
     }
 
-    // Get gallery images
-    const galleryImages = data.galleryImages || []
-    if (galleryImages.length === 0) {
-      throw new Error('Please upload at least one image')
-    }
-    if (galleryImages.length > 5) {
-      throw new Error('You can upload a maximum of 5 images')
-    }
-
     const userId = await getUserId()
-
+    
     console.log('[Portfolio] Creating project:', {
       userId,
       title: data.title,
       category: data.category,
-      imageCount: galleryImages.length,
+      hasImage: !!data.imageUrl,
     })
 
-    // Create project with cover image
-    const [project] = await db
-      .insert(portfolioProjects)
-      .values({
-        userId,
-        title: data.title,
-        description: data.description,
-        category: data.category,
-        coverImage: galleryImages[0], // First image is cover
-        imageUrl: galleryImages[0], // Legacy field for backward compat
-        imageAlt: data.imageAlt || data.title,
-        link: data.link || null,
-        techStack: data.techStack || [],
-        featured: data.featured || false,
-      })
-      .returning()
+    const result = await db.insert(portfolioProjects).values({
+      userId,
+      title: data.title,
+      description: data.description,
+      category: data.category,
+      imageUrl: data.imageUrl || null,
+      imageAlt: data.imageAlt || null,
+      link: data.link || null,
+      techStack: data.techStack || [],
+      featured: data.featured || false,
+    })
 
-    // Create gallery images
-    for (let i = 0; i < galleryImages.length; i++) {
-      await db.insert(portfolioImages).values({
-        projectId: project.id,
-        imageUrl: galleryImages[i],
-        alt: `${data.title} - Image ${i + 1}`,
-        sortOrder: i + 1,
-      })
-    }
-
-    console.log('[Portfolio] Project created successfully with', galleryImages.length, 'images')
-
+    console.log('[Portfolio] Project created successfully')
+    
     revalidatePath('/portfolio')
     revalidatePath('/admin')
-
+    
     return { success: true }
   } catch (error) {
     console.error('PROJECT SAVE ERROR:', error instanceof Error ? error.message : String(error))
+    console.error('Full error:', error)
     throw error
   }
 }
@@ -193,7 +109,6 @@ export async function updatePortfolioProject(
     category?: string
     imageUrl?: string
     imageAlt?: string
-    galleryImages?: string[]
     link?: string
     techStack?: string[]
     featured?: boolean
@@ -202,60 +117,19 @@ export async function updatePortfolioProject(
 ) {
   try {
     const userId = await getUserId()
-
-    // Validate gallery images if provided
-    if (data.galleryImages !== undefined) {
-      if (data.galleryImages.length === 0) {
-        throw new Error('Please upload at least one image')
-      }
-      if (data.galleryImages.length > 5) {
-        throw new Error('You can upload a maximum of 5 images')
-      }
-    }
-
-    console.log('[Portfolio] Updating project:', { id, userId, imageCount: data.galleryImages?.length })
-
-    // Update project record
-    const updateData: any = { updatedAt: new Date() }
-    if (data.title) updateData.title = data.title
-    if (data.description) updateData.description = data.description
-    if (data.category) updateData.category = data.category
-    if (data.link !== undefined) updateData.link = data.link
-    if (data.techStack !== undefined) updateData.techStack = data.techStack
-    if (data.featured !== undefined) updateData.featured = data.featured
-    if (data.orderIndex !== undefined) updateData.orderIndex = data.orderIndex
-
-    // Handle gallery images update
-    if (data.galleryImages !== undefined) {
-      // Delete existing images
-      await db.delete(portfolioImages).where(eq(portfolioImages.projectId, id))
-
-      // Create new images
-      for (let i = 0; i < data.galleryImages.length; i++) {
-        await db.insert(portfolioImages).values({
-          projectId: id,
-          imageUrl: data.galleryImages[i],
-          alt: `Image ${i + 1}`,
-          sortOrder: i + 1,
-        })
-      }
-
-      // Update cover image and legacy imageUrl
-      updateData.coverImage = data.galleryImages[0]
-      updateData.imageUrl = data.galleryImages[0]
-      updateData.imageAlt = data.imageAlt || `Cover image`
-    }
+    
+    console.log('[Portfolio] Updating project:', { id, userId, hasNewImage: !!data.imageUrl })
 
     await db
       .update(portfolioProjects)
-      .set(updateData)
+      .set({ ...data, updatedAt: new Date() })
       .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
 
     console.log('[Portfolio] Project updated successfully')
-
+    
     revalidatePath('/portfolio')
     revalidatePath('/admin')
-
+    
     return { success: true }
   } catch (error) {
     console.error('PROJECT UPDATE ERROR:', error instanceof Error ? error.message : String(error))
@@ -266,19 +140,18 @@ export async function updatePortfolioProject(
 export async function deletePortfolioProject(id: string) {
   try {
     const userId = await getUserId()
-
+    
     console.log('[Portfolio] Deleting project:', { id, userId })
 
-    // Delete project (images cascade delete via foreign key)
     await db
       .delete(portfolioProjects)
       .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
 
-    console.log('[Portfolio] Project and all images deleted successfully')
-
+    console.log('[Portfolio] Project deleted successfully')
+    
     revalidatePath('/portfolio')
     revalidatePath('/admin')
-
+    
     return { success: true }
   } catch (error) {
     console.error('PROJECT DELETE ERROR:', error instanceof Error ? error.message : String(error))
