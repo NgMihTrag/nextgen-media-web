@@ -44,6 +44,7 @@ export async function createPortfolioProject(data: {
   category: string
   imageUrl?: string
   imageAlt?: string
+  images?: string[]
   link?: string
   techStack?: string[]
   featured?: boolean
@@ -54,20 +55,31 @@ export async function createPortfolioProject(data: {
       throw new Error('Missing required fields: title, description, category')
     }
 
+    // Validate gallery images
+    const images = data.images || []
+    if (images.length === 0 && !data.imageUrl) {
+      throw new Error('Please upload at least one image')
+    }
+    if (images.length > 5) {
+      throw new Error('You can upload a maximum of 5 images')
+    }
+
     const userId = await getUserId()
     
     console.log('[Portfolio] Creating project:', {
       userId,
       title: data.title,
       category: data.category,
-      hasImage: !!data.imageUrl,
+      imageCount: images.length,
     })
 
+    // Use images array if available, otherwise use legacy imageUrl
     const result = await db.insert(portfolioProjects).values({
       userId,
       title: data.title,
       description: data.description,
       category: data.category,
+      images: images.length > 0 ? images : (data.imageUrl ? [data.imageUrl] : []),
       imageUrl: data.imageUrl || null,
       imageAlt: data.imageAlt || null,
       link: data.link || null,
@@ -96,6 +108,7 @@ export async function updatePortfolioProject(
     category?: string
     imageUrl?: string
     imageAlt?: string
+    images?: string[]
     link?: string
     techStack?: string[]
     featured?: boolean
@@ -105,11 +118,29 @@ export async function updatePortfolioProject(
   try {
     const userId = await getUserId()
     
-    console.log('[Portfolio] Updating project:', { id, userId, hasNewImage: !!data.imageUrl })
+    // Validate gallery images if provided
+    if (data.images !== undefined) {
+      if (data.images.length === 0 && !data.imageUrl) {
+        throw new Error('Please upload at least one image')
+      }
+      if (data.images.length > 5) {
+        throw new Error('You can upload a maximum of 5 images')
+      }
+    }
+    
+    console.log('[Portfolio] Updating project:', { id, userId, imageCount: data.images?.length })
+
+    // Prepare update data
+    const updateData: any = { ...data, updatedAt: new Date() }
+    
+    // Ensure images array is in sync
+    if (data.images !== undefined) {
+      updateData.images = data.images.length > 0 ? data.images : (data.imageUrl ? [data.imageUrl] : [])
+    }
 
     await db
       .update(portfolioProjects)
-      .set({ ...data, updatedAt: new Date() })
+      .set(updateData)
       .where(and(eq(portfolioProjects.id, id), eq(portfolioProjects.userId, userId)))
 
     console.log('[Portfolio] Project updated successfully')

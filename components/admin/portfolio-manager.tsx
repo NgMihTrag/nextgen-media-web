@@ -41,6 +41,7 @@ export default function PortfolioManager() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [tagInput, setTagInput] = useState('')
   const [galleryPreviews, setGalleryPreviewsState] = useState<string[]>([])
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
   const galleryInputRef = useRef<HTMLInputElement>(null)
   const [formData, setFormData] = useState<Partial<Project>>({
     title: '',
@@ -126,6 +127,86 @@ export default function PortfolioManager() {
     }
   }
 
+  async function handleGalleryFileSelect(event: React.ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files
+    if (!files) return
+
+    const currentGallery = formData.galleryImages || []
+    if (currentGallery.length >= 5) {
+      setError('You can upload a maximum of 5 images')
+      return
+    }
+
+    const filesToProcess = Array.from(files).slice(0, 5 - currentGallery.length)
+
+    try {
+      setError(null)
+      setUploading(true)
+
+      const uploadedUrls: string[] = []
+
+      for (const file of filesToProcess) {
+        setUploadProgress(Math.round((uploadedUrls.length / filesToProcess.length) * 100))
+
+        // Show preview
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          setGalleryPreviewsState((prev) => [...prev, e.target?.result as string])
+        }
+        reader.readAsDataURL(file)
+
+        // Upload to MinIO
+        const formDataToSend = new FormData()
+        formDataToSend.append('file', file)
+
+        const response = await fetch('/api/admin/uploads', {
+          method: 'POST',
+          body: formDataToSend,
+        })
+
+        const result = await response.json()
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Upload failed')
+        }
+
+        uploadedUrls.push(result.imageUrl)
+      }
+
+      setFormData((prev) => ({
+        ...prev,
+        galleryImages: [...(prev.galleryImages || []), ...uploadedUrls],
+      }))
+
+      setUploadProgress(100)
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error('[v0] Gallery upload failed:', errorMessage)
+      setError(`Gallery upload failed: ${errorMessage}`)
+    } finally {
+      setUploading(false)
+      setUploadProgress(0)
+      if (galleryInputRef.current) {
+        galleryInputRef.current.value = ''
+      }
+    }
+  }
+
+  function removeGalleryImage(index: number) {
+    setFormData((prev) => ({
+      ...prev,
+      galleryImages: prev.galleryImages?.filter((_, i) => i !== index),
+    }))
+    setGalleryPreviewsState((prev) => prev.filter((_, i) => i !== index))
+  }
+
+  function reorderGallery(fromIndex: number, toIndex: number) {
+    const gallery = [...(formData.galleryImages || [])]
+    const [removed] = gallery.splice(fromIndex, 1)
+    gallery.splice(toIndex, 0, removed)
+    setFormData((prev) => ({ ...prev, galleryImages: gallery }))
+  }
+
   async function handleSave() {
     try {
       setError(null)
@@ -134,12 +215,24 @@ export default function PortfolioManager() {
         setError('Please fill in all required fields: Title, Description, and Category')
         return
       }
+
+      // Validate at least one image exists
+      if (!formData.imageUrl && (!formData.galleryImages || formData.galleryImages.length === 0)) {
+        setError('Please upload at least one image')
+        return
+      }
+
+      // Use gallery images if available, otherwise fall back to single image
+      const dataToSave = {
+        ...formData,
+        images: formData.galleryImages && formData.galleryImages.length > 0 ? formData.galleryImages : (formData.imageUrl ? [formData.imageUrl] : []),
+      }
       
       if (editingId) {
-        await updatePortfolioProject(editingId, formData)
+        await updatePortfolioProject(editingId, dataToSave)
       } else {
-        console.log('[v0] Creating project with data:', formData)
-        const result = await createPortfolioProject(formData as any)
+        console.log('[v0] Creating project with data:', dataToSave)
+        const result = await createPortfolioProject(dataToSave as any)
         console.log('[v0] Project creation result:', result)
       }
       
@@ -339,6 +432,80 @@ export default function PortfolioManager() {
                 className="bg-[rgba(20,30,50,0.8)] border-blue-500/20 text-black"
               />
             </div>
+          </div>
+
+          <div className="border-t border-blue-500/10 pt-4 space-y-4">
+            <h3 className="text-lg font-semibold text-blue-300">Gallery Images ({(formData.galleryImages?.length || 0)}/5)</h3>
+            
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                onClick={() => galleryInputRef.current?.click()}
+                disabled={uploading || (formData.galleryImages?.length || 0) >= 5}
+                className="flex-1 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50"
+              >
+                <Upload className="w-4 h-4 mr-2" />
+                {uploading ? `Uploading...` : 'Add Images (Max 5)'}
+              </Button>
+              <input
+                ref={galleryInputRef}
+                type="file"
+                multiple
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleGalleryFileSelect}
+                className="hidden"
+                disabled={(formData.galleryImages?.length || 0) >= 5}
+              />
+            </div>
+
+            {formData.galleryImages && formData.galleryImages.length > 0 && (
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-white/80">Gallery Preview (Drag to reorder)</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {formData.galleryImages.map((image, index) => (
+                    <div
+                      key={index}
+                      draggable
+                      onDragStart={() => setDraggedIndex(index)}
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault()
+                        if (draggedIndex !== null && draggedIndex !== index) {
+                          reorderGallery(draggedIndex, index)
+                          setDraggedIndex(null)
+                        }
+                      }}
+                      className={`relative aspect-square bg-[rgba(20,30,50,0.8)] border-2 rounded overflow-hidden cursor-move transition-all ${
+                        draggedIndex === index ? 'border-cyan-400 opacity-50' : 'border-blue-500/20 hover:border-cyan-400'
+                      }`}
+                    >
+                      <Image
+                        src={image}
+                        alt={`Gallery ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
+                        <span className="text-white text-lg font-bold">{index + 1}</span>
+                        <button
+                          type="button"
+                          onClick={() => removeGalleryImage(index)}
+                          className="px-2 py-1 bg-red-600 hover:bg-red-500 text-white text-xs rounded"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {error && error.includes('image') && (
+              <div className="p-3 bg-red-500/20 border border-red-500/50 rounded text-red-300 text-sm">
+                {error}
+              </div>
+            )}
           </div>
 
           <div className="border-t border-blue-500/10 pt-4 space-y-4">

@@ -61,8 +61,11 @@ export const portfolioProjects = pgTable('portfolio_projects', {
   title: text('title').notNull(),
   description: text('description').notNull(),
   category: text('category').notNull(),
+  // Legacy single image fields (kept for backward compatibility)
   imageUrl: text('image_url'),
   imageAlt: text('image_alt'),
+  // New gallery support (max 5 images per project)
+  images: text('images').array().default([]),
   link: text('link'),
   techStack: text('tech_stack').array().default([]),
   featured: boolean('featured').default(false),
